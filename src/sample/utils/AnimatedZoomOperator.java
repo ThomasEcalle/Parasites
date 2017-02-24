@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.util.Duration;
 
 /**
- * Created by My-PC on 24/02/2017.
+ * Created by Thomas Ecalle on 24/02/2017.
  */
 public class AnimatedZoomOperator {
 

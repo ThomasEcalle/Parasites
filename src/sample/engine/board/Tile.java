@@ -1,26 +1,29 @@
-package sample.board;
+package sample.engine.board;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import sample.Constants;
+import sample.engine.pieces.Parasite;
 import sample.utils.ParasitesUtils;
 
-import java.net.URISyntaxException;
-
 /**
- * Created by My-PC on 24/02/2017.
+ * Created by Thomas Ecalle on 24/02/2017.
  */
-public class Tile extends Rectangle implements EventHandler
+public final class Tile extends Rectangle implements EventHandler
 {
-    public Tile(double w, double h, Paint paint)
+    private final int tileCoordonate;
+    private Parasite parasite;
+    private boolean isOccupied;
+
+    public Tile(double w, double h, Paint paint, int tileCoordonate)
     {
         super(w, h, paint);
+        this.tileCoordonate = tileCoordonate;
         setOnMouseClicked(this);
     }
 
@@ -32,5 +35,20 @@ public class Tile extends Rectangle implements EventHandler
         {
             setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(Constants.BUILDER_NAME, getClass()))));
         }
+    }
+
+    public boolean isOccupied()
+    {
+        return isOccupied;
+    }
+
+    public Parasite getParasite()
+    {
+        return parasite;
+    }
+
+    public void setParasite(Parasite parasite)
+    {
+        this.parasite = parasite;
     }
 }
