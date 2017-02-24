@@ -1,25 +1,18 @@
-package sample;
+package main;
 
-import com.sun.prism.paint.Paint;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import sample.board.Tile;
-import sample.utils.AnimatedZoomOperator;
+import main.board.Tile;
+import main.utils.AnimatedZoomOperator;
 
 import java.io.IOException;
 
@@ -47,7 +40,7 @@ public class Main extends Application
     private void initGrid()
     {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/sample.fxml"));
+        loader.setLocation(Main.class.getResource("view/main.fxml"));
         try
         {
             borderPane = (BorderPane) loader.load();
