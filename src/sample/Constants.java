@@ -1,4 +1,4 @@
-package main;
+package sample;
 
 /**
  * Created by My-PC on 24/02/2017.

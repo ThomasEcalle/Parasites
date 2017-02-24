@@ -1,14 +1,17 @@
-package main.board;
+package sample.board;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import main.Constants;
-import main.utils.ParasitesUtils;
+import sample.Constants;
+import sample.utils.ParasitesUtils;
+
+import java.net.URISyntaxException;
 
 /**
  * Created by My-PC on 24/02/2017.

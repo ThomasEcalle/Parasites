@@ -1,4 +1,4 @@
-package main.utils;
+package sample.utils;
 
 
 import java.net.URISyntaxException;
