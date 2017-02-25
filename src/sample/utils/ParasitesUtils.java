@@ -1,7 +1,6 @@
 package sample.utils;
 
 
-import sample.Constants;
 import sample.engine.board.Board;
 
 import java.net.URISyntaxException;

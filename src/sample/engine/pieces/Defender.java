@@ -11,32 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Thomas Ecalle on 24/02/2017.
+ * Created by Thomas Ecalle on 25/02/2017.
  */
-public final class Warrior extends Parasite
+public final class Defender extends Parasite
 {
+
     /**
      * Candidate placements are all the logical choices in order to create a parasite
      */
-    public final static int[] CANDIDATE_PLACEMENTS = {1, -1, Board.DIMENSION, -Board.DIMENSION};
+    public final static int[] CANDIDATE_PLACEMENTS = {1, 2, -1, -2, Board.DIMENSION, Board.DIMENSION * 2, -Board.DIMENSION, 2 * (-Board.DIMENSION)};
 
-
-    public Warrior(int position, Player player)
+    public Defender(int position, Player player)
     {
-        super(position, player, 3, 2, 4, 5, Constants.WARRIOR_NAME, 1);
+        super(position, player, 2, 4, 2, 8, Constants.DEFENDER_NAME, 1);
     }
 
     @Override
     public List<Move> calculateLagalMoves(Board board)
     {
-
         final List<Move> legalMoves = new ArrayList<>();
+
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
             final int candidateDestination = this.position + candidatePlacement;
             if (ParasitesUtils.isValidTile(candidateDestination))
             {
                 if (isFirstRowExclusion(position, candidateDestination)
+                        || isSecondRowExclusion(position, candidateDestination)
+                        || isBeforeLastRowExclusion(position, candidateDestination)
                         || isLastRowExclusion(position, candidateDestination))
                 {
                     continue;
@@ -53,13 +55,23 @@ public final class Warrior extends Parasite
     }
 
 
-    private boolean isFirstRowExclusion(final int currentPosition, final int candidatePosition)
+    private boolean isFirstRowExclusion(int position, int candidateDestination)
     {
-        return (Board.firstRow[currentPosition] && (candidatePosition == -1));
+        return (Board.firstRow[position] && (candidateDestination == -1 || candidateDestination == -2));
     }
 
-    private boolean isLastRowExclusion(final int currentPosition, final int candidatePosition)
+    private boolean isSecondRowExclusion(int position, int candidateDestination)
     {
-        return (Board.lastRow[currentPosition] && (candidatePosition == 1));
+        return (Board.secondRow[position] && (candidateDestination == -2));
+    }
+
+    private boolean isBeforeLastRowExclusion(int position, int candidateDestination)
+    {
+        return (Board.beforeLastRow[position] && (candidateDestination == 2));
+    }
+
+    private boolean isLastRowExclusion(int position, int candidateDestination)
+    {
+        return (Board.lastRow[position] && (candidateDestination == 1 || candidateDestination == 2));
     }
 }

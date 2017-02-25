@@ -57,7 +57,7 @@ public class Main extends Application
         {
             for (int j = 0; j < 8; j++)
             {
-                final Tile tile = new Tile(32,32,Color.TRANSPARENT,counter);
+                final Tile tile = new Tile(32, 32, Color.TRANSPARENT, counter, null);
                 counter++;
                 tile.setStroke(Color.BLACK);
 
