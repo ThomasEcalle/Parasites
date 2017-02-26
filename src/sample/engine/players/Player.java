@@ -1,7 +1,7 @@
 package sample.engine.players;
 
 import sample.engine.board.Board;
-import sample.engine.board.Move;
+import sample.engine.board.CreationMove;
 import sample.engine.pieces.Parasite;
 
 import java.awt.*;
@@ -17,7 +17,7 @@ public class Player
     private int developmentPoints;
 
     private List<Parasite> parasites;
-    private List<Move> legalMoves;
+    private List<CreationMove> legalCreationMoves;
     private Board board;
 
 
@@ -36,20 +36,20 @@ public class Player
         return id * parasites.size();
     }
 
-    public boolean isLegalMove(Move move)
+    public boolean isLegalMove(CreationMove creationMove)
     {
-        return legalMoves.contains(move);
+        return legalCreationMoves.contains(creationMove);
     }
 
-    public MoveTransition makeMove(final Move move)
+    public MoveTransition makeMove(final CreationMove creationMove)
     {
-        if (!isLegalMove(move))
+        if (!isLegalMove(creationMove))
         {
-            return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
+            return new MoveTransition(this.board, creationMove, MoveStatus.ILLEGAL_MOVE);
         }
-        final Board transitionBoard = move.execute();
+        final Board transitionBoard = creationMove.execute();
 
-        return new MoveTransition(transitionBoard, move, MoveStatus.DONE);
+        return new MoveTransition(transitionBoard, creationMove, MoveStatus.DONE);
     }
 
 
@@ -68,14 +68,14 @@ public class Player
         return id;
     }
 
-    public List<Move> getLegalMoves()
+    public List<CreationMove> getLegalCreationMoves()
     {
-        return legalMoves;
+        return legalCreationMoves;
     }
 
-    public void setLegalMoves(List<Move> legalMoves)
+    public void setLegalCreationMoves(List<CreationMove> legalCreationMoves)
     {
-        this.legalMoves = legalMoves;
+        this.legalCreationMoves = legalCreationMoves;
     }
 
     public Color getColor()
@@ -88,5 +88,8 @@ public class Player
         return developmentPoints;
     }
 
-
+    public void setDevelopmentPoints(int developmentPoints)
+    {
+        this.developmentPoints = developmentPoints;
+    }
 }

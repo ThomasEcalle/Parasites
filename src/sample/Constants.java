@@ -1,5 +1,10 @@
 package sample;
 
+import sample.engine.pieces.Builder;
+import sample.engine.pieces.Parasite;
+
+import java.text.ParseException;
+
 /**
  * Created by Thomas Ecalle on 24/02/2017.
  */

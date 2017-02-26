@@ -2,7 +2,7 @@ package sample.engine.pieces;
 
 import sample.Constants;
 import sample.engine.board.Board;
-import sample.engine.board.Move;
+import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
 import sample.engine.players.Player;
 import sample.utils.ParasitesUtils;
@@ -35,9 +35,9 @@ public final class Queen extends Parasite
     }
 
     @Override
-    public List<Move> calculateLagalMoves(Board board)
+    public List<CreationMove> calculateLagalMoves(Board board)
     {
-        final List<Move> legalMoves = new ArrayList<>();
+        final List<CreationMove> legalCreationMoves = new ArrayList<>();
 
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
@@ -62,11 +62,18 @@ public final class Queen extends Parasite
 
                 if (!destinationTile.isOccupied())
                 {
-                    legalMoves.add(new Move(board, this, candidateDestination));
+                    for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
+                    {
+                        if (existingParasite.cost <= creationPoint
+                                && player.getDevelopmentPoints() >= developmentPointsUsed)
+                        {
+                            legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
+                        }
+                    }
                 }
             }
         }
-        return legalMoves;
+        return legalCreationMoves;
     }
 
     @Override

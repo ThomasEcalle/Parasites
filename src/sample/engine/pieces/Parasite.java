@@ -1,7 +1,7 @@
 package sample.engine.pieces;
 
 import sample.engine.board.Board;
-import sample.engine.board.Move;
+import sample.engine.board.CreationMove;
 import sample.engine.players.Player;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public abstract class Parasite
     protected int defence;
     protected String icon;
 
+
     Parasite(final int position, final Player player, int cost, int creationPoint, int attack, int defence, String icon, int developmentPointsUsed)
     {
         this.position = position;
@@ -33,8 +34,30 @@ public abstract class Parasite
         this.developmentPointsUsed = developmentPointsUsed;
     }
 
-    public abstract List<Move> calculateLagalMoves(final Board board);
+    public abstract List<CreationMove> calculateLagalMoves(final Board board);
 
+    public Parasite createParasite(final CreationMove creationMove)
+    {
+        return creationMove.createdParasite;
+    }
+
+    protected Parasite getParasiteObject(final KindOfParasite existingParasite, final int candidateDestination, final Player player)
+    {
+        switch (existingParasite)
+        {
+            case BUILDER:
+                return new Builder(candidateDestination, player);
+            case WARRIOR:
+                return new Warrior(candidateDestination, player);
+            case QUEEN:
+                return new Queen(candidateDestination, player);
+            case COLONY:
+                return new Colony(candidateDestination, player);
+            default:
+                return new Defender(candidateDestination, player);
+
+        }
+    }
 
     public int getPosition()
     {
@@ -44,5 +67,30 @@ public abstract class Parasite
     public Player getPlayer()
     {
         return player;
+    }
+
+    public int getCost()
+    {
+        return cost;
+    }
+
+    public int getDevelopmentPointsUsed()
+    {
+        return developmentPointsUsed;
+    }
+
+    public void setCreationPoint(int creationPoint)
+    {
+        this.creationPoint = creationPoint;
+    }
+
+    public int getCreationPoint()
+    {
+        return creationPoint;
+    }
+
+    public String getIcon()
+    {
+        return icon;
     }
 }

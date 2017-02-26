@@ -21,7 +21,7 @@ public class ParasitesUtils
     {
         try
         {
-            return myClass.getResource("../../resources/" + imageName).toURI().toString();
+            return myClass.getResource("../resources/" + imageName).toURI().toString();
         } catch (URISyntaxException e)
         {
             e.printStackTrace();

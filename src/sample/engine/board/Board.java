@@ -2,6 +2,7 @@ package sample.engine.board;
 
 
 import javafx.scene.paint.Color;
+import sample.engine.pieces.KindOfParasite;
 import sample.engine.pieces.Parasite;
 import sample.engine.players.Player;
 
@@ -16,6 +17,10 @@ import java.util.Map;
 public final class Board
 {
     public static int DIMENSION;
+
+    public final static KindOfParasite[] EXISTING_PARASITES = {KindOfParasite.BUILDER, KindOfParasite.COLONY,
+            KindOfParasite.QUEEN, KindOfParasite.DEFENDER, KindOfParasite.WARRIOR};
+
 
     // Arrays for Parasites' movements exceptions
     public static boolean[] firstColumn;
@@ -32,6 +37,8 @@ public final class Board
     private final List<Tile> gameBoard;
     private final List<Player> players;
     private Player currentPlayer;
+    private static int playersCounter;
+    public static boolean isFirstMove = true;
 
 
     private Board(Builder builder)
@@ -43,7 +50,9 @@ public final class Board
         calculateEachPlayerParasites(players);
         calculateLegalMoves(players);
         initExceptionArrays();
-        this.currentPlayer = null;
+        this.currentPlayer = builder.nextMoveMaker;
+
+
     }
 
     @Override
@@ -87,12 +96,12 @@ public final class Board
     {
         for (Player player : players)
         {
-            final List<Move> legalMoves = new ArrayList<>();
+            final List<CreationMove> legalCreationMoves = new ArrayList<>();
             for (Parasite parasite : player.getParasites())
             {
-                legalMoves.addAll(parasite.calculateLagalMoves(this));
+                legalCreationMoves.addAll(parasite.calculateLagalMoves(this));
             }
-            player.setLegalMoves(legalMoves);
+            player.setLegalCreationMoves(legalCreationMoves);
         }
 
 
@@ -102,6 +111,8 @@ public final class Board
     {
         final Builder builder = new Builder(dimension, players);
         builder.setMoveMaker(firstToPlay);
+
+        playersCounter = 0;
         return builder.build();
     }
 
@@ -130,12 +141,26 @@ public final class Board
         lastRow = initRow(Board.DIMENSION - 1);
     }
 
+    public List<Player> getPlayers()
+    {
+        return players;
+    }
 
     public Tile getTile(final int position)
     {
         return gameBoard.get(position);
     }
 
+
+    public Player getNextPlayer()
+    {
+        playersCounter++;
+        if (playersCounter == players.size())
+        {
+            playersCounter = 0;
+        }
+        return players.get(playersCounter);
+    }
 
     /**
      * On a 6x6 dimension board, the first column will be from 0 to 5,

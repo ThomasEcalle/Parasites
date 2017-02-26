@@ -9,16 +9,18 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import sample.Constants;
 import sample.engine.pieces.Parasite;
+import sample.engine.pieces.Queen;
 import sample.utils.ParasitesUtils;
 
 /**
  * Created by Thomas Ecalle on 24/02/2017.
  */
-public final class Tile extends Rectangle implements EventHandler
+public class Tile extends Rectangle
 {
     private final int tileCoordonate;
     private Parasite parasite;
     private boolean isOccupied;
+    private boolean isFirstMove = true;
 
     public Tile(double w, double h, Paint paint, int tileCoordonate, Parasite parasite)
     {
@@ -28,18 +30,11 @@ public final class Tile extends Rectangle implements EventHandler
         {
             setParasite(parasite);
         }
-        setOnMouseClicked(this);
+
     }
 
 
-    @Override
-    public void handle(Event event)
-    {
-        if (MouseEvent.MOUSE_CLICKED == event.getEventType())
-        {
-            setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(Constants.COLONY_NAME, getClass()))));
-        }
-    }
+
 
     @Override
     public String toString()
@@ -49,6 +44,14 @@ public final class Tile extends Rectangle implements EventHandler
             return parasite.toString();
         }
         return "-";
+    }
+
+    public void setIcon(Board board)
+    {
+        if (board.getTile(this.tileCoordonate).isOccupied())
+        {
+            setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(board.getTile(this.tileCoordonate).getParasite().getIcon(),getClass()))));
+        }
     }
 
     public boolean isOccupied()
@@ -76,5 +79,10 @@ public final class Tile extends Rectangle implements EventHandler
     {
         this.parasite = null;
         setOccupied(false);
+    }
+
+    public int getTileCoordonate()
+    {
+        return tileCoordonate;
     }
 }

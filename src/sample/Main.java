@@ -1,20 +1,18 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.engine.board.Board;
-import sample.engine.board.Tile;
 import sample.engine.players.Player;
 import sample.utils.AnimatedZoomOperator;
+import sample.view.GraphicBoard;
+import sample.view.GraphicParasitesChoices;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,9 +21,13 @@ import java.util.List;
 public class Main extends Application
 {
     private BorderPane borderPane;
-    private GridPane gridPane;
+    private GraphicBoard graphicBoard;
+    @FXML
+    private GraphicParasitesChoices parasitesChoices;
     private Scene scene;
     private AnimatedZoomOperator zoomOperator;
+
+    private Board board;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -34,6 +36,8 @@ public class Main extends Application
         primaryStage.setTitle("Parasites");
 
         zoomOperator = new AnimatedZoomOperator();
+        final List<Player> fakeList = new ArrayList<>();
+        this.board = Board.createInitialBoard(new Player(), 10, fakeList);
 
         initGrid();
         final List<Player> players = new ArrayList<>();
@@ -46,11 +50,14 @@ public class Main extends Application
 
     private void initGrid()
     {
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/sample.fxml"));
         try
         {
             borderPane = (BorderPane) loader.load();
+            parasitesChoices = new GraphicParasitesChoices();
+
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -58,41 +65,34 @@ public class Main extends Application
 
         //Making grid
         int counter = 0;
-        gridPane = new GridPane();
-
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                final Tile tile = new Tile(32, 32, Color.TRANSPARENT, counter, null);
-                counter++;
-                tile.setStroke(Color.BLACK);
+        graphicBoard = new GraphicBoard(10, board, parasitesChoices
+        );
 
 
-                gridPane.add(tile, i, j);
-            }
-        }
+        graphicBoard.setAlignment(Pos.CENTER);
+        parasitesChoices.setAlignment(Pos.CENTER_LEFT);
 
+        borderPane.setCenter(graphicBoard);
+        borderPane.setRight(parasitesChoices);
 
-        gridPane.setAlignment(Pos.CENTER);
-        borderPane.setCenter(gridPane);
-
-        gridPane.setOnScroll(new EventHandler<ScrollEvent>()
-        {
-            @Override
-            public void handle(ScrollEvent event)
-            {
-                double zoomFactor = 1.5;
-                if (event.getDeltaY() <= 0)
-                {
-                    // zoom out
-                    zoomFactor = 1 / zoomFactor;
-                }
-                zoomOperator.zoom(gridPane, zoomFactor, event.getSceneX(), event.getSceneY());
-            }
-        });
+        //        graphicBoard.setOnScroll(new EventHandler<ScrollEvent>()
+        //        {
+        //            @Override
+        //            public void handle(ScrollEvent event)
+        //            {
+        //                double zoomFactor = 1.5;
+        //                if (event.getDeltaY() <= 0)
+        //                {
+        //                    // zoom out
+        //                    zoomFactor = 1 / zoomFactor;
+        //                }
+        //                zoomOperator.zoom(graphicBoard, zoomFactor, event.getSceneX(), event.getSceneY());
+        //            }
+        //        });
 
         scene = new Scene(borderPane, 600, 400);
+
+
     }
 
 

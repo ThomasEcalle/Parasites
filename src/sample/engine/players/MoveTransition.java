@@ -1,7 +1,7 @@
 package sample.engine.players;
 
 import sample.engine.board.Board;
-import sample.engine.board.Move;
+import sample.engine.board.CreationMove;
 
 /**
  * Created by Thomas Ecalle on 26/02/2017.
@@ -9,13 +9,13 @@ import sample.engine.board.Move;
 public class MoveTransition
 {
     private final Board transitionBoard;
-    private final Move move;
+    private final CreationMove creationMove;
     private final MoveStatus moveStatus;
 
-    public MoveTransition(Board transitionBoard, Move move, MoveStatus moveStatus)
+    public MoveTransition(Board transitionBoard, CreationMove creationMove, MoveStatus moveStatus)
     {
         this.transitionBoard = transitionBoard;
-        this.move = move;
+        this.creationMove = creationMove;
         this.moveStatus = moveStatus;
     }
 }
