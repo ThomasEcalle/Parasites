@@ -53,6 +53,12 @@ public final class Warrior extends Parasite
     }
 
 
+    @Override
+    public String toString()
+    {
+        return "W";
+    }
+
     private boolean isFirstRowExclusion(final int currentPosition, final int candidatePosition)
     {
         return (Board.firstRow[currentPosition] && (candidatePosition == -1));

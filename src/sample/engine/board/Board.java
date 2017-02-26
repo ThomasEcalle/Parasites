@@ -31,6 +31,7 @@ public final class Board
 
     private final List<Tile> gameBoard;
     private final List<Player> players;
+    private Player currentPlayer;
 
 
     private Board(Builder builder)
@@ -42,6 +43,28 @@ public final class Board
         calculateEachPlayerParasites(players);
         calculateLegalMoves(players);
         initExceptionArrays();
+        this.currentPlayer = null;
+    }
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < gameBoard.size(); i++)
+        {
+            builder.append(String.format("%3s", gameBoard.get(i).toString()));
+            if ((i + 1) % Board.DIMENSION == 0)
+            {
+                builder.append("\n");
+            }
+        }
+        return builder.toString();
+
+    }
+
+    public Player getCurrentPlayer()
+    {
+        return this.currentPlayer;
     }
 
     private void calculateEachPlayerParasites(List<Player> players)
@@ -95,7 +118,7 @@ public final class Board
     private void initExceptionArrays()
     {
         firstColumn = initColumn(0);
-        secondColumn = initColumn(Board.DIMENSION);
+        secondColumn = initColumn(Board.DIMENSION - 1);
         beforeLastColumn = initColumn((int) (Math.pow(Board.DIMENSION, 2) - Board.DIMENSION * 2));
         lastColumn = initColumn((int) (Math.pow(Board.DIMENSION, 2) - Board.DIMENSION));
 
@@ -123,7 +146,7 @@ public final class Board
      */
     private boolean[] initColumn(int index)
     {
-        final boolean[] column = new boolean[Board.DIMENSION];
+        final boolean[] column = new boolean[(int) Math.pow(Board.DIMENSION, 2)];
         for (int i = 0; i < Board.DIMENSION; i++)
         {
             column[index] = true;
@@ -134,7 +157,7 @@ public final class Board
 
     private boolean[] initRow(int index)
     {
-        final boolean[] row = new boolean[Board.DIMENSION];
+        final boolean[] row = new boolean[(int) Math.pow(Board.DIMENSION, 2)];
         int count = 0;
         do
         {

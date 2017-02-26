@@ -69,6 +69,12 @@ public final class Queen extends Parasite
         return legalMoves;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Q";
+    }
+
     private boolean isBeforeLastRowExclusion(int position, int candidateDestination)
     {
         return (Board.beforeLastRow[position] && (candidateDestination == 2

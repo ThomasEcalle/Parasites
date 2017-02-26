@@ -66,6 +66,12 @@ public class Builder extends Parasite
         return legalMoves;
     }
 
+    @Override
+    public String toString()
+    {
+        return "B";
+    }
+
     private boolean isLastRowExclusion(int position, int candidateDestination)
     {
         return (Board.lastRow[position] && (candidateDestination == 1

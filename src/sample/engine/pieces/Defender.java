@@ -54,6 +54,11 @@ public final class Defender extends Parasite
         return legalMoves;
     }
 
+    @Override
+    public String toString()
+    {
+        return "D";
+    }
 
     private boolean isFirstRowExclusion(int position, int candidateDestination)
     {

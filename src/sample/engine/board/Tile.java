@@ -41,6 +41,16 @@ public final class Tile extends Rectangle implements EventHandler
         }
     }
 
+    @Override
+    public String toString()
+    {
+        if (isOccupied())
+        {
+            return parasite.toString();
+        }
+        return "-";
+    }
+
     public boolean isOccupied()
     {
         return isOccupied;

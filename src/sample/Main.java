@@ -11,10 +11,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sample.engine.board.Board;
 import sample.engine.board.Tile;
+import sample.engine.players.Player;
 import sample.utils.AnimatedZoomOperator;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application
 {
@@ -32,6 +36,9 @@ public class Main extends Application
         zoomOperator = new AnimatedZoomOperator();
 
         initGrid();
+        final List<Player> players = new ArrayList<>();
+        final Board board = Board.createInitialBoard(new Player(), 10, players);
+        System.out.println(board);
 
         primaryStage.setScene(scene);
         primaryStage.show();

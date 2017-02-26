@@ -57,6 +57,12 @@ public final class Colony extends Parasite
         return legalMoves;
     }
 
+    @Override
+    public String toString()
+    {
+        return "C";
+    }
+
     private boolean isLastRowExclusion(int position, int candidateDestination)
     {
         return (Board.lastRow[position] && (candidateDestination == 1 || candidateDestination == Board.DIMENSION + 1 || candidateDestination == -Board.DIMENSION + 1));

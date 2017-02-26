@@ -1,8 +1,10 @@
 package sample.engine.players;
 
+import sample.engine.board.Board;
 import sample.engine.board.Move;
 import sample.engine.pieces.Parasite;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -11,8 +13,44 @@ import java.util.List;
 public class Player
 {
     private int id;
+    private Color color;
+    private int developmentPoints;
+
     private List<Parasite> parasites;
     private List<Move> legalMoves;
+    private Board board;
+
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!(obj instanceof Player)) return false;
+        final Player other = (Player) obj;
+        return this.id == other.id;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return id * parasites.size();
+    }
+
+    public boolean isLegalMove(Move move)
+    {
+        return legalMoves.contains(move);
+    }
+
+    public MoveTransition makeMove(final Move move)
+    {
+        if (!isLegalMove(move))
+        {
+            return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
+        }
+        final Board transitionBoard = move.execute();
+
+        return new MoveTransition(transitionBoard, move, MoveStatus.DONE);
+    }
 
 
     public List<Parasite> getParasites()
@@ -40,19 +78,15 @@ public class Player
         this.legalMoves = legalMoves;
     }
 
-    @Override
-    public boolean equals(Object obj)
+    public Color getColor()
     {
-        if (obj == null) return false;
-        if (!(obj instanceof Player)) return false;
-        final Player other = (Player) obj;
-        return this.id == other.id;
+        return color;
+    }
+
+    public int getDevelopmentPoints()
+    {
+        return developmentPoints;
     }
 
 
-    @Override
-    public int hashCode()
-    {
-        return id * parasites.size();
-    }
 }

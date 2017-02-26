@@ -17,4 +17,10 @@ public class Move
         this.parasite = parasite;
         this.destination = destination;
     }
+
+    public Board execute()
+    {
+
+        return null;
+    }
 }
