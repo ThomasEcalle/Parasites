@@ -6,24 +6,24 @@ import sample.engine.players.Player;
 /**
  * Created by Thomas Ecalle on 24/02/2017.
  */
-public class CreationMove
+public final class CreationMove
 {
     public final Board board;
-    public final Parasite parasite;
+    public final Parasite originalParasite;
     public final Parasite createdParasite;
 
     public CreationMove(final Board board, final Parasite originParasite, final Parasite createdparasite)
     {
         this.board = board;
-        this.parasite = originParasite;
+        this.originalParasite = originParasite;
         this.createdParasite = createdparasite;
     }
 
     public Board execute()
     {
-        final Player parasitePlayer = parasite.getPlayer();
+        final Player parasitePlayer = originalParasite.getPlayer();
         parasitePlayer.setDevelopmentPoints(parasitePlayer.getDevelopmentPoints() - createdParasite.getDevelopmentPointsUsed());
-        parasite.setCreationPoint(parasite.getCreationPoint() - createdParasite.getCost());
+        originalParasite.setCreationPoint(originalParasite.getCreationPoint() - createdParasite.getCost());
 
         final Board.Builder builder = new Board.Builder(board.DIMENSION, board.getPlayers());
         for (Player player : board.getPlayers())
@@ -34,7 +34,7 @@ public class CreationMove
             }
         }
 
-        builder.setParasite(parasite.createParasite(this));
+        builder.setParasite(originalParasite.createParasite(this));
 
         builder.setMoveMaker(board.getNextPlayer());
         return null;
@@ -43,17 +43,26 @@ public class CreationMove
     @Override
     public int hashCode()
     {
-        return board.DIMENSION * parasite.hashCode() * createdParasite.getPosition();
+        return board.DIMENSION * originalParasite.hashCode() * createdParasite.getPosition();
     }
 
     @Override
     public boolean equals(Object obj)
     {
-        if (obj == this) return true;
         if (!(obj instanceof CreationMove)) return false;
         final CreationMove other = (CreationMove) obj;
 
-        return (this.parasite.getPosition() == other.parasite.getPosition()
-                && this.createdParasite.getPosition() == other.createdParasite.getPosition());
+        return (this.originalParasite.equals(other.originalParasite)
+                && this.createdParasite.equals(other.createdParasite));
+    }
+
+    public Parasite getOriginalParasite()
+    {
+        return originalParasite;
+    }
+
+    public Parasite getCreatedParasite()
+    {
+        return createdParasite;
     }
 }

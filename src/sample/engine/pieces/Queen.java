@@ -35,25 +35,26 @@ public final class Queen extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLagalMoves(Board board)
+    public List<CreationMove> calculateLegalMoves(Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
 
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
+
             final int candidateDestination = this.position + candidatePlacement;
             if (ParasitesUtils.isValidTile(candidateDestination))
             {
-                if (isFirstColumnExclusion(position, candidateDestination)
-                        || isSecondColumnExclusion(position, candidateDestination)
-                        || isBeforeLastColumnExclusion(position, candidateDestination)
-                        || isLastColumnExclusion(position, candidateDestination)
-                        || isFirstRowExclusion(position, candidateDestination)
-                        || isSecondRowExclusion(position, candidateDestination)
-                        || isThirdRowExclusion(position, candidateDestination)
-                        || isBeforeBeforeLastRowExclusion(position, candidateDestination)
-                        || isBeforeLastRowExclusion(position, candidateDestination)
-                        || isLastRowExclusion(position, candidateDestination)
+                if (isFirstColumnExclusion(position, candidatePlacement)
+                        || isSecondColumnExclusion(position, candidatePlacement)
+                        || isBeforeLastColumnExclusion(position, candidatePlacement)
+                        || isLastColumnExclusion(position, candidatePlacement)
+                        || isFirstRowExclusion(position, candidatePlacement)
+                        || isSecondRowExclusion(position, candidatePlacement)
+                        || isThirdRowExclusion(position, candidatePlacement)
+                        || isBeforeBeforeLastRowExclusion(position, candidatePlacement)
+                        || isBeforeLastRowExclusion(position, candidatePlacement)
+                        || isLastRowExclusion(position, candidatePlacement)
                         )
                 {
                     continue;
@@ -67,6 +68,7 @@ public final class Queen extends Parasite
                         if (existingParasite.cost <= creationPoint
                                 && player.getDevelopmentPoints() >= developmentPointsUsed)
                         {
+
                             legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
                         }
                     }
@@ -80,6 +82,15 @@ public final class Queen extends Parasite
     public String toString()
     {
         return "Q";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!(obj instanceof Queen)) return false;
+        final Queen other = (Queen) obj;
+        return other.position == position;
     }
 
     private boolean isBeforeLastRowExclusion(int position, int candidateDestination)

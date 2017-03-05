@@ -27,7 +27,7 @@ public final class Warrior extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLagalMoves(Board board)
+    public List<CreationMove> calculateLegalMoves(Board board)
     {
 
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
@@ -36,8 +36,8 @@ public final class Warrior extends Parasite
             final int candidateDestination = this.position + candidatePlacement;
             if (ParasitesUtils.isValidTile(candidateDestination))
             {
-                if (isFirstRowExclusion(position, candidateDestination)
-                        || isLastRowExclusion(position, candidateDestination))
+                if (isFirstRowExclusion(position, candidatePlacement)
+                        || isLastRowExclusion(position, candidatePlacement))
                 {
                     continue;
                 }
@@ -64,6 +64,15 @@ public final class Warrior extends Parasite
     public String toString()
     {
         return "W";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!(obj instanceof Warrior)) return false;
+        final Warrior other = (Warrior) obj;
+        return other.position == position;
     }
 
     private boolean isFirstRowExclusion(final int currentPosition, final int candidatePosition)

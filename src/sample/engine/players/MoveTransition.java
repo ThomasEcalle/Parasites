@@ -6,7 +6,7 @@ import sample.engine.board.CreationMove;
 /**
  * Created by Thomas Ecalle on 26/02/2017.
  */
-public class MoveTransition
+public final class MoveTransition
 {
     private final Board transitionBoard;
     private final CreationMove creationMove;

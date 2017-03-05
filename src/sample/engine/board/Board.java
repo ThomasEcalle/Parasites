@@ -40,6 +40,9 @@ public final class Board
     private static int playersCounter;
     public static boolean isFirstMove = true;
 
+    private Parasite selectedParasite;
+    private Parasite chosenParasite;
+
 
     private Board(Builder builder)
     {
@@ -99,7 +102,7 @@ public final class Board
             final List<CreationMove> legalCreationMoves = new ArrayList<>();
             for (Parasite parasite : player.getParasites())
             {
-                legalCreationMoves.addAll(parasite.calculateLagalMoves(this));
+                legalCreationMoves.addAll(parasite.calculateLegalMoves(this));
             }
             player.setLegalCreationMoves(legalCreationMoves);
         }
@@ -224,5 +227,25 @@ public final class Board
         {
             return new Board(this);
         }
+    }
+
+    public void setChosenParasite(Parasite chosenParasite)
+    {
+        this.chosenParasite = chosenParasite;
+    }
+
+    public Parasite getChosenParasite()
+    {
+        return chosenParasite;
+    }
+
+    public void setSelectedParasite(Parasite selectedParasite)
+    {
+        this.selectedParasite = selectedParasite;
+    }
+
+    public Parasite getSelectedParasite()
+    {
+        return selectedParasite;
     }
 }

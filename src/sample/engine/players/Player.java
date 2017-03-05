@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 24/02/2017.
  */
-public class Player
+public final class Player
 {
     private int id;
     private Color color;
@@ -20,6 +20,11 @@ public class Player
     private List<CreationMove> legalCreationMoves;
     private Board board;
 
+
+    public Player()
+    {
+        developmentPoints = 2;
+    }
 
     @Override
     public boolean equals(Object obj)
@@ -51,7 +56,6 @@ public class Player
 
         return new MoveTransition(transitionBoard, creationMove, MoveStatus.DONE);
     }
-
 
     public List<Parasite> getParasites()
     {

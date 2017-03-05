@@ -29,7 +29,7 @@ public final class Colony extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLagalMoves(Board board)
+    public List<CreationMove> calculateLegalMoves(Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
 
@@ -38,10 +38,10 @@ public final class Colony extends Parasite
             final int candidateDestination = this.position + candidatePlacement;
             if (ParasitesUtils.isValidTile(candidateDestination))
             {
-                if (isFirstColumnExclusion(position, candidateDestination)
-                        || isLastColumnExclusion(position, candidateDestination)
-                        || isFirstRowExclusion(position, candidateDestination)
-                        || isLastRowExclusion(position, candidateDestination)
+                if (isFirstColumnExclusion(position, candidatePlacement)
+                        || isLastColumnExclusion(position, candidatePlacement)
+                        || isFirstRowExclusion(position, candidatePlacement)
+                        || isLastRowExclusion(position, candidatePlacement)
                         )
                 {
                     continue;
@@ -70,6 +70,14 @@ public final class Colony extends Parasite
         return "C";
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!(obj instanceof Colony)) return false;
+        final Colony other = (Colony) obj;
+        return other.position == position;
+    }
 
     private boolean isLastRowExclusion(int position, int candidateDestination)
     {

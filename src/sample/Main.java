@@ -1,18 +1,22 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sample.engine.board.Board;
+import sample.engine.pieces.Builder;
+import sample.engine.pieces.Defender;
+import sample.engine.pieces.Warrior;
 import sample.engine.players.Player;
 import sample.utils.AnimatedZoomOperator;
 import sample.view.GraphicBoard;
-import sample.view.GraphicParasitesChoices;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,11 +26,8 @@ public class Main extends Application
 {
     private BorderPane borderPane;
     private GraphicBoard graphicBoard;
-    @FXML
-    private GraphicParasitesChoices parasitesChoices;
     private Scene scene;
     private AnimatedZoomOperator zoomOperator;
-
     private Board board;
 
     @Override
@@ -36,13 +37,11 @@ public class Main extends Application
         primaryStage.setTitle("Parasites");
 
         zoomOperator = new AnimatedZoomOperator();
+
         final List<Player> fakeList = new ArrayList<>();
         this.board = Board.createInitialBoard(new Player(), 10, fakeList);
 
         initGrid();
-        final List<Player> players = new ArrayList<>();
-        final Board board = Board.createInitialBoard(new Player(), 10, players);
-        System.out.println(board);
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -50,13 +49,11 @@ public class Main extends Application
 
     private void initGrid()
     {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/sample.fxml"));
         try
         {
             borderPane = (BorderPane) loader.load();
-            parasitesChoices = new GraphicParasitesChoices();
 
         } catch (IOException e)
         {
@@ -65,33 +62,52 @@ public class Main extends Application
 
         //Making grid
         int counter = 0;
-        graphicBoard = new GraphicBoard(10, board, parasitesChoices
-        );
+        graphicBoard = new GraphicBoard(10, board);
 
 
         graphicBoard.setAlignment(Pos.CENTER);
-        parasitesChoices.setAlignment(Pos.CENTER_LEFT);
 
         borderPane.setCenter(graphicBoard);
-        borderPane.setRight(parasitesChoices);
 
-        //        graphicBoard.setOnScroll(new EventHandler<ScrollEvent>()
-        //        {
-        //            @Override
-        //            public void handle(ScrollEvent event)
-        //            {
-        //                double zoomFactor = 1.5;
-        //                if (event.getDeltaY() <= 0)
-        //                {
-        //                    // zoom out
-        //                    zoomFactor = 1 / zoomFactor;
-        //                }
-        //                zoomOperator.zoom(graphicBoard, zoomFactor, event.getSceneX(), event.getSceneY());
-        //            }
-        //        });
+        graphicBoard.setOnScroll(new EventHandler<ScrollEvent>()
+        {
+            @Override
+            public void handle(ScrollEvent event)
+            {
+                double zoomFactor = 1.5;
+                if (event.getDeltaY() <= 0)
+                {
+                    // zoom out
+                    zoomFactor = 1 / zoomFactor;
+                }
+                zoomOperator.zoom(graphicBoard, zoomFactor, event.getSceneX(), event.getSceneY());
+            }
+        });
 
         scene = new Scene(borderPane, 600, 400);
 
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                System.out.println(keyEvent.getCode());
+                switch (keyEvent.getText())
+                {
+                    case "b":
+                        board.setChosenParasite(new Builder(-1, board.getCurrentPlayer()));
+                        break;
+                    case "w":
+                        board.setChosenParasite(new Warrior(-1, board.getCurrentPlayer()));
+                        break;
+                    case "d":
+                        board.setChosenParasite(new Defender(-1, board.getCurrentPlayer()));
+                        break;
+                    default:
+                        board.setChosenParasite(null);
+                        break;
+                }
+            }
+        });
 
     }
 

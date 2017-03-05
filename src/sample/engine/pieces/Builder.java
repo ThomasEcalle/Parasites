@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 25/02/2017.
  */
-public class Builder extends Parasite
+public final class Builder extends Parasite
 {
 
     /**
@@ -34,7 +34,7 @@ public class Builder extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLagalMoves(final Board board)
+    public List<CreationMove> calculateLegalMoves(final Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
 
@@ -43,14 +43,14 @@ public class Builder extends Parasite
             final int candidateDestination = this.position + candidatePlacement;
             if (ParasitesUtils.isValidTile(candidateDestination))
             {
-                if (isFirstColumnExclusion(position, candidateDestination)
-                        || isSecondColumnExclusion(position, candidateDestination)
-                        || isBeforeLastColumnExclusion(position, candidateDestination)
-                        || isLastColumnExclusion(position, candidateDestination)
-                        || isFirstRowExclusion(position, candidateDestination)
-                        || isSecondRowExclusion(position, candidateDestination)
-                        || isBeforeLastRowExclusion(position, candidateDestination)
-                        || isLastRowExclusion(position, candidateDestination)
+                if (isFirstColumnExclusion(position, candidatePlacement)
+                        || isSecondColumnExclusion(position, candidatePlacement)
+                        || isBeforeLastColumnExclusion(position, candidatePlacement)
+                        || isLastColumnExclusion(position, candidatePlacement)
+                        || isFirstRowExclusion(position, candidatePlacement)
+                        || isSecondRowExclusion(position, candidatePlacement)
+                        || isBeforeLastRowExclusion(position, candidatePlacement)
+                        || isLastRowExclusion(position, candidatePlacement)
                         )
                 {
                     continue;
@@ -78,6 +78,15 @@ public class Builder extends Parasite
     public String toString()
     {
         return "B";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!(obj instanceof Builder)) return false;
+        final Builder other = (Builder) obj;
+        return other.position == position;
     }
 
     private boolean isLastRowExclusion(int position, int candidateDestination)

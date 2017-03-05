@@ -1,5 +1,6 @@
 package sample.engine.pieces;
 
+import com.sun.corba.se.impl.orbutil.DenseIntMapImpl;
 import sample.Constants;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
@@ -27,7 +28,7 @@ public final class Defender extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLagalMoves(Board board)
+    public List<CreationMove> calculateLegalMoves(Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
 
@@ -36,10 +37,10 @@ public final class Defender extends Parasite
             final int candidateDestination = this.position + candidatePlacement;
             if (ParasitesUtils.isValidTile(candidateDestination))
             {
-                if (isFirstRowExclusion(position, candidateDestination)
-                        || isSecondRowExclusion(position, candidateDestination)
-                        || isBeforeLastRowExclusion(position, candidateDestination)
-                        || isLastRowExclusion(position, candidateDestination))
+                if (isFirstRowExclusion(position, candidatePlacement)
+                        || isSecondRowExclusion(position, candidatePlacement)
+                        || isBeforeLastRowExclusion(position, candidatePlacement)
+                        || isLastRowExclusion(position, candidatePlacement))
                 {
                     continue;
                 }
@@ -65,6 +66,15 @@ public final class Defender extends Parasite
     public String toString()
     {
         return "D";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!(obj instanceof Defender)) return false;
+        final Defender other = (Defender) obj;
+        return other.position == position;
     }
 
     private boolean isFirstRowExclusion(int position, int candidateDestination)
