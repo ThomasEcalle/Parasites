@@ -2,6 +2,8 @@ package sample.engine.players;
 
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
+import sample.engine.board.FirstMove;
+import sample.engine.board.Move;
 import sample.engine.pieces.Parasite;
 
 import java.awt.*;
@@ -46,15 +48,26 @@ public final class Player
         return legalCreationMoves.contains(creationMove);
     }
 
-    public MoveTransition makeMove(final CreationMove creationMove)
+    public MoveTransition makeMove(final Move move)
     {
-        if (!isLegalMove(creationMove))
+        if (move instanceof FirstMove)
         {
-            return new MoveTransition(this.board, creationMove, MoveStatus.ILLEGAL_MOVE);
-        }
-        final Board transitionBoard = creationMove.execute();
+            final Board transitionBoard = move.execute();
 
-        return new MoveTransition(transitionBoard, creationMove, MoveStatus.DONE);
+            return new MoveTransition(transitionBoard, move,MoveStatus.DONE);
+        }
+        else
+        {
+            final CreationMove creationMove = (CreationMove) move;
+            if (!isLegalMove(creationMove))
+            {
+                return new MoveTransition(this.board, creationMove, MoveStatus.ILLEGAL_MOVE);
+            }
+            final Board transitionBoard = creationMove.execute();
+
+            return new MoveTransition(transitionBoard, creationMove, MoveStatus.DONE);
+        }
+
     }
 
     public List<Parasite> getParasites()

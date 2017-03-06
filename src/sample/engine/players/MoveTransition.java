@@ -2,6 +2,7 @@ package sample.engine.players;
 
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
+import sample.engine.board.Move;
 
 /**
  * Created by Thomas Ecalle on 26/02/2017.
@@ -9,13 +10,23 @@ import sample.engine.board.CreationMove;
 public final class MoveTransition
 {
     private final Board transitionBoard;
-    private final CreationMove creationMove;
+    private final Move move;
     private final MoveStatus moveStatus;
 
-    public MoveTransition(Board transitionBoard, CreationMove creationMove, MoveStatus moveStatus)
+    public MoveTransition(Board transitionBoard, Move move, MoveStatus moveStatus)
     {
         this.transitionBoard = transitionBoard;
-        this.creationMove = creationMove;
+        this.move = move;
         this.moveStatus = moveStatus;
+    }
+
+    public Board getTransitionBoard()
+    {
+        return transitionBoard;
+    }
+
+    public MoveStatus getMoveStatus()
+    {
+        return moveStatus;
     }
 }

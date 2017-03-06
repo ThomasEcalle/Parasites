@@ -39,6 +39,9 @@ public class Main extends Application
         zoomOperator = new AnimatedZoomOperator();
 
         final List<Player> fakeList = new ArrayList<>();
+        fakeList.add(new Player());
+        fakeList.add(new Player());
+        fakeList.add(new Player());
         this.board = Board.createInitialBoard(new Player(), 10, fakeList);
 
         initGrid();
@@ -94,16 +97,16 @@ public class Main extends Application
                 switch (keyEvent.getText())
                 {
                     case "b":
-                        board.setChosenParasite(new Builder(-1, board.getCurrentPlayer()));
+                        board.chosenParasite = new Builder(-1, board.getCurrentPlayer());
                         break;
                     case "w":
-                        board.setChosenParasite(new Warrior(-1, board.getCurrentPlayer()));
+                        board.chosenParasite = new Warrior(-1, board.getCurrentPlayer());
                         break;
                     case "d":
-                        board.setChosenParasite(new Defender(-1, board.getCurrentPlayer()));
+                        board.chosenParasite = new Defender(-1, board.getCurrentPlayer());
                         break;
                     default:
-                        board.setChosenParasite(null);
+                        board.chosenParasite = null;
                         break;
                 }
             }

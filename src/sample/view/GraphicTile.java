@@ -2,16 +2,14 @@ package sample.view;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import sample.Constants;
 import sample.engine.board.CreationMove;
+import sample.engine.board.FirstMove;
 import sample.engine.board.Tile;
 import sample.engine.pieces.Parasite;
 import sample.engine.pieces.Queen;
-import sample.utils.ParasitesUtils;
+import sample.engine.players.MoveTransition;
 
 import java.util.List;
 
@@ -41,33 +39,46 @@ public class GraphicTile extends Tile implements EventHandler<Event>
             graphicBoard.hidePossibilities();
             if (graphicBoard.getBoard().isFirstMove)
             {
-                setParasite(new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
-                setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(Constants.QUEEN_NAME, getClass()))));
+                //setParasite(new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
+                //setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(Constants.QUEEN_NAME, getClass()))));
+
+                final FirstMove firstMove = new FirstMove(graphicBoard.getBoard(), new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
+                final MoveTransition moveTransition = graphicBoard.getBoard().getCurrentPlayer().makeMove(firstMove);
+                if (moveTransition.getMoveStatus().isDone())
+                {
+                    graphicBoard.setBoard(moveTransition.getTransitionBoard());
+                    graphicBoard.drawBoard();
+                }
                 graphicBoard.getBoard().isFirstMove = false;
             } else
             {
                 if (isOccupied())
                 {
+                    System.out.println("is occupied case");
                     graphicBoard.getBoard().setSelectedParasite(getParasite());
-                    selectedParasiteMoves = getParasite().calculateLegalMoves(graphicBoard.board);
+                    selectedParasiteMoves = getParasite().calculateLegalMoves(graphicBoard.getBoard());
 
-                    graphicBoard.showPossibilities(getParasite());
+                    graphicBoard.showPossibilities(selectedParasiteMoves);
                 } else
                 {
-                    if (graphicBoard.getBoard().getChosenParasite() != null && graphicBoard.getBoard().getSelectedParasite() != null)
+                    if (graphicBoard.getBoard().chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
                     {
-                        System.out.println("You want to place a " + graphicBoard.getBoard().getChosenParasite().toString() + " on tile number " + getTileCoordonate());
+                        System.out.println("You want to place a " + graphicBoard.getBoard().chosenParasite.toString() + " on tile number " + getTileCoordonate());
                         final Parasite origin = graphicBoard.getBoard().getSelectedParasite();
-                        final Parasite created = graphicBoard.getBoard().getChosenParasite();
+                        final Parasite created = graphicBoard.getBoard().chosenParasite;
                         created.setPosition(getTileCoordonate());
                         final CreationMove creationMove = new CreationMove(graphicBoard.getBoard(), origin, created);
 
-                        final List<CreationMove> moves = selectedParasiteMoves;
-                        System.out.println(moves.size() + " legal moves");
+                        final List<CreationMove> moves = origin.calculateLegalMoves(graphicBoard.getBoard());
                         if (moves.contains(creationMove))
                         {
                             System.out.println("we can create a " + created.toString() + " on tile " + created.getPosition());
-
+                            final MoveTransition moveTransition = graphicBoard.getBoard().getCurrentPlayer().makeMove(creationMove);
+                            if (moveTransition.getMoveStatus().isDone())
+                            {
+                                graphicBoard.setBoard(moveTransition.getTransitionBoard());
+                                graphicBoard.drawBoard();
+                            }
                         }
                     }
                 }

@@ -6,9 +6,7 @@ import javafx.scene.paint.Color;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
-import sample.engine.pieces.Parasite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,19 +14,17 @@ import java.util.List;
  */
 public class GraphicBoard extends GridPane
 {
-    final List<Tile> tiles;
-    final Board board;
+    private Board board;
 
     public GraphicBoard(final int dimension, Board board)
     {
         this.board = board;
-        tiles = new ArrayList<>();
         int counter = 0;
         for (int i = 0; i < dimension; i++)
         {
             for (int j = 0; j < dimension; j++)
             {
-                final GraphicTile tile = new GraphicTile(32, 32, Color.TRANSPARENT, counter, null, this);
+                final GraphicTile tile = new GraphicTile(32, 32, Color.WHITE, counter, null, this);
                 tile.setIcon(board);
                 counter++;
                 tile.setStroke(Color.BLACK);
@@ -44,9 +40,14 @@ public class GraphicBoard extends GridPane
         return board;
     }
 
-    public void showPossibilities(Parasite parasite)
+    public void setBoard(Board board)
     {
-        final List<CreationMove> moves = parasite.calculateLegalMoves(board);
+        this.board = board;
+    }
+
+    public void showPossibilities(List<CreationMove> moves)
+    {
+        System.out.println("number of tiles to fil == " + moves.size());
         for (CreationMove move : moves)
         {
             ((Tile) getChildren().get(move.getCreatedParasite().getPosition())).setFill(Color.BLUE);
@@ -60,6 +61,26 @@ public class GraphicBoard extends GridPane
             if (!((Tile) node).isOccupied())
             {
                 ((Tile) node).setFill(Color.WHITE);
+            }
+        }
+    }
+
+    public void drawBoard()
+    {
+        getChildren().clear();
+        System.out.println(board);
+        int counter = 0;
+        for (int i = 0; i < board.DIMENSION; i++)
+        {
+            for (int j = 0; j < board.DIMENSION; j++)
+            {
+                final GraphicTile tile = new GraphicTile(32, 32, Color.WHITE, counter, board.getTile(counter).getParasite(), this);
+                tile.setIcon(board);
+                counter++;
+                tile.setStroke(Color.BLACK);
+
+
+                add(tile, i, j);
             }
         }
     }

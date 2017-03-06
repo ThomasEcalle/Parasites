@@ -63,6 +63,7 @@ public final class Queen extends Parasite
 
                 if (!destinationTile.isOccupied())
                 {
+
                     for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
                     {
                         if (existingParasite.cost <= creationPoint
@@ -75,6 +76,7 @@ public final class Queen extends Parasite
                 }
             }
         }
+
         return legalCreationMoves;
     }
 

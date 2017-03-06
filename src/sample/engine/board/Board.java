@@ -41,7 +41,7 @@ public final class Board
     public static boolean isFirstMove = true;
 
     private Parasite selectedParasite;
-    private Parasite chosenParasite;
+    public static Parasite chosenParasite;
 
 
     private Board(Builder builder)
@@ -227,16 +227,6 @@ public final class Board
         {
             return new Board(this);
         }
-    }
-
-    public void setChosenParasite(Parasite chosenParasite)
-    {
-        this.chosenParasite = chosenParasite;
-    }
-
-    public Parasite getChosenParasite()
-    {
-        return chosenParasite;
     }
 
     public void setSelectedParasite(Parasite selectedParasite)
