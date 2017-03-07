@@ -1,15 +1,10 @@
 package sample.engine.board;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import sample.Constants;
 import sample.engine.pieces.Parasite;
-import sample.engine.pieces.Queen;
 import sample.utils.ParasitesUtils;
 
 /**
@@ -47,7 +42,11 @@ public class Tile extends Rectangle
     {
         if (board.getTile(this.tileCoordonate).isOccupied())
         {
-            setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(board.getTile(this.tileCoordonate).getParasite().getIcon(),getClass()))));
+            final Image image = new Image(ParasitesUtils.getImageUrl(board.getTile(this.tileCoordonate).getParasite().getIcon(), getClass()));
+
+            final ImagePattern imagePattern = new ImagePattern(image);
+
+            setFill(imagePattern);
         }
     }
 

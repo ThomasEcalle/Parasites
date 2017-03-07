@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 26/02/2017.
  */
-public class GraphicBoard extends GridPane
+public final class GraphicBoard extends GridPane
 {
     private Board board;
 

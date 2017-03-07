@@ -10,13 +10,14 @@ import sample.engine.board.Tile;
 import sample.engine.pieces.Parasite;
 import sample.engine.pieces.Queen;
 import sample.engine.players.MoveTransition;
+import sample.utils.ParasitesUtils;
 
 import java.util.List;
 
 /**
  * Created by Thomas Ecalle on 26/02/2017.
  */
-public class GraphicTile extends Tile implements EventHandler<Event>
+public final class GraphicTile extends Tile implements EventHandler<Event>
 {
     private GraphicBoard graphicBoard;
     private List<CreationMove> selectedParasiteMoves;
@@ -37,19 +38,18 @@ public class GraphicTile extends Tile implements EventHandler<Event>
         {
 
             graphicBoard.hidePossibilities();
-            if (graphicBoard.getBoard().isFirstMove)
+            if (graphicBoard.getBoard().getCurrentPlayer().isFirstMove())
             {
-                //setParasite(new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
-                //setFill(new ImagePattern(new Image(ParasitesUtils.getImageUrl(Constants.QUEEN_NAME, getClass()))));
-
+                ParasitesUtils.logWarnings("Player's first move");
                 final FirstMove firstMove = new FirstMove(graphicBoard.getBoard(), new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
                 final MoveTransition moveTransition = graphicBoard.getBoard().getCurrentPlayer().makeMove(firstMove);
                 if (moveTransition.getMoveStatus().isDone())
                 {
                     graphicBoard.setBoard(moveTransition.getTransitionBoard());
                     graphicBoard.drawBoard();
+                    clearSelectedElements();
                 }
-                graphicBoard.getBoard().isFirstMove = false;
+                graphicBoard.getBoard().getCurrentPlayer().setFirstMove(false);
             } else
             {
                 if (isOccupied())
@@ -78,6 +78,7 @@ public class GraphicTile extends Tile implements EventHandler<Event>
                             {
                                 graphicBoard.setBoard(moveTransition.getTransitionBoard());
                                 graphicBoard.drawBoard();
+                                clearSelectedElements();
                             }
                         }
                     }
@@ -85,6 +86,12 @@ public class GraphicTile extends Tile implements EventHandler<Event>
             }
             System.out.println(this.getTileCoordonate());
         }
+    }
+
+    private void clearSelectedElements()
+    {
+        graphicBoard.getBoard().setSelectedParasite(null);
+        graphicBoard.getBoard().chosenParasite = null;
     }
 
 }

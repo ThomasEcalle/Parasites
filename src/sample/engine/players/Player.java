@@ -1,12 +1,12 @@
 package sample.engine.players;
 
+import javafx.scene.paint.Color;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.FirstMove;
 import sample.engine.board.Move;
 import sample.engine.pieces.Parasite;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -21,9 +21,11 @@ public final class Player
     private List<Parasite> parasites;
     private List<CreationMove> legalCreationMoves;
     private Board board;
+    private boolean isFirstMove = true;
 
 
     public Player()
+
     {
         developmentPoints = 2;
     }
@@ -54,9 +56,8 @@ public final class Player
         {
             final Board transitionBoard = move.execute();
 
-            return new MoveTransition(transitionBoard, move,MoveStatus.DONE);
-        }
-        else
+            return new MoveTransition(transitionBoard, move, MoveStatus.DONE);
+        } else
         {
             final CreationMove creationMove = (CreationMove) move;
             if (!isLegalMove(creationMove))
@@ -108,5 +109,15 @@ public final class Player
     public void setDevelopmentPoints(int developmentPoints)
     {
         this.developmentPoints = developmentPoints;
+    }
+
+    public void setFirstMove(boolean firstMove)
+    {
+        isFirstMove = firstMove;
+    }
+
+    public boolean isFirstMove()
+    {
+        return isFirstMove;
     }
 }

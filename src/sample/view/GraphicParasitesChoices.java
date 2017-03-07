@@ -11,7 +11,7 @@ import sample.utils.ParasitesUtils;
 /**
  * Created by Thomas Ecalle on 26/02/2017.
  */
-public class GraphicParasitesChoices extends GridPane
+public final class GraphicParasitesChoices extends GridPane
 {
     private Parasite[] parasites = new Parasite[]{
             new Queen(-1, null),

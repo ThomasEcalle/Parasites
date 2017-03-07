@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import sample.engine.pieces.KindOfParasite;
 import sample.engine.pieces.Parasite;
 import sample.engine.players.Player;
+import sample.utils.ParasitesUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,6 @@ public final class Board
     private final List<Player> players;
     private Player currentPlayer;
     private static int playersCounter;
-    public static boolean isFirstMove = true;
 
     private Parasite selectedParasite;
     public static Parasite chosenParasite;
@@ -46,6 +46,7 @@ public final class Board
 
     private Board(Builder builder)
     {
+        this.currentPlayer = builder.nextMoveMaker;
         this.DIMENSION = builder.dimension;
         this.players = builder.players;
         this.gameBoard = createGameBoard(builder);
@@ -53,7 +54,7 @@ public final class Board
         calculateEachPlayerParasites(players);
         calculateLegalMoves(players);
         initExceptionArrays();
-        this.currentPlayer = builder.nextMoveMaker;
+
 
 
     }
@@ -62,13 +63,13 @@ public final class Board
     public String toString()
     {
         final StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < gameBoard.size(); i++)
+        for (int i = 0; i < DIMENSION; i++)
         {
-            builder.append(String.format("%3s", gameBoard.get(i).toString()));
-            if ((i + 1) % Board.DIMENSION == 0)
+            for (int j = 0; j < DIMENSION; j++)
             {
-                builder.append("\n");
+                builder.append(String.format("%3s", gameBoard.get(i + j * DIMENSION).toString()));
             }
+            builder.append("\n");
         }
         return builder.toString();
 
@@ -157,6 +158,7 @@ public final class Board
 
     public Player getNextPlayer()
     {
+        ParasitesUtils.logInfos("changemment de player");
         playersCounter++;
         if (playersCounter == players.size())
         {

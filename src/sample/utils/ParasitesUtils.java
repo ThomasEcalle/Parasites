@@ -1,9 +1,12 @@
 package sample.utils;
 
 
+import sample.Constants;
 import sample.engine.board.Board;
 
 import java.net.URISyntaxException;
+
+import static sample.Constants.ANSI_RESET;
 
 /**
  * Created by Thomas Ecalle on 24/02/2017.
@@ -39,4 +42,21 @@ public class ParasitesUtils
     {
         return (position >= 0 && position < Board.DIMENSION * Board.DIMENSION);
     }
+
+
+    public static void logError(final String string)
+    {
+        System.out.println(Constants.ANSI_RED + string + ANSI_RESET);
+    }
+
+    public static void logInfos(final String string)
+    {
+        System.out.println(Constants.ANSI_GREEN + string + ANSI_RESET);
+    }
+
+    public static void logWarnings(final String string)
+    {
+        System.out.println(Constants.ANSI_YELLOW + string + ANSI_RESET);
+    }
+
 }
