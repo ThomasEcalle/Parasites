@@ -4,7 +4,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import sample.engine.board.Board;
-import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
 
 import java.util.List;
@@ -45,12 +44,12 @@ public final class GraphicBoard extends GridPane
         this.board = board;
     }
 
-    public void showPossibilities(List<CreationMove> moves)
+    public void showPossibilities(final List<Integer> positions)
     {
-        System.out.println("number of tiles to fil == " + moves.size());
-        for (CreationMove move : moves)
+        System.out.println("number of tiles to fil == " + positions.size());
+        for (int position : positions)
         {
-            ((Tile) getChildren().get(move.getCreatedParasite().getPosition())).setFill(Color.BLUE);
+            ((Tile) getChildren().get(position)).setFill(Color.BLUE);
         }
     }
 
@@ -75,10 +74,19 @@ public final class GraphicBoard extends GridPane
             for (int j = 0; j < board.DIMENSION; j++)
             {
                 final GraphicTile tile = new GraphicTile(32, 32, Color.WHITE, counter, board.getTile(counter).getParasite(), this);
-                tile.setIcon(board);
-                counter++;
-                tile.setStroke(Color.BLACK);
 
+                tile.setIcon(board);
+
+                tile.setStroke(Color.BLACK);
+                if (board.getTile(counter) != null
+                        && board.getTile(counter).getParasite() != null
+                        && board.getTile(counter).getParasite().getPlayer() != null)
+                {
+                    tile.setStroke(board.getTile(counter).getParasite().getPlayer().getColor());
+                }
+
+
+                counter++;
 
                 add(tile, i, j);
             }

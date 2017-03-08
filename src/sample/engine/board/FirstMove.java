@@ -2,6 +2,7 @@ package sample.engine.board;
 
 import sample.engine.pieces.Parasite;
 import sample.engine.players.Player;
+import sample.utils.ParasitesUtils;
 
 /**
  * Created by Thomas Ecalle on 24/02/2017.
@@ -21,8 +22,8 @@ public final class FirstMove extends Move
     public Board execute()
     {
         final Player parasitePlayer = createdParasite.getPlayer();
-        //parasitePlayer.setDevelopmentPoints(parasitePlayer.getDevelopmentPoints() - createdParasite.getDevelopmentPointsUsed());
-
+        parasitePlayer.setDevelopmentPoints(parasitePlayer.getDevelopmentPoints() - createdParasite.getDevelopmentPointsUsed());
+        ParasitesUtils.logInfos("development points after = " + parasitePlayer.getDevelopmentPoints());
         final Board.Builder builder = new Board.Builder(board.DIMENSION, board.getPlayers());
         for (Player player : board.getPlayers())
         {
@@ -34,7 +35,14 @@ public final class FirstMove extends Move
 
         builder.setParasite(createdParasite);
 
-        builder.setMoveMaker(board.getNextPlayer());
+        if (parasitePlayer.getDevelopmentPoints() <= 0)
+        {
+            builder.setMoveMaker(board.getNextPlayer());
+        }
+        else
+        {
+            builder.setMoveMaker(parasitePlayer);
+        }
         return builder.build();
     }
 

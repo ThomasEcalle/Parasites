@@ -1,6 +1,5 @@
 package sample.engine.pieces;
 
-import com.sun.corba.se.impl.orbutil.DenseIntMapImpl;
 import sample.Constants;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
@@ -31,11 +30,48 @@ public final class Defender extends Parasite
     public List<CreationMove> calculateLegalMoves(Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
+        this.actualBoard = board;
+        for (int candidatePlacement : CANDIDATE_PLACEMENTS)
+        {
+            if (creationPoint > 0)
+            {
+                final int candidateDestination = this.position + candidatePlacement;
+                if (ParasitesUtils.isValidTile(candidateDestination))
+                {
+                    if (isFirstRowExclusion(position, candidatePlacement)
+                            || isSecondRowExclusion(position, candidatePlacement)
+                            || isBeforeLastRowExclusion(position, candidatePlacement)
+                            || isLastRowExclusion(position, candidatePlacement))
+                    {
+                        continue;
+                    }
+                    final Tile destinationTile = board.getTile(candidateDestination);
 
+                    if (!destinationTile.isOccupied())
+                    {
+                        for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
+                        {
+                            if (existingParasite.cost <= creationPoint && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            {
+                                legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        return legalCreationMoves;
+    }
+
+    @Override
+    public List<Integer> getArea()
+    {
+        final List<Integer> array = new ArrayList<>();
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
             final int candidateDestination = this.position + candidatePlacement;
-            if (ParasitesUtils.isValidTile(candidateDestination))
+            if (ParasitesUtils.isValidTile(candidateDestination) && candidateDestination != this.position)
             {
                 if (isFirstRowExclusion(position, candidatePlacement)
                         || isSecondRowExclusion(position, candidatePlacement)
@@ -44,22 +80,13 @@ public final class Defender extends Parasite
                 {
                     continue;
                 }
-                final Tile destinationTile = board.getTile(candidateDestination);
-
-                if (!destinationTile.isOccupied())
+                if (!actualBoard.getTile(candidateDestination).isOccupied())
                 {
-                    for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
-                    {
-                        if (existingParasite.cost <= creationPoint
-                                && player.getDevelopmentPoints() >= developmentPointsUsed)
-                        {
-                            legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
-                        }
-                    }
+                    array.add(candidateDestination);
                 }
             }
         }
-        return legalCreationMoves;
+        return array;
     }
 
     @Override

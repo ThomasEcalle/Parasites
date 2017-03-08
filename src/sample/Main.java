@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.engine.board.Board;
 import sample.engine.pieces.Builder;
@@ -29,6 +30,7 @@ public class Main extends Application
     private Scene scene;
     private AnimatedZoomOperator zoomOperator;
     private Board board;
+    public final static int DIMENSION = 10;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -39,10 +41,10 @@ public class Main extends Application
         zoomOperator = new AnimatedZoomOperator();
 
         final List<Player> fakeList = new ArrayList<>();
-        fakeList.add(new Player());
-        fakeList.add(new Player());
-        fakeList.add(new Player());
-        this.board = Board.createInitialBoard(new Player(), 10, fakeList);
+        fakeList.add(new Player("thomas", Color.YELLOW));
+        fakeList.add(new Player("jean", Color.GREEN));
+        fakeList.add(new Player("robin", Color.RED));
+        this.board = Board.createInitialBoard(fakeList.get(0), DIMENSION, fakeList);
 
         initGrid();
 
@@ -65,7 +67,7 @@ public class Main extends Application
 
         //Making grid
         int counter = 0;
-        graphicBoard = new GraphicBoard(10, board);
+        graphicBoard = new GraphicBoard(DIMENSION, board);
 
 
         graphicBoard.setAlignment(Pos.CENTER);

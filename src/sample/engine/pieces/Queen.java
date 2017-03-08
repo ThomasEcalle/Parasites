@@ -35,15 +35,62 @@ public final class Queen extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLegalMoves(Board board)
+    public List<CreationMove> calculateLegalMoves(final Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
+        this.actualBoard = board;
 
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
+            if (creationPoint > 0)
+            {
+                final int candidateDestination = this.position + candidatePlacement;
+                if (ParasitesUtils.isValidTile(candidateDestination))
+                {
+                    if (isFirstColumnExclusion(position, candidatePlacement)
+                            || isSecondColumnExclusion(position, candidatePlacement)
+                            || isBeforeLastColumnExclusion(position, candidatePlacement)
+                            || isLastColumnExclusion(position, candidatePlacement)
+                            || isFirstRowExclusion(position, candidatePlacement)
+                            || isSecondRowExclusion(position, candidatePlacement)
+                            || isThirdRowExclusion(position, candidatePlacement)
+                            || isBeforeBeforeLastRowExclusion(position, candidatePlacement)
+                            || isBeforeLastRowExclusion(position, candidatePlacement)
+                            || isLastRowExclusion(position, candidatePlacement)
+                            )
+                    {
+                        continue;
+                    }
+                    final Tile destinationTile = board.getTile(candidateDestination);
 
+                    if (!destinationTile.isOccupied())
+                    {
+
+                        for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
+                        {
+                            if (existingParasite.cost <= creationPoint && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            {
+
+                                legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return legalCreationMoves;
+    }
+
+    @Override
+    public List<Integer> getArea()
+    {
+        final List<Integer> array = new ArrayList<>();
+        for (int candidatePlacement : CANDIDATE_PLACEMENTS)
+        {
             final int candidateDestination = this.position + candidatePlacement;
-            if (ParasitesUtils.isValidTile(candidateDestination))
+            if (ParasitesUtils.isValidTile(candidateDestination) && candidateDestination != this.position)
             {
                 if (isFirstColumnExclusion(position, candidatePlacement)
                         || isSecondColumnExclusion(position, candidatePlacement)
@@ -59,25 +106,14 @@ public final class Queen extends Parasite
                 {
                     continue;
                 }
-                final Tile destinationTile = board.getTile(candidateDestination);
-
-                if (!destinationTile.isOccupied())
+                if (!actualBoard.getTile(candidateDestination).isOccupied())
                 {
-
-                    for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
-                    {
-                        if (existingParasite.cost <= creationPoint
-                                && player.getDevelopmentPoints() >= developmentPointsUsed)
-                        {
-
-                            legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
-                        }
-                    }
+                    array.add(candidateDestination);
                 }
+
             }
         }
-
-        return legalCreationMoves;
+        return array;
     }
 
     @Override

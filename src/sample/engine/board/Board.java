@@ -54,9 +54,6 @@ public final class Board
         calculateEachPlayerParasites(players);
         calculateLegalMoves(players);
         initExceptionArrays();
-
-
-
     }
 
     @Override
@@ -105,9 +102,9 @@ public final class Board
             {
                 legalCreationMoves.addAll(parasite.calculateLegalMoves(this));
             }
+            ParasitesUtils.logInfos("Legal moves for "+ player.getPseudo()+" = " + legalCreationMoves.size());
             player.setLegalCreationMoves(legalCreationMoves);
         }
-
 
     }
 
@@ -125,6 +122,7 @@ public final class Board
         final List<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < ((int) Math.pow(DIMENSION, 2)); i++)
         {
+
             tiles.add(new Tile(32, 32, Color.TRANSPARENT, i, builder.boardConfig.get(i)));
         }
         return tiles;
@@ -158,13 +156,15 @@ public final class Board
 
     public Player getNextPlayer()
     {
-        ParasitesUtils.logInfos("changemment de player");
+        players.get(playersCounter).setDevelopmentPoints(2);
         playersCounter++;
         if (playersCounter == players.size())
         {
             playersCounter = 0;
         }
-        return players.get(playersCounter);
+        final Player player = players.get(playersCounter);
+
+        return player;
     }
 
     /**

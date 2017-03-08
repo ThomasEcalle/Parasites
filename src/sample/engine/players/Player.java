@@ -6,7 +6,9 @@ import sample.engine.board.CreationMove;
 import sample.engine.board.FirstMove;
 import sample.engine.board.Move;
 import sample.engine.pieces.Parasite;
+import sample.utils.ParasitesUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,16 +19,20 @@ public final class Player
     private int id;
     private Color color;
     private int developmentPoints;
+    private String pseudo;
 
     private List<Parasite> parasites;
     private List<CreationMove> legalCreationMoves;
-    private Board board;
+    private ArrayList<Parasite> playingParasites;
     private boolean isFirstMove = true;
 
 
-    public Player()
+    public Player(final String pseudo, final Color color)
 
     {
+        this.pseudo = pseudo;
+        this.color = color;
+        this.playingParasites = new ArrayList<>();
         developmentPoints = 2;
     }
 
@@ -36,13 +42,19 @@ public final class Player
         if (obj == null) return false;
         if (!(obj instanceof Player)) return false;
         final Player other = (Player) obj;
-        return this.id == other.id;
+        return this.pseudo.equals(other.pseudo);
     }
 
     @Override
     public int hashCode()
     {
         return id * parasites.size();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "[player : " + pseudo + ", development points : " + developmentPoints + ", first move : " + isFirstMove + "]";
     }
 
     public boolean isLegalMove(CreationMove creationMove)
@@ -54,6 +66,7 @@ public final class Player
     {
         if (move instanceof FirstMove)
         {
+            ParasitesUtils.logInfos("avant execute firstmove");
             final Board transitionBoard = move.execute();
 
             return new MoveTransition(transitionBoard, move, MoveStatus.DONE);
@@ -62,7 +75,7 @@ public final class Player
             final CreationMove creationMove = (CreationMove) move;
             if (!isLegalMove(creationMove))
             {
-                return new MoveTransition(this.board, creationMove, MoveStatus.ILLEGAL_MOVE);
+                return new MoveTransition(null, creationMove, MoveStatus.ILLEGAL_MOVE);
             }
             final Board transitionBoard = creationMove.execute();
 
@@ -119,5 +132,28 @@ public final class Player
     public boolean isFirstMove()
     {
         return isFirstMove;
+    }
+
+    public ArrayList<Parasite> getPlayingParasites()
+    {
+        return playingParasites;
+    }
+
+    public void addPlayingparasite(final Parasite parasite)
+    {
+        if (playingParasites.size() < 2)
+        {
+            playingParasites.add(parasite);
+        }
+    }
+
+    public void clearPlayingParasites()
+    {
+        playingParasites.clear();
+    }
+
+    public String getPseudo()
+    {
+        return pseudo;
     }
 }

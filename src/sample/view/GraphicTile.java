@@ -10,6 +10,7 @@ import sample.engine.board.Tile;
 import sample.engine.pieces.Parasite;
 import sample.engine.pieces.Queen;
 import sample.engine.players.MoveTransition;
+import sample.engine.players.Player;
 import sample.utils.ParasitesUtils;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 public final class GraphicTile extends Tile implements EventHandler<Event>
 {
     private GraphicBoard graphicBoard;
-    private List<CreationMove> selectedParasiteMoves;
+    private List<Integer> selectedParasiteMoves;
 
 
     public GraphicTile(double w, double h, Paint paint, int tileCoordonate, Parasite parasite, GraphicBoard graphicBoard)
@@ -36,34 +37,46 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
 
         if (MouseEvent.MOUSE_CLICKED == event.getEventType())
         {
+            final Player currentPlayer = graphicBoard.getBoard().getCurrentPlayer();
 
+            ParasitesUtils.logWarnings("Current player is " + currentPlayer.toString());
             graphicBoard.hidePossibilities();
-            if (graphicBoard.getBoard().getCurrentPlayer().isFirstMove())
+            if (currentPlayer.isFirstMove())
             {
-                ParasitesUtils.logWarnings("Player's first move");
-                final FirstMove firstMove = new FirstMove(graphicBoard.getBoard(), new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
-                final MoveTransition moveTransition = graphicBoard.getBoard().getCurrentPlayer().makeMove(firstMove);
-                if (moveTransition.getMoveStatus().isDone())
+                if (!isOccupied())
                 {
-                    graphicBoard.setBoard(moveTransition.getTransitionBoard());
-                    graphicBoard.drawBoard();
-                    clearSelectedElements();
+                    final FirstMove firstMove = new FirstMove(graphicBoard.getBoard(), new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer()));
+                    final MoveTransition moveTransition = currentPlayer.makeMove(firstMove);
+                    if (moveTransition.getMoveStatus().isDone())
+                    {
+                        currentPlayer.setFirstMove(false);
+                        graphicBoard.setBoard(moveTransition.getTransitionBoard());
+                        graphicBoard.drawBoard();
+                        clearSelectedElements();
+                    }
+
                 }
-                graphicBoard.getBoard().getCurrentPlayer().setFirstMove(false);
             } else
             {
                 if (isOccupied())
                 {
-                    System.out.println("is occupied case");
-                    graphicBoard.getBoard().setSelectedParasite(getParasite());
-                    selectedParasiteMoves = getParasite().calculateLegalMoves(graphicBoard.getBoard());
+                    if (getParasite().getPlayer().equals(currentPlayer)
+                            && (currentPlayer.getPlayingParasites().size() < 2 || currentPlayer.getPlayingParasites().contains(getParasite())))
+                    {
+                        graphicBoard.getBoard().setSelectedParasite(getParasite());
+                        if (!currentPlayer.getPlayingParasites().contains(getParasite()) && currentPlayer.getDevelopmentPoints() > 0)
+                        {
+                            currentPlayer.addPlayingparasite(getParasite());
+                        }
+                    }
 
+                    selectedParasiteMoves = getParasite().getArea();
+                    ParasitesUtils.logError("legal moves og selected parasite = " + selectedParasiteMoves.size());
                     graphicBoard.showPossibilities(selectedParasiteMoves);
                 } else
                 {
                     if (graphicBoard.getBoard().chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
                     {
-                        System.out.println("You want to place a " + graphicBoard.getBoard().chosenParasite.toString() + " on tile number " + getTileCoordonate());
                         final Parasite origin = graphicBoard.getBoard().getSelectedParasite();
                         final Parasite created = graphicBoard.getBoard().chosenParasite;
                         created.setPosition(getTileCoordonate());
@@ -72,8 +85,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                         final List<CreationMove> moves = origin.calculateLegalMoves(graphicBoard.getBoard());
                         if (moves.contains(creationMove))
                         {
-                            System.out.println("we can create a " + created.toString() + " on tile " + created.getPosition());
-                            final MoveTransition moveTransition = graphicBoard.getBoard().getCurrentPlayer().makeMove(creationMove);
+                            final MoveTransition moveTransition = currentPlayer.makeMove(creationMove);
                             if (moveTransition.getMoveStatus().isDone())
                             {
                                 graphicBoard.setBoard(moveTransition.getTransitionBoard());

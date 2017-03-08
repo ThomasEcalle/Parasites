@@ -68,6 +68,7 @@ public class Tile extends Rectangle
     public void setParasite(Parasite parasite)
     {
         this.parasite = parasite;
+
         setOccupied(true);
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Parasite
 {
     protected int position;
-    protected final Player player;
+    protected Player player;
 
     protected int cost;
     protected int developmentPointsUsed;
@@ -20,6 +20,7 @@ public abstract class Parasite
     protected int attack;
     protected int defence;
     protected String icon;
+    protected Board actualBoard;
 
 
     Parasite(final int position, final Player player, int cost, int creationPoint, int attack, int defence, String icon, int developmentPointsUsed)
@@ -41,6 +42,8 @@ public abstract class Parasite
     }
 
     public abstract List<CreationMove> calculateLegalMoves(final Board board);
+
+    public abstract List<Integer> getArea();
 
     public Parasite createParasite(final CreationMove creationMove)
     {
@@ -73,6 +76,11 @@ public abstract class Parasite
     public Player getPlayer()
     {
         return player;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
     }
 
     public int getCost()
