@@ -33,7 +33,7 @@ public final class Warrior extends Parasite
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
-            if (creationPoint > 0)
+            if (creationPoints > 0)
             {
                 final int candidateDestination = this.position + candidatePlacement;
                 if (ParasitesUtils.isValidTile(candidateDestination))
@@ -49,7 +49,7 @@ public final class Warrior extends Parasite
                     {
                         for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
                         {
-                            if (existingParasite.cost <= creationPoint && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            if (existingParasite.cost <= creationPoints && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
                             {
                                 legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
                             }
@@ -95,7 +95,6 @@ public final class Warrior extends Parasite
     @Override
     public boolean equals(Object obj)
     {
-        if (obj == null) return false;
         if (!(obj instanceof Warrior)) return false;
         final Warrior other = (Warrior) obj;
         return other.position == position;

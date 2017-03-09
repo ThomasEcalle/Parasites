@@ -59,17 +59,17 @@ public final class Board
     @Override
     public String toString()
     {
-        final StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < DIMENSION; i++)
-        {
-            for (int j = 0; j < DIMENSION; j++)
-            {
-                builder.append(String.format("%3s", gameBoard.get(i + j * DIMENSION).toString()));
-            }
-            builder.append("\n");
-        }
-        return builder.toString();
-
+        //        final StringBuilder builder = new StringBuilder();
+        //        for (int i = 0; i < DIMENSION; i++)
+        //        {
+        //            for (int j = 0; j < DIMENSION; j++)
+        //            {
+        //                builder.append(String.format("%3s", gameBoard.get(i + j * DIMENSION).toString()));
+        //            }
+        //            builder.append("\n");
+        //        }
+        //        return builder.toString();
+        return null;
     }
 
     public Player getCurrentPlayer()
@@ -102,7 +102,6 @@ public final class Board
             {
                 legalCreationMoves.addAll(parasite.calculateLegalMoves(this));
             }
-            ParasitesUtils.logInfos("Legal moves for "+ player.getPseudo()+" = " + legalCreationMoves.size());
             player.setLegalCreationMoves(legalCreationMoves);
         }
 
@@ -157,6 +156,7 @@ public final class Board
     public Player getNextPlayer()
     {
         players.get(playersCounter).setDevelopmentPoints(2);
+        players.get(playersCounter).clearPlayingParasites();
         playersCounter++;
         if (playersCounter == players.size())
         {

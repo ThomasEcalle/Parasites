@@ -54,7 +54,8 @@ public final class Player
     @Override
     public String toString()
     {
-        return "[player : " + pseudo + ", development points : " + developmentPoints + ", first move : " + isFirstMove + "]";
+        return "[player : " + pseudo + ", development points : " + developmentPoints + ", first move : " + isFirstMove +
+                " playing parasites are : " + playingParasites.toString() + "]";
     }
 
     public boolean isLegalMove(CreationMove creationMove)
@@ -149,6 +150,10 @@ public final class Player
 
     public void clearPlayingParasites()
     {
+        for (Parasite playingParasite : playingParasites)
+        {
+            playingParasite.setAlreadyUsedInTurn(false);
+        }
         playingParasites.clear();
     }
 

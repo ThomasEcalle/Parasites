@@ -42,7 +42,7 @@ public final class Queen extends Parasite
 
         for (int candidatePlacement : CANDIDATE_PLACEMENTS)
         {
-            if (creationPoint > 0)
+            if (creationPoints > 0)
             {
                 final int candidateDestination = this.position + candidatePlacement;
                 if (ParasitesUtils.isValidTile(candidateDestination))
@@ -68,9 +68,10 @@ public final class Queen extends Parasite
 
                         for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
                         {
-                            if (existingParasite.cost <= creationPoint && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            //ParasitesUtils.logError("cost : " + existingParasite.cost + " / points : " + creationPoints);
+                            if ((player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
                             {
-
+                                //ParasitesUtils.logError("points = " + getCreationPoints());
                                 legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
                             }
                         }
@@ -125,7 +126,6 @@ public final class Queen extends Parasite
     @Override
     public boolean equals(Object obj)
     {
-        if (obj == null) return false;
         if (!(obj instanceof Queen)) return false;
         final Queen other = (Queen) obj;
         return other.position == position;

@@ -46,7 +46,7 @@ public final class GraphicParasitesChoices extends GridPane
 
     public void hideParasite(final Parasite parasite)
     {
-        final int creationPoints = parasite.getCreationPoint();
+        final int creationPoints = parasite.getCreationPoints();
         for (int i = 0; i < parasites.length; i++)
         {
             if (parasites[i].getCost() > creationPoints)

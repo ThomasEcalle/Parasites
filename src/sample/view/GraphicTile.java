@@ -13,6 +13,7 @@ import sample.engine.players.MoveTransition;
 import sample.engine.players.Player;
 import sample.utils.ParasitesUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,9 +61,11 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
             {
                 if (isOccupied())
                 {
+                    managingPlayingparasites(currentPlayer.getPlayingParasites(), getParasite());
                     if (getParasite().getPlayer().equals(currentPlayer)
                             && (currentPlayer.getPlayingParasites().size() < 2 || currentPlayer.getPlayingParasites().contains(getParasite())))
                     {
+
                         graphicBoard.getBoard().setSelectedParasite(getParasite());
                         if (!currentPlayer.getPlayingParasites().contains(getParasite()) && currentPlayer.getDevelopmentPoints() > 0)
                         {
@@ -71,19 +74,23 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                     }
 
                     selectedParasiteMoves = getParasite().getArea();
-                    ParasitesUtils.logError("legal moves og selected parasite = " + selectedParasiteMoves.size());
+
                     graphicBoard.showPossibilities(selectedParasiteMoves);
                 } else
                 {
                     if (graphicBoard.getBoard().chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
                     {
                         final Parasite origin = graphicBoard.getBoard().getSelectedParasite();
+
                         final Parasite created = graphicBoard.getBoard().chosenParasite;
+
+
                         created.setPosition(getTileCoordonate());
                         final CreationMove creationMove = new CreationMove(graphicBoard.getBoard(), origin, created);
 
                         final List<CreationMove> moves = origin.calculateLegalMoves(graphicBoard.getBoard());
-                        if (moves.contains(creationMove))
+
+                        if (moves.contains(creationMove) && created.getCost() <= origin.getCreationPoints())
                         {
                             final MoveTransition moveTransition = currentPlayer.makeMove(creationMove);
                             if (moveTransition.getMoveStatus().isDone())
@@ -98,6 +105,20 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
             }
             System.out.println(this.getTileCoordonate());
         }
+    }
+
+    private void managingPlayingparasites(final ArrayList<Parasite> playingParasites, final Parasite parasite)
+    {
+        for (final Parasite playingParasite : playingParasites)
+        {
+            // Test if it was played already or not
+            if (playingParasite.getCreationPoints() == playingParasite.getInitialCreationPoints())
+            {
+                playingParasites.remove(playingParasite);
+                playingParasites.add(parasite);
+            }
+        }
+
     }
 
     private void clearSelectedElements()

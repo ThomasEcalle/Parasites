@@ -24,10 +24,14 @@ public final class CreationMove extends Move
     public Board execute()
     {
         final Player currentPlayer = originalParasite.getPlayer();
-        currentPlayer.setDevelopmentPoints(currentPlayer.getDevelopmentPoints() - originalParasite.getDevelopmentPointsUsed());
-        ParasitesUtils.logError("original points = " + originalParasite.getCreationPoint()
-                + " // created parasite cost = " + createdParasite.getCost());
-        originalParasite.setCreationPoint(originalParasite.getCreationPoint() - createdParasite.getCost());
+        if (!originalParasite.isAlreadyUsedInTurn())
+        {
+            currentPlayer.setDevelopmentPoints(currentPlayer.getDevelopmentPoints() - originalParasite.getDevelopmentPointsUsed());
+            originalParasite.setAlreadyUsedInTurn(true);
+        }
+
+
+        originalParasite.setCreationPoints(originalParasite.getCreationPoints() - createdParasite.getCost());
         createdParasite.setPlayer(originalParasite.getPlayer());
 
         final Board.Builder builder = new Board.Builder(board.DIMENSION, board.getPlayers());
@@ -39,8 +43,7 @@ public final class CreationMove extends Move
             }
         }
 
-        builder.setParasite(originalParasite.createParasite(this));
-        ParasitesUtils.logError("Nombre de coups legaux encore possible : " + currentPlayer.getLegalCreationMoves().size());
+        builder.setParasite(createdParasite);
         if (isMovingPossible(currentPlayer))
         {
             builder.setMoveMaker(currentPlayer);
@@ -57,7 +60,9 @@ public final class CreationMove extends Move
         if (player.getDevelopmentPoints() > 0) return true;
         for (Parasite parasite : player.getPlayingParasites())
         {
-            if (parasite.getCreationPoint() > 0)
+            ParasitesUtils.logError("parasite = " + parasite.toString());
+            ParasitesUtils.logError("points = " + parasite.getCreationPoints());
+            if (parasite.getCreationPoints() >= 2)
             {
                 return true;
             }
@@ -82,13 +87,14 @@ public final class CreationMove extends Move
                 && this.createdParasite.equals(other.createdParasite));
     }
 
-    public Parasite getOriginalParasite()
-    {
-        return originalParasite;
-    }
 
     public Parasite getCreatedParasite()
     {
         return createdParasite;
+    }
+
+    public Parasite getOriginalParasite()
+    {
+        return originalParasite;
     }
 }

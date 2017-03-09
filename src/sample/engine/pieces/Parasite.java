@@ -16,11 +16,15 @@ public abstract class Parasite
 
     protected int cost;
     protected int developmentPointsUsed;
-    protected int creationPoint;
+    protected int creationPoints;
+    protected int initialCreationPoints;
     protected int attack;
     protected int defence;
     protected String icon;
     protected Board actualBoard;
+    protected boolean alreadyUsedInTurn = false;
+
+    public final static int[] neighbors = {1, -1, Board.DIMENSION, -Board.DIMENSION};
 
 
     Parasite(final int position, final Player player, int cost, int creationPoint, int attack, int defence, String icon, int developmentPointsUsed)
@@ -28,7 +32,8 @@ public abstract class Parasite
         this.position = position;
         this.player = player;
         this.cost = cost;
-        this.creationPoint = creationPoint;
+        this.creationPoints = creationPoint;
+        this.initialCreationPoints = creationPoint;
         this.attack = attack;
         this.defence = defence;
         this.icon = icon;
@@ -44,11 +49,6 @@ public abstract class Parasite
     public abstract List<CreationMove> calculateLegalMoves(final Board board);
 
     public abstract List<Integer> getArea();
-
-    public Parasite createParasite(final CreationMove creationMove)
-    {
-        return creationMove.createdParasite;
-    }
 
     protected Parasite getParasiteObject(final KindOfParasite existingParasite, final int candidateDestination, final Player player)
     {
@@ -67,6 +67,15 @@ public abstract class Parasite
 
         }
     }
+
+    //    public boolean mustSurrender()
+    //    {
+    //
+    //        for (int neighbor : neighbors)
+    //        {
+    //
+    //        }
+    //    }
 
     public int getPosition()
     {
@@ -93,14 +102,14 @@ public abstract class Parasite
         return developmentPointsUsed;
     }
 
-    public void setCreationPoint(int creationPoint)
+    public void setCreationPoints(int creationPoints)
     {
-        this.creationPoint = creationPoint;
+        this.creationPoints = creationPoints;
     }
 
-    public int getCreationPoint()
+    public int getCreationPoints()
     {
-        return creationPoint;
+        return creationPoints;
     }
 
     public String getIcon()
@@ -111,5 +120,20 @@ public abstract class Parasite
     public void setPosition(int position)
     {
         this.position = position;
+    }
+
+    public void setAlreadyUsedInTurn(boolean alreadyUsedInTurn)
+    {
+        this.alreadyUsedInTurn = alreadyUsedInTurn;
+    }
+
+    public boolean isAlreadyUsedInTurn()
+    {
+        return alreadyUsedInTurn;
+    }
+
+    public int getInitialCreationPoints()
+    {
+        return initialCreationPoints;
     }
 }

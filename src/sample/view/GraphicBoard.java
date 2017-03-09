@@ -91,5 +91,6 @@ public final class GraphicBoard extends GridPane
                 add(tile, i, j);
             }
         }
+
     }
 }
