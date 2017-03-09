@@ -35,7 +35,7 @@ public final class Queen extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLegalMoves(final Board board)
+    public List<CreationMove> calculateLegalMoves(final Board board, final int points)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
         this.actualBoard = board;
@@ -65,13 +65,11 @@ public final class Queen extends Parasite
 
                     if (!destinationTile.isOccupied())
                     {
-
                         for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
                         {
-                            //ParasitesUtils.logError("cost : " + existingParasite.cost + " / points : " + creationPoints);
-                            if ((player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            if (points >= existingParasite.cost && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
                             {
-                                //ParasitesUtils.logError("points = " + getCreationPoints());
+
                                 legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
                             }
                         }

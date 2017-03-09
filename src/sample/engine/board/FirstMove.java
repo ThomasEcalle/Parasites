@@ -9,7 +9,6 @@ import sample.utils.ParasitesUtils;
  */
 public final class FirstMove extends Move
 {
-    public final Board board;
     public final Parasite createdParasite;
 
     public FirstMove(final Board board, final Parasite createdparasite)

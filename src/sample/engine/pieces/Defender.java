@@ -27,7 +27,7 @@ public final class Defender extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLegalMoves(Board board)
+    public List<CreationMove> calculateLegalMoves(final Board board, final int points)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
         this.actualBoard = board;
@@ -51,7 +51,7 @@ public final class Defender extends Parasite
                     {
                         for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
                         {
-                            if (existingParasite.cost <= creationPoints && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            if (existingParasite.cost <= points && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
                             {
                                 legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));
                             }

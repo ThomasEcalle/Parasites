@@ -5,6 +5,7 @@ import sample.Constants;
 import sample.engine.board.Board;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 import static sample.Constants.ANSI_RESET;
 
@@ -57,6 +58,19 @@ public class ParasitesUtils
     public static void logWarnings(final String string)
     {
         System.out.println(Constants.ANSI_YELLOW + string + ANSI_RESET);
+    }
+
+    public static void logList(List<?> list)
+    {
+        if (list != null)
+        {
+            logWarnings("List beginning");
+            for (int i = 0; i < list.size(); i++)
+            {
+                logInfos(i + ") " + list.get(i));
+            }
+            logWarnings("List beginning");
+        }
     }
 
 }

@@ -3,8 +3,12 @@ package sample.engine.pieces;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.players.Player;
+import sample.utils.ParasitesUtils;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Thomas Ecalle on 24/02/2017.
@@ -46,7 +50,14 @@ public abstract class Parasite
         return cost * developmentPointsUsed * attack - defence;
     }
 
-    public abstract List<CreationMove> calculateLegalMoves(final Board board);
+    /**
+     * This function is called in order to know which are the creation moves that a parasite can do
+     *
+     * @param board
+     * @param points
+     * @return
+     */
+    public abstract List<CreationMove> calculateLegalMoves(final Board board, final int points);
 
     public abstract List<Integer> getArea();
 
@@ -68,14 +79,48 @@ public abstract class Parasite
         }
     }
 
-    //    public boolean mustSurrender()
-    //    {
-    //
-    //        for (int neighbor : neighbors)
-    //        {
-    //
-    //        }
-    //    }
+    public Player mustSurrender()
+    {
+        Player invader = null;
+        final Map<Player, Integer> neighborsPower = new HashMap<>();
+
+        for (int neighbor : neighbors)
+        {
+            if (ParasitesUtils.isValidTile(getPosition() + neighbor))
+            {
+                if (isFirstRowExclusion(getPosition(), neighbor)
+                        || isLastRowExclusion(getPosition(), neighbor))
+                {
+                    continue;
+                }
+
+                if (actualBoard != null && actualBoard.getTile(getPosition() + neighbor).getParasite() != null)
+                {
+                    final Parasite closeParasite = actualBoard.getTile(getPosition() + neighbor).getParasite();
+                    final Player closePlayer = closeParasite.getPlayer();
+                    if (!closePlayer.equals(this.player))
+                    {
+                        neighborsPower.put(closePlayer, closeParasite.getAttack());
+                    }
+                    final Iterator it = neighborsPower.entrySet().iterator();
+                    while (it.hasNext())
+                    {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        if (((Integer) pair.getValue()) >= this.defence)
+                        {
+                            invader = (Player) pair.getKey();
+                        }
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+                }
+
+            }
+
+        }
+
+
+        return invader;
+    }
 
     public int getPosition()
     {
@@ -135,5 +180,20 @@ public abstract class Parasite
     public int getInitialCreationPoints()
     {
         return initialCreationPoints;
+    }
+
+    private boolean isFirstRowExclusion(final int currentPosition, final int candidatePosition)
+    {
+        return (Board.firstRow[currentPosition] && (candidatePosition == -1));
+    }
+
+    private boolean isLastRowExclusion(final int currentPosition, final int candidatePosition)
+    {
+        return (Board.lastRow[currentPosition] && (candidatePosition == 1));
+    }
+
+    public int getAttack()
+    {
+        return attack;
     }
 }

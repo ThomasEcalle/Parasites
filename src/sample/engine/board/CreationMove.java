@@ -9,7 +9,6 @@ import sample.utils.ParasitesUtils;
  */
 public final class CreationMove extends Move
 {
-    public final Board board;
     public final Parasite originalParasite;
     public final Parasite createdParasite;
 
@@ -60,8 +59,6 @@ public final class CreationMove extends Move
         if (player.getDevelopmentPoints() > 0) return true;
         for (Parasite parasite : player.getPlayingParasites())
         {
-            ParasitesUtils.logError("parasite = " + parasite.toString());
-            ParasitesUtils.logError("points = " + parasite.getCreationPoints());
             if (parasite.getCreationPoints() >= 2)
             {
                 return true;

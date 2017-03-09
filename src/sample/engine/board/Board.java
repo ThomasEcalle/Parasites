@@ -59,7 +59,7 @@ public final class Board
     @Override
     public String toString()
     {
-        //        final StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         //        for (int i = 0; i < DIMENSION; i++)
         //        {
         //            for (int j = 0; j < DIMENSION; j++)
@@ -68,8 +68,7 @@ public final class Board
         //            }
         //            builder.append("\n");
         //        }
-        //        return builder.toString();
-        return null;
+        return builder.toString();
     }
 
     public Player getCurrentPlayer()
@@ -79,17 +78,36 @@ public final class Board
 
     private void calculateEachPlayerParasites(List<Player> players)
     {
+        boolean foundAnInvasion = false;
+        Parasite looser = null;
+        Player winner = null;
+
         for (Player player : players)
         {
             final List<Parasite> parasitesOnBoard = new ArrayList<>();
+
             for (Tile tile : gameBoard)
             {
                 if (tile.isOccupied() && tile.getParasite().getPlayer().equals(player))
                 {
+                    final Player invader = tile.getParasite().mustSurrender();
+                    if (invader != null)
+                    {
+                        ParasitesUtils.logInfos(invader.getPseudo() + " is going to invade parasite on tile " + tile.getTileCoordonate());
+                        foundAnInvasion = true;
+                        looser = tile.getParasite();
+                        winner = invader;
+                    }
+
                     parasitesOnBoard.add(tile.getParasite());
                 }
             }
             player.setParasites(parasitesOnBoard);
+        }
+        if (foundAnInvasion)
+        {
+            final InvasionMove invasionMove = new InvasionMove(this, looser, winner);
+            invasionMove.execute();
         }
     }
 
@@ -100,7 +118,7 @@ public final class Board
             final List<CreationMove> legalCreationMoves = new ArrayList<>();
             for (Parasite parasite : player.getParasites())
             {
-                legalCreationMoves.addAll(parasite.calculateLegalMoves(this));
+                legalCreationMoves.addAll(parasite.calculateLegalMoves(this, parasite.getCreationPoints()));
             }
             player.setLegalCreationMoves(legalCreationMoves);
         }
@@ -163,8 +181,19 @@ public final class Board
             playersCounter = 0;
         }
         final Player player = players.get(playersCounter);
-
+        creationPointsDistribution();
         return player;
+    }
+
+    private void creationPointsDistribution()
+    {
+        for (Player player : players)
+        {
+            for (Parasite parasite : player.getParasites())
+            {
+                parasite.setCreationPoints(parasite.getInitialCreationPoints());
+            }
+        }
     }
 
     /**

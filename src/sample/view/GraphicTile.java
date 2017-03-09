@@ -84,13 +84,12 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
 
                         final Parasite created = graphicBoard.getBoard().chosenParasite;
 
-
                         created.setPosition(getTileCoordonate());
                         final CreationMove creationMove = new CreationMove(graphicBoard.getBoard(), origin, created);
 
-                        final List<CreationMove> moves = origin.calculateLegalMoves(graphicBoard.getBoard());
+                        final List<CreationMove> moves = origin.calculateLegalMoves(graphicBoard.getBoard(), origin.getCreationPoints());
 
-                        if (moves.contains(creationMove) && created.getCost() <= origin.getCreationPoints())
+                        if (moves.contains(creationMove) && origin.getCreationPoints() >= created.getCost())
                         {
                             final MoveTransition moveTransition = currentPlayer.makeMove(creationMove);
                             if (moveTransition.getMoveStatus().isDone())
@@ -106,6 +105,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
             System.out.println(this.getTileCoordonate());
         }
     }
+
 
     private void managingPlayingparasites(final ArrayList<Parasite> playingParasites, final Parasite parasite)
     {

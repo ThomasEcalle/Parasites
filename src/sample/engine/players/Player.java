@@ -39,7 +39,6 @@ public final class Player
     @Override
     public boolean equals(Object obj)
     {
-        if (obj == null) return false;
         if (!(obj instanceof Player)) return false;
         final Player other = (Player) obj;
         return this.pseudo.equals(other.pseudo);
@@ -67,7 +66,6 @@ public final class Player
     {
         if (move instanceof FirstMove)
         {
-            ParasitesUtils.logInfos("avant execute firstmove");
             final Board transitionBoard = move.execute();
 
             return new MoveTransition(transitionBoard, move, MoveStatus.DONE);

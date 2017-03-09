@@ -8,6 +8,7 @@ import sample.engine.pieces.Parasite;
 public abstract class Move
 {
     protected Parasite createdParasite;
+    protected Board board;
 
     public abstract Board execute();
 
