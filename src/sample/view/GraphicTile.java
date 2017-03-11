@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.FirstMove;
 import sample.engine.board.Tile;
@@ -84,11 +85,11 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                         graphicBoard.showPossibilities(selectedParasiteMoves);
                     } else
                     {
-                        if (graphicBoard.getBoard().chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
+                        if (Board.chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
                         {
                             final Parasite origin = graphicBoard.getBoard().getSelectedParasite();
 
-                            final Parasite created = graphicBoard.getBoard().chosenParasite;
+                            final Parasite created = Board.chosenParasite;
 
                             created.setPosition(getTileCoordonate());
                             final CreationMove creationMove = new CreationMove(graphicBoard.getBoard(), origin, created);
@@ -131,6 +132,6 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
     private void clearSelectedElements()
     {
         graphicBoard.getBoard().setSelectedParasite(null);
-        graphicBoard.getBoard().chosenParasite = null;
+        Board.chosenParasite = null;
     }
 }
