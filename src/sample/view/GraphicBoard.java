@@ -15,15 +15,39 @@ public final class GraphicBoard extends GridPane
 {
     private Board board;
 
-    public GraphicBoard(final int dimension, Board board)
+    public GraphicBoard(final Board board)
     {
         this.board = board;
         int counter = 0;
-        for (int i = 0; i < dimension; i++)
+
+
+        // in case of a board with an odd number of tiles, in order to draw Queen creation's zone
+        boolean isQueenCreationTurn = board.getCurrentPlayer().isFirstMove();
+        Color color = Color.WHITE;
+        boolean isTileLocked = false;
+
+        for (int i = 0; i < board.DIMENSION; i++)
         {
-            for (int j = 0; j < dimension; j++)
+            for (int j = 0; j < board.DIMENSION; j++)
             {
-                final GraphicTile tile = new GraphicTile(32, 32, Color.WHITE, counter, null, this);
+                //This condition is about the Queen creation Zone
+                if (isQueenCreationTurn && !mustTileBeLocked(i, j))
+                {
+                    isTileLocked = false;
+                    color = Color.RED;
+                } else
+                {
+                    if (isQueenCreationTurn)
+                    {
+                        isTileLocked = true;
+                    } else
+                    {
+                        isTileLocked = false;
+                    }
+
+                    color = Color.WHITE;
+                }
+                final GraphicTile tile = new GraphicTile(32, 32, color, counter, null, this, isTileLocked);
                 tile.setIcon(board);
                 counter++;
                 tile.setStroke(Color.BLACK);
@@ -69,11 +93,33 @@ public final class GraphicBoard extends GridPane
         getChildren().clear();
         System.out.println(board);
         int counter = 0;
+
+        boolean isQueenCreationTurn = board.getCurrentPlayer().isFirstMove();
+        Color color = Color.WHITE;
+        boolean isTileLocked = false;
+
+
         for (int i = 0; i < board.DIMENSION; i++)
         {
             for (int j = 0; j < board.DIMENSION; j++)
             {
-                final GraphicTile tile = new GraphicTile(32, 32, Color.WHITE, counter, board.getTile(counter).getParasite(), this);
+                //This condition is about the Queen creation Zone
+                if (isQueenCreationTurn && !mustTileBeLocked(i, j))
+                {
+                    isTileLocked = false;
+                    color = Color.RED;
+                } else
+                {
+                    if (isQueenCreationTurn)
+                    {
+                        isTileLocked = true;
+                    } else
+                    {
+                        isTileLocked = false;
+                    }
+                    color = Color.WHITE;
+                }
+                final GraphicTile tile = new GraphicTile(32, 32, color, counter, board.getTile(counter).getParasite(), this, isTileLocked);
 
                 tile.setIcon(board);
 
@@ -92,5 +138,12 @@ public final class GraphicBoard extends GridPane
             }
         }
 
+    }
+
+    private boolean mustTileBeLocked(final int i, final int j)
+    {
+        final int oddDimensionCase = board.DIMENSION % 3;
+        return (i >= board.DIMENSION / 3 && i < ((board.DIMENSION / 3) * 2) + oddDimensionCase
+                && j >= board.DIMENSION / 3 && j < ((board.DIMENSION / 3) * 2) + oddDimensionCase);
     }
 }

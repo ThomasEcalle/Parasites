@@ -6,7 +6,6 @@ import sample.engine.board.CreationMove;
 import sample.engine.board.FirstMove;
 import sample.engine.board.Move;
 import sample.engine.pieces.Parasite;
-import sample.utils.ParasitesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,10 @@ public final class Player
     private List<Parasite> parasites;
     private List<CreationMove> legalCreationMoves;
     private ArrayList<Parasite> playingParasites;
+    private Parasite queen;
     private boolean isFirstMove = true;
+
+    private boolean stillPlaying;
 
 
     public Player(final String pseudo, final Color color)
@@ -33,6 +35,7 @@ public final class Player
         this.pseudo = pseudo;
         this.color = color;
         this.playingParasites = new ArrayList<>();
+        this.stillPlaying = true;
         developmentPoints = 2;
     }
 
@@ -158,5 +161,25 @@ public final class Player
     public String getPseudo()
     {
         return pseudo;
+    }
+
+    public Parasite getQueen()
+    {
+        return queen;
+    }
+
+    public void setQueen(Parasite queen)
+    {
+        this.queen = queen;
+    }
+
+    public boolean isStillPlaying()
+    {
+        return stillPlaying;
+    }
+
+    public void setStillPlaying(boolean stillPlaying)
+    {
+        this.stillPlaying = stillPlaying;
     }
 }

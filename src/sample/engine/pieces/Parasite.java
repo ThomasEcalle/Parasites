@@ -5,10 +5,7 @@ import sample.engine.board.CreationMove;
 import sample.engine.players.Player;
 import sample.utils.ParasitesUtils;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Thomas Ecalle on 24/02/2017.
@@ -54,10 +51,9 @@ public abstract class Parasite
      * This function is called in order to know which are the creation moves that a parasite can do
      *
      * @param board
-     * @param points
      * @return
      */
-    public abstract List<CreationMove> calculateLegalMoves(final Board board, final int points);
+    public abstract List<CreationMove> calculateLegalMoves(final Board board);
 
     public abstract List<Integer> getArea();
 
@@ -81,9 +77,51 @@ public abstract class Parasite
 
     public Player mustSurrender()
     {
-        Player invader = null;
-        final Map<Player, Integer> neighborsPower = new HashMap<>();
+        if (this instanceof Colony)
+        {
+            int possibleOpponents = 0;
+            int realNumberOfOpponents = 0;
+            final HashSet<Player> opponents = new HashSet<>();
 
+            //ParasitesUtils.logError("//// Une colonie " + getPosition() + " regarde ses agresseurs :");
+            for (int neighbor : neighbors)
+            {
+                if (ParasitesUtils.isValidTile(getPosition() + neighbor))
+                {
+                    if (isFirstRowExclusion(getPosition(), neighbor)
+                            || isLastRowExclusion(getPosition(), neighbor))
+                    {
+                        continue;
+                    }
+                    possibleOpponents++;
+
+                    final Parasite opponent = actualBoard.getTile(getPosition() + neighbor).getParasite();
+                    if (opponent != null)
+                    {
+                        realNumberOfOpponents++;
+                        opponents.add(opponent.getPlayer());
+
+                    } else
+                    {
+                        ParasitesUtils.logError("Cette case ne comporte pas d'agresseur");
+                        break;
+                    }
+                }
+
+            }
+            //Condition : if there is only one opponent surrounding this colony
+            if (possibleOpponents == realNumberOfOpponents && opponents.size() == 1)
+            {
+                Player invader = null;
+                for (Iterator<Player> it = opponents.iterator(); it.hasNext(); )
+                {
+                    invader = it.next();
+                }
+                return invader;
+            }
+        }
+        Player invader = null;
+        Map<Player, Integer> neighborsPower = new HashMap<>();
         for (int neighbor : neighbors)
         {
             if (ParasitesUtils.isValidTile(getPosition() + neighbor))
@@ -100,22 +138,31 @@ public abstract class Parasite
                     final Player closePlayer = closeParasite.getPlayer();
                     if (!closePlayer.equals(this.player))
                     {
-                        neighborsPower.put(closePlayer, closeParasite.getAttack());
-                    }
-                    final Iterator it = neighborsPower.entrySet().iterator();
-                    while (it.hasNext())
-                    {
-                        Map.Entry pair = (Map.Entry) it.next();
-                        if (((Integer) pair.getValue()) >= this.defence)
+                        if (neighborsPower.containsKey(closePlayer))
                         {
-                            invader = (Player) pair.getKey();
+                            neighborsPower.put(closePlayer, neighborsPower.get(closePlayer) + closeParasite.getAttack());
+                        } else
+                        {
+                            neighborsPower.put(closePlayer, closeParasite.getAttack());
                         }
-                        it.remove(); // avoids a ConcurrentModificationException
-                    }
-                }
 
+                    }
+
+                }
             }
 
+        }
+        final Iterator it = neighborsPower.entrySet().iterator();
+        while (it.hasNext())
+        {
+
+            Map.Entry pair = (Map.Entry) it.next();
+            ParasitesUtils.logInfos("key : " + pair.getKey() + "/ value : " + pair.getValue());
+            if (((Integer) pair.getValue()) >= this.defence)
+            {
+                invader = (Player) pair.getKey();
+            }
+            it.remove(); // avoids a ConcurrentModificationException
         }
 
 

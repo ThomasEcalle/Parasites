@@ -30,7 +30,7 @@ public class Main extends Application
     private Scene scene;
     private AnimatedZoomOperator zoomOperator;
     private Board board;
-    public final static int DIMENSION = 30;
+    public final static int DIMENSION = 15;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -44,6 +44,7 @@ public class Main extends Application
         fakeList.add(new Player("thomas", Color.YELLOW));
         fakeList.add(new Player("jean", Color.GREEN));
         fakeList.add(new Player("robin", Color.RED));
+
         this.board = Board.createInitialBoard(fakeList.get(0), DIMENSION, fakeList);
 
         initGrid();
@@ -67,7 +68,7 @@ public class Main extends Application
 
         //Making grid
         int counter = 0;
-        graphicBoard = new GraphicBoard(DIMENSION, board);
+        graphicBoard = new GraphicBoard(board);
 
 
         graphicBoard.setAlignment(Pos.CENTER);

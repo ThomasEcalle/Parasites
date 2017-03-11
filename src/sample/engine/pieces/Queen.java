@@ -28,6 +28,22 @@ public final class Queen extends Parasite
 
     };
 
+    //    public final static int[] OTHER_QUEEN_LOCKED_PLACEMENT = {
+    //            1, 2, 3, 4, 5, -1, -2, -3, -4, -5,                                                                          //UP AND DOWN
+    //            Board.DIMENSION, Board.DIMENSION * 2, Board.DIMENSION * 3, Board.DIMENSION * 4, Board.DIMENSION * 5,        //RIGHT
+    //            -Board.DIMENSION, -Board.DIMENSION * 2, -Board.DIMENSION * 3, -Board.DIMENSION * 4, -Board.DIMENSION * 5,    //LEFT
+    //
+    //            Board.DIMENSION + 1, Board.DIMENSION + 2, Board.DIMENSION + 3, Board.DIMENSION + 4, Board.DIMENSION - 1, Board.DIMENSION - 2, Board.DIMENSION - 3, Board.DIMENSION - 4,
+    //            Board.DIMENSION * 2 + 1, Board.DIMENSION * 2 + 2, Board.DIMENSION * 2 + 3, Board.DIMENSION * 2 - 1, Board.DIMENSION * 2 - 2, Board.DIMENSION * 2 - 3,
+    //            Board.DIMENSION * 3 + 1, Board.DIMENSION * 3 + 2, Board.DIMENSION * 3 - 1, Board.DIMENSION * 3 - 2,
+    //            Board.DIMENSION * 4 + 1, Board.DIMENSION * 3 - 1,
+    //
+    //            -Board.DIMENSION + 1, -Board.DIMENSION + 2, -Board.DIMENSION + 3, -Board.DIMENSION + 4, -Board.DIMENSION - 1, -Board.DIMENSION - 2, -Board.DIMENSION - 3, -Board.DIMENSION - 4,
+    //            -Board.DIMENSION * 2 + 1, -Board.DIMENSION * 2 + 2, -Board.DIMENSION * 2 + 3, -Board.DIMENSION * 2 - 1, -Board.DIMENSION * 2 - 2, -Board.DIMENSION * 2 - 3,
+    //            -Board.DIMENSION * 3 + 1, -Board.DIMENSION * 3 + 2, --Board.DIMENSION * 3 - 1, -Board.DIMENSION * 3 - 2,
+    //            -Board.DIMENSION * 4 + 1, -Board.DIMENSION * 3 - 1
+    //    };
+
 
     public Queen(int position, Player player)
     {
@@ -35,7 +51,7 @@ public final class Queen extends Parasite
     }
 
     @Override
-    public List<CreationMove> calculateLegalMoves(final Board board, final int points)
+    public List<CreationMove> calculateLegalMoves(final Board board)
     {
         final List<CreationMove> legalCreationMoves = new ArrayList<>();
         this.actualBoard = board;
@@ -67,7 +83,7 @@ public final class Queen extends Parasite
                     {
                         for (KindOfParasite existingParasite : board.EXISTING_PARASITES)
                         {
-                            if (points >= existingParasite.cost && (player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
+                            if ((player.getDevelopmentPoints() >= developmentPointsUsed) || player.getPlayingParasites().contains(this))
                             {
 
                                 legalCreationMoves.add(new CreationMove(board, this, getParasiteObject(existingParasite, candidateDestination, player)));

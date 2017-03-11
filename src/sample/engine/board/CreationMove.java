@@ -1,6 +1,8 @@
 package sample.engine.board;
 
+import sample.engine.pieces.Colony;
 import sample.engine.pieces.Parasite;
+import sample.engine.pieces.Queen;
 import sample.engine.players.Player;
 import sample.utils.ParasitesUtils;
 
@@ -22,7 +24,9 @@ public final class CreationMove extends Move
     @Override
     public Board execute()
     {
+
         final Player currentPlayer = originalParasite.getPlayer();
+
         if (!originalParasite.isAlreadyUsedInTurn())
         {
             currentPlayer.setDevelopmentPoints(currentPlayer.getDevelopmentPoints() - originalParasite.getDevelopmentPointsUsed());
@@ -33,17 +37,90 @@ public final class CreationMove extends Move
         originalParasite.setCreationPoints(originalParasite.getCreationPoints() - createdParasite.getCost());
         createdParasite.setPlayer(originalParasite.getPlayer());
 
+        currentPlayer.getParasites().add(createdParasite);
+        board.getTile(createdParasite.getPosition()).setParasite(createdParasite);
+
+        final boolean isNotLastTurn = isMovingPossible(currentPlayer);
         final Board.Builder builder = new Board.Builder(board.DIMENSION, board.getPlayers());
+
+        builder.setParasite(createdParasite);
         for (Player player : board.getPlayers())
         {
-            for (Parasite parasiteOfPlayer : player.getParasites())
+            Player queenKiller = null;
+
+            if (isNotLastTurn == false)
             {
-                builder.setParasite(parasiteOfPlayer);
+                // We, first of all, verify that player's queen is not killed at this turn, which is a special turn
+                if (player.getQueen().mustSurrender() != null)
+                {
+                    ParasitesUtils.logError("QUEEN of " + player.getPseudo() + " is going to be killed by " + player.getQueen().mustSurrender().getPseudo());
+                    queenKiller = player.getQueen().mustSurrender();
+
+                    player.setStillPlaying(false);
+                    Colony colony = new Colony(player.getQueen().getPosition(), queenKiller);
+                    board.getTile(player.getQueen().getPosition()).setParasite(colony);
+
+                    for (Parasite parasite : player.getParasites())
+                    {
+                        parasite.setPlayer(queenKiller);
+                        builder.setParasite(parasite);
+                    }
+
+                    builder.setParasite(colony);
+                    continue;
+                }
+
+            }
+
+            if (!player.equals(currentPlayer))
+            {
+
+                // then, for a normal turn, we look for other players's parasites
+                for (Parasite parasiteOfPlayer : player.getParasites())
+                {
+                    if (isNotLastTurn == false)
+                    {
+
+                        ParasitesUtils.logWarnings("test de surrender " + parasiteOfPlayer.getPosition());
+                        Player invader = parasiteOfPlayer.mustSurrender();
+                        if (invader != null)
+                        {
+
+                            Colony colony = new Colony(parasiteOfPlayer.getPosition(), invader);
+                            board.getTile(parasiteOfPlayer.getPosition()).setParasite(colony);
+                            parasiteOfPlayer = colony;
+                        }
+                        parasiteOfPlayer.setCreationPoints(parasiteOfPlayer.getInitialCreationPoints());
+                    }
+                    builder.setParasite(parasiteOfPlayer);
+                }
             }
         }
 
-        builder.setParasite(createdParasite);
-        if (isMovingPossible(currentPlayer))
+        for (Parasite parasiteOfPlayer : currentPlayer.getParasites())
+        {
+            if (isNotLastTurn == false)
+            {
+                final Player invader = parasiteOfPlayer.mustSurrender();
+                if (invader != null)
+                {
+                    ParasitesUtils.logError("found a parasite to kill, it is a parasite of " + currentPlayer.getPseudo());
+
+                    if (parasiteOfPlayer instanceof Queen)
+                    {
+                        currentPlayer.setStillPlaying(false);
+                    }
+
+                    final Colony colony = new Colony(parasiteOfPlayer.getPosition(), invader);
+                    parasiteOfPlayer = colony;
+                }
+                parasiteOfPlayer.setCreationPoints(parasiteOfPlayer.getInitialCreationPoints());
+            }
+            builder.setParasite(parasiteOfPlayer);
+        }
+
+
+        if (isNotLastTurn)
         {
             builder.setMoveMaker(currentPlayer);
         } else
@@ -59,12 +136,11 @@ public final class CreationMove extends Move
         if (player.getDevelopmentPoints() > 0) return true;
         for (Parasite parasite : player.getPlayingParasites())
         {
-            if (parasite.getCreationPoints() >= 2)
+            if (parasite.getCreationPoints() >= 2 && parasite.calculateLegalMoves(board).size() > 0)
             {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -94,4 +170,5 @@ public final class CreationMove extends Move
     {
         return originalParasite;
     }
+
 }

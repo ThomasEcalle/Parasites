@@ -54,20 +54,21 @@ public final class Board
         calculateEachPlayerParasites(players);
         calculateLegalMoves(players);
         initExceptionArrays();
+
     }
 
     @Override
     public String toString()
     {
         final StringBuilder builder = new StringBuilder();
-        //        for (int i = 0; i < DIMENSION; i++)
-        //        {
-        //            for (int j = 0; j < DIMENSION; j++)
-        //            {
-        //                builder.append(String.format("%3s", gameBoard.get(i + j * DIMENSION).toString()));
-        //            }
-        //            builder.append("\n");
-        //        }
+        for (int i = 0; i < DIMENSION; i++)
+        {
+            for (int j = 0; j < DIMENSION; j++)
+            {
+                builder.append(String.format("%3s", gameBoard.get(i + j * DIMENSION).toString()));
+            }
+            builder.append("\n");
+        }
         return builder.toString();
     }
 
@@ -78,10 +79,6 @@ public final class Board
 
     private void calculateEachPlayerParasites(List<Player> players)
     {
-        boolean foundAnInvasion = false;
-        Parasite looser = null;
-        Player winner = null;
-
         for (Player player : players)
         {
             final List<Parasite> parasitesOnBoard = new ArrayList<>();
@@ -90,24 +87,10 @@ public final class Board
             {
                 if (tile.isOccupied() && tile.getParasite().getPlayer().equals(player))
                 {
-                    final Player invader = tile.getParasite().mustSurrender();
-                    if (invader != null)
-                    {
-                        ParasitesUtils.logInfos(invader.getPseudo() + " is going to invade parasite on tile " + tile.getTileCoordonate());
-                        foundAnInvasion = true;
-                        looser = tile.getParasite();
-                        winner = invader;
-                    }
-
                     parasitesOnBoard.add(tile.getParasite());
                 }
             }
             player.setParasites(parasitesOnBoard);
-        }
-        if (foundAnInvasion)
-        {
-            final InvasionMove invasionMove = new InvasionMove(this, looser, winner);
-            invasionMove.execute();
         }
     }
 
@@ -118,7 +101,7 @@ public final class Board
             final List<CreationMove> legalCreationMoves = new ArrayList<>();
             for (Parasite parasite : player.getParasites())
             {
-                legalCreationMoves.addAll(parasite.calculateLegalMoves(this, parasite.getCreationPoints()));
+                legalCreationMoves.addAll(parasite.calculateLegalMoves(this));
             }
             player.setLegalCreationMoves(legalCreationMoves);
         }
@@ -134,12 +117,11 @@ public final class Board
         return builder.build();
     }
 
-    private List<Tile> createGameBoard(Builder builder)
+    private List<Tile> createGameBoard(final Builder builder)
     {
         final List<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < ((int) Math.pow(DIMENSION, 2)); i++)
         {
-
             tiles.add(new Tile(32, 32, Color.TRANSPARENT, i, builder.boardConfig.get(i)));
         }
         return tiles;
@@ -176,24 +158,23 @@ public final class Board
         players.get(playersCounter).setDevelopmentPoints(2);
         players.get(playersCounter).clearPlayingParasites();
         playersCounter++;
-        if (playersCounter == players.size())
+
+
+        if (playersCounter >= players.size())
         {
             playersCounter = 0;
         }
-        final Player player = players.get(playersCounter);
-        creationPointsDistribution();
-        return player;
-    }
-
-    private void creationPointsDistribution()
-    {
-        for (Player player : players)
+        if (!players.get(playersCounter).isStillPlaying())
         {
-            for (Parasite parasite : player.getParasites())
-            {
-                parasite.setCreationPoints(parasite.getInitialCreationPoints());
-            }
+            return getNextPlayer();
         }
+        else
+        {
+            final Player player = players.get(playersCounter);
+
+            return player;
+        }
+
     }
 
     /**
