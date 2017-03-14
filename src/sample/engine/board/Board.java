@@ -31,6 +31,12 @@ public final class Board
     public static boolean[] firstRow;
     public static boolean[] secondRow;
     public static boolean[] thirdRow;
+    public static boolean[] fourthRow;
+    public static boolean[] fifthRow;
+
+    public static boolean[] beforeBeforeLastRowPlusTwo;
+    public static boolean[] beforeBeforeLastRowPlusOne;
+
     public static boolean[] beforeBeforeLastRow;
     public static boolean[] beforeLastRow;
     public static boolean[] lastRow;
@@ -137,6 +143,11 @@ public final class Board
         firstRow = initRow(0);
         secondRow = initRow(1);
         thirdRow = initRow(2);
+        fourthRow = initRow(3);
+        fifthRow = initRow(4);
+
+        beforeBeforeLastRowPlusTwo = initRow(Board.DIMENSION - 5);
+        beforeBeforeLastRowPlusOne = initRow(Board.DIMENSION - 4);
         beforeBeforeLastRow = initRow(Board.DIMENSION - 3);
         beforeLastRow = initRow(Board.DIMENSION - 2);
         lastRow = initRow(Board.DIMENSION - 1);
@@ -167,8 +178,7 @@ public final class Board
         if (!players.get(playersCounter).isStillPlaying())
         {
             return getNextPlayer();
-        }
-        else
+        } else
         {
             final Player player = players.get(playersCounter);
 
@@ -207,6 +217,11 @@ public final class Board
         }
         while (count < Board.DIMENSION);
         return row;
+    }
+
+    public void passTurn()
+    {
+
     }
 
     public static class Builder

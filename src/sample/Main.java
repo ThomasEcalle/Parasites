@@ -67,7 +67,6 @@ public class Main extends Application
         }
 
         //Making grid
-        int counter = 0;
         graphicBoard = new GraphicBoard(board);
 
 
@@ -97,17 +96,19 @@ public class Main extends Application
             public void handle(KeyEvent keyEvent)
             {
                 System.out.println(keyEvent.getCode());
-                switch (keyEvent.getText())
+                switch (keyEvent.getCode())
                 {
-                    case "b":
+                    case B:
                         board.chosenParasite = new Builder(-1, board.getCurrentPlayer());
                         break;
-                    case "w":
+                    case W:
                         board.chosenParasite = new Warrior(-1, board.getCurrentPlayer());
                         break;
-                    case "d":
+                    case D:
                         board.chosenParasite = new Defender(-1, board.getCurrentPlayer());
                         break;
+                    case SPACE:
+                        board.passTurn();
                     default:
                         board.chosenParasite = null;
                         break;

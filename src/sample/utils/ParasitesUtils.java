@@ -73,4 +73,20 @@ public class ParasitesUtils
         }
     }
 
+    public static void logArray(boolean[] array)
+    {
+        int counter = 0;
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < Board.DIMENSION; i++)
+        {
+            for (int j = 0; j < Board.DIMENSION; j++)
+            {
+                builder.append(String.format("%7s", array[counter]));
+                counter++;
+            }
+            builder.append("\n");
+        }
+       ParasitesUtils.logError(builder.toString());
+    }
+
 }

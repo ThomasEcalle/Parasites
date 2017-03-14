@@ -6,6 +6,7 @@ import sample.engine.board.CreationMove;
 import sample.engine.board.FirstMove;
 import sample.engine.board.Move;
 import sample.engine.pieces.Parasite;
+import sample.engine.pieces.Queen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public final class Player
     private List<Parasite> parasites;
     private List<CreationMove> legalCreationMoves;
     private ArrayList<Parasite> playingParasites;
-    private Parasite queen;
+    private Queen queen;
     private boolean isFirstMove = true;
 
     private boolean stillPlaying;
@@ -163,12 +164,12 @@ public final class Player
         return pseudo;
     }
 
-    public Parasite getQueen()
+    public Queen getQueen()
     {
         return queen;
     }
 
-    public void setQueen(Parasite queen)
+    public void setQueen(Queen queen)
     {
         this.queen = queen;
     }

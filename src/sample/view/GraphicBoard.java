@@ -5,6 +5,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import sample.engine.board.Board;
 import sample.engine.board.Tile;
+import sample.engine.players.Player;
 
 import java.util.List;
 
@@ -77,6 +78,31 @@ public final class GraphicBoard extends GridPane
         }
     }
 
+    /**
+     * Show the emplacement where players can't put their own queen
+     */
+    public void showQueensWalls()
+    {
+        int counter = 0;
+        for (final Player player : board.getPlayers())
+        {
+            if (player.isFirstMove())
+            {
+                counter++;
+            }
+            for (final int position : player.getQueen().getQueensWall())
+            {
+                ((Tile) getChildren().get(position)).setFill(Color.YELLOW);
+            }
+        }
+
+        // it would mean that the last player just placed it's queen
+        if (counter == 0)
+        {
+            hidePossibilities();
+        }
+    }
+
     public void hidePossibilities()
     {
         for (Node node : getChildren())
@@ -146,4 +172,6 @@ public final class GraphicBoard extends GridPane
         return (i >= board.DIMENSION / 3 && i < ((board.DIMENSION / 3) * 2) + oddDimensionCase
                 && j >= board.DIMENSION / 3 && j < ((board.DIMENSION / 3) * 2) + oddDimensionCase);
     }
+
+
 }

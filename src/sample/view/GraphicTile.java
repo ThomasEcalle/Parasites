@@ -38,12 +38,13 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
     @Override
     public void handle(Event event)
     {
-        if (!graphicBoard.getBoard().getCurrentPlayer().isFirstMove() || (!isTileLocked && !isOccupied()))
+        final Player currentPlayer = graphicBoard.getBoard().getCurrentPlayer();
+        final Queen queen = new Queen(this.getTileCoordonate(), currentPlayer);
+        if (!graphicBoard.getBoard().getCurrentPlayer().isFirstMove() || (!isTileLocked && (!isOccupied() && !queen.isClosedToAnotherQueen(graphicBoard.getBoard()))))
         {
+
             if (MouseEvent.MOUSE_CLICKED == event.getEventType() && (!isTileLocked))
             {
-
-                final Player currentPlayer = graphicBoard.getBoard().getCurrentPlayer();
 
                 ParasitesUtils.logWarnings("Current player is " + currentPlayer.toString());
                 graphicBoard.hidePossibilities();
@@ -51,7 +52,6 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                 {
                     if (!isOccupied())
                     {
-                        final Queen queen = new Queen(this.getTileCoordonate(), graphicBoard.getBoard().getCurrentPlayer());
                         currentPlayer.setQueen(queen);
                         final FirstMove firstMove = new FirstMove(graphicBoard.getBoard(), queen);
                         final MoveTransition moveTransition = currentPlayer.makeMove(firstMove);
@@ -62,6 +62,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                             graphicBoard.drawBoard();
                             clearSelectedElements();
                         }
+                        graphicBoard.showQueensWalls();
 
                     }
                 } else
