@@ -32,13 +32,13 @@ public final class GraphicBoard extends GridPane
             for (int j = 0; j < board.DIMENSION; j++)
             {
                 //This condition is about the Queen creation Zone
-                if (isQueenCreationTurn && !mustTileBeLocked(i, j))
+                if (isQueenCreationTurn && !mustTileBeLocked(i, j) && Board.DIMENSION < 30)
                 {
                     isTileLocked = false;
                     color = Color.RED;
                 } else
                 {
-                    if (isQueenCreationTurn)
+                    if (isQueenCreationTurn && Board.DIMENSION < 30)
                     {
                         isTileLocked = true;
                     } else
@@ -130,13 +130,13 @@ public final class GraphicBoard extends GridPane
             for (int j = 0; j < board.DIMENSION; j++)
             {
                 //This condition is about the Queen creation Zone
-                if (isQueenCreationTurn && !mustTileBeLocked(i, j))
+                if (isQueenCreationTurn && !mustTileBeLocked(i, j) && Board.DIMENSION < 30)
                 {
                     isTileLocked = false;
                     color = Color.RED;
                 } else
                 {
-                    if (isQueenCreationTurn)
+                    if (isQueenCreationTurn && Board.DIMENSION < 30)
                     {
                         isTileLocked = true;
                     } else

@@ -30,7 +30,7 @@ public class Main extends Application
     private Scene scene;
     private AnimatedZoomOperator zoomOperator;
     private Board board;
-    public final static int DIMENSION = 15;
+    public final static int DIMENSION = 30;
 
     @Override
     public void start(Stage primaryStage) throws Exception
