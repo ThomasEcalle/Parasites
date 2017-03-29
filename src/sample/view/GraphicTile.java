@@ -67,12 +67,14 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                     }
                 } else
                 {
+
                     if (isOccupied())
                     {
                         managingPlayingparasites(currentPlayer.getPlayingParasites(), getParasite());
                         if (getParasite().getPlayer().equals(currentPlayer)
                                 && (currentPlayer.getPlayingParasites().size() < 2 || currentPlayer.getPlayingParasites().contains(getParasite())))
                         {
+
 
                             graphicBoard.getBoard().setSelectedParasite(getParasite());
                             if (!currentPlayer.getPlayingParasites().contains(getParasite()) && currentPlayer.getDevelopmentPoints() > 0)
@@ -88,6 +90,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                     {
                         if (Board.chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
                         {
+                            ParasitesUtils.logError("mamamia");
                             final Parasite origin = graphicBoard.getBoard().getSelectedParasite();
 
                             final Parasite created = Board.chosenParasite;

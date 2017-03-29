@@ -3,9 +3,13 @@ package sample.view;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import sample.Constants;
 import sample.engine.board.Board;
+import sample.engine.board.PassTurnMove;
 import sample.engine.board.Tile;
+import sample.engine.players.MoveTransition;
 import sample.engine.players.Player;
+import sample.utils.ParasitesUtils;
 
 import java.util.List;
 
@@ -20,7 +24,6 @@ public final class GraphicBoard extends GridPane
     {
         this.board = board;
         int counter = 0;
-
 
         // in case of a board with an odd number of tiles, in order to draw Queen creation's zone
         boolean isQueenCreationTurn = board.getCurrentPlayer().isFirstMove();
@@ -90,9 +93,12 @@ public final class GraphicBoard extends GridPane
             {
                 counter++;
             }
-            for (final int position : player.getQueen().getQueensWall())
+            if (player.getQueen() != null)
             {
-                ((Tile) getChildren().get(position)).setFill(Color.YELLOW);
+                for (final int position : player.getQueen().getQueensWall())
+                {
+                    ((Tile) getChildren().get(position)).setFill(Color.YELLOW);
+                }
             }
         }
 
@@ -117,7 +123,11 @@ public final class GraphicBoard extends GridPane
     public void drawBoard()
     {
         getChildren().clear();
-        System.out.println(board);
+        if (Constants.LOGGING_BOARD)
+        {
+            System.out.println(board);
+        }
+
         int counter = 0;
 
         boolean isQueenCreationTurn = board.getCurrentPlayer().isFirstMove();
@@ -174,4 +184,21 @@ public final class GraphicBoard extends GridPane
     }
 
 
+    public void passTurn()
+    {
+        if (!getBoard().getCurrentPlayer().isFirstMove())
+        {
+            final PassTurnMove passTurnMove = new PassTurnMove(getBoard());
+            final MoveTransition moveTransition = getBoard().getCurrentPlayer().makeMove(passTurnMove);
+            if (moveTransition.getMoveStatus().isDone())
+            {
+                setBoard(moveTransition.getTransitionBoard());
+                drawBoard();
+                if (getBoard().isGameEnded())
+                {
+                    ParasitesUtils.logWarnings("The players all passed, game is over");
+                }
+            }
+        }
+    }
 }

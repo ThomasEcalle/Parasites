@@ -47,6 +47,7 @@ public abstract class Parasite
         return cost * developmentPointsUsed * attack - defence;
     }
 
+
     /**
      * This function is called in order to know which are the creation moves that a parasite can do
      *

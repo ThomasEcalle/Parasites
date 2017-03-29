@@ -2,6 +2,7 @@ package sample.engine.board;
 
 
 import javafx.scene.paint.Color;
+import sample.Constants;
 import sample.engine.pieces.KindOfParasite;
 import sample.engine.pieces.Parasite;
 import sample.engine.players.Player;
@@ -41,7 +42,7 @@ public final class Board
     public static boolean[] beforeLastRow;
     public static boolean[] lastRow;
 
-    private final List<Tile> gameBoard;
+    private List<Tile> gameBoard = null;
     private final List<Player> players;
     private Player currentPlayer;
     private static int playersCounter;
@@ -166,10 +167,17 @@ public final class Board
 
     public Player getNextPlayer()
     {
-        players.get(playersCounter).setDevelopmentPoints(2);
-        players.get(playersCounter).clearPlayingParasites();
+        final Player actual = players.get(playersCounter);
+        if (actual.getDevelopmentPoints() != Constants.INITIAL_DEVELOPMENT_POINTS)
+        {
+            actual.setPlayedLastTurn(true);
+        } else
+        {
+            actual.setPlayedLastTurn(false);
+        }
+        actual.setDevelopmentPoints(2);
+        actual.clearPlayingParasites();
         playersCounter++;
-
 
         if (playersCounter >= players.size())
         {
@@ -180,9 +188,7 @@ public final class Board
             return getNextPlayer();
         } else
         {
-            final Player player = players.get(playersCounter);
-
-            return player;
+            return players.get(playersCounter);
         }
 
     }
@@ -219,9 +225,18 @@ public final class Board
         return row;
     }
 
-    public void passTurn()
+    public boolean isGameEnded()
     {
-
+        for (Player player : players)
+        {
+            ParasitesUtils.logWarnings("isGameEnded, has played : " + player.getPseudo() + " ?");
+            if (player.isStillPlaying() && player.hasPlayedLastTurn())
+            {
+                ParasitesUtils.logWarnings("isGameEnded, " + player.getPseudo() + ", yes");
+                return false;
+            }
+        }
+        return true;
     }
 
     public static class Builder

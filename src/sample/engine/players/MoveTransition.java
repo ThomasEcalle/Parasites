@@ -1,7 +1,6 @@
 package sample.engine.players;
 
 import sample.engine.board.Board;
-import sample.engine.board.CreationMove;
 import sample.engine.board.Move;
 
 /**

@@ -1,12 +1,10 @@
 package sample.engine.players;
 
 import javafx.scene.paint.Color;
-import sample.engine.board.Board;
-import sample.engine.board.CreationMove;
-import sample.engine.board.FirstMove;
-import sample.engine.board.Move;
+import sample.engine.board.*;
 import sample.engine.pieces.Parasite;
 import sample.engine.pieces.Queen;
+import sample.utils.ParasitesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,10 @@ public final class Player
     private List<CreationMove> legalCreationMoves;
     private ArrayList<Parasite> playingParasites;
     private Queen queen;
+
+    //Moves data
     private boolean isFirstMove = true;
+    private boolean playedLastTurn = true;
 
     private boolean stillPlaying;
 
@@ -68,7 +69,7 @@ public final class Player
 
     public MoveTransition makeMove(final Move move)
     {
-        if (move instanceof FirstMove)
+        if (move instanceof FirstMove || move instanceof PassTurnMove)
         {
             final Board transitionBoard = move.execute();
 
@@ -182,5 +183,15 @@ public final class Player
     public void setStillPlaying(boolean stillPlaying)
     {
         this.stillPlaying = stillPlaying;
+    }
+
+    public boolean hasPlayedLastTurn()
+    {
+        return playedLastTurn;
+    }
+
+    public void setPlayedLastTurn(boolean playedLastTurn)
+    {
+        this.playedLastTurn = playedLastTurn;
     }
 }

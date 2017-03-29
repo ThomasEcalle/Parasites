@@ -38,6 +38,21 @@ public class Tile extends Rectangle
         return "-";
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof Tile)) return false;
+        final Tile other = (Tile) obj;
+        final boolean coordonateTest = this.tileCoordonate == other.tileCoordonate;
+        if (this.getParasite() != null)
+        {
+            return coordonateTest && this.parasite.equals(other.parasite);
+        } else
+        {
+            return coordonateTest && other.getParasite() == null;
+        }
+    }
+
     public void setIcon(Board board)
     {
         if (board.getTile(this.tileCoordonate).isOccupied())

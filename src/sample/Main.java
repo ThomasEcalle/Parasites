@@ -30,7 +30,7 @@ public class Main extends Application
     private Scene scene;
     private AnimatedZoomOperator zoomOperator;
     private Board board;
-    public final static int DIMENSION = 30;
+    public final static int DIMENSION = 15;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -95,7 +95,7 @@ public class Main extends Application
         {
             public void handle(KeyEvent keyEvent)
             {
-                System.out.println(keyEvent.getCode());
+
                 switch (keyEvent.getCode())
                 {
                     case B:
@@ -108,7 +108,7 @@ public class Main extends Application
                         board.chosenParasite = new Defender(-1, board.getCurrentPlayer());
                         break;
                     case SPACE:
-                        board.passTurn();
+                        graphicBoard.passTurn();
                     default:
                         board.chosenParasite = null;
                         break;

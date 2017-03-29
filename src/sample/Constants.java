@@ -30,6 +30,11 @@ public final class Constants
 
     public final static int INFINITE_VALUE = 10000;
 
+    // Game
+    public final static int INITIAL_DEVELOPMENT_POINTS = 2;
 
+
+    //Board
+    public final static boolean LOGGING_BOARD = false;
 
 }
