@@ -1,5 +1,6 @@
 package JavaFXApplication.src.engine.pieces;
 
+import JavaFXApplication.src.annotations.SoundEffect;
 import JavaFXApplication.src.engine.board.Board;
 import JavaFXApplication.src.engine.board.Tile;
 import JavaFXApplication.src.engine.players.Player;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Representation("ic_warrior.png")
 @Characteristics(cost = 3, creationPoints = 2, attack = 4, defence = 5)
+@SoundEffect("button_sound_2.mp3")
 public final class Warrior extends Parasite
 {
     /**

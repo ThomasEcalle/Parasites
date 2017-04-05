@@ -23,7 +23,6 @@ public class ParasitesUtils
     {
         try
         {
-            if (myClass == null) ParasitesUtils.logWarnings("class == null");
             return myClass.getResource("../resources/" + resourceName).toURI().toString();
         } catch (URISyntaxException e)
         {

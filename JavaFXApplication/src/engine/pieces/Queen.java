@@ -1,5 +1,6 @@
 package JavaFXApplication.src.engine.pieces;
 
+import JavaFXApplication.src.annotations.SoundEffect;
 import JavaFXApplication.src.engine.board.Board;
 import JavaFXApplication.src.engine.board.Tile;
 import JavaFXApplication.src.engine.players.Player;
