@@ -1,6 +1,8 @@
 package sample.engine.pieces;
 
-import sample.Constants;
+import sample.annotations.Characteristics;
+import sample.annotations.Representation;
+import sample.annotations.SoundEffect;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
@@ -13,6 +15,9 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 25/02/2017.
  */
+@Representation("ic_builder.png")
+@Characteristics(cost = 2, creationPoints = 6, attack = 1, defence = 3)
+@SoundEffect("button_sound.mp3")
 public final class Builder extends Parasite
 {
 
@@ -30,7 +35,7 @@ public final class Builder extends Parasite
 
     public Builder(int position, Player player)
     {
-        super(position, player, 2, 6, 1, 3, Constants.BUILDER_NAME, 1);
+        super(position, player);
     }
 
     @Override

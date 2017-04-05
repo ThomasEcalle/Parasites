@@ -1,5 +1,7 @@
 package sample.engine.pieces;
 
+import sample.annotations.Characteristics;
+import sample.annotations.Representation;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.players.Player;
@@ -21,24 +23,34 @@ public abstract class Parasite
     protected int initialCreationPoints;
     protected int attack;
     protected int defence;
-    protected String icon;
     protected Board actualBoard;
     protected boolean alreadyUsedInTurn = false;
 
     public final static int[] neighbors = {1, -1, Board.DIMENSION, -Board.DIMENSION};
 
 
-    Parasite(final int position, final Player player, int cost, int creationPoint, int attack, int defence, String icon, int developmentPointsUsed)
+    Parasite(final int position, final Player player)
     {
         this.position = position;
         this.player = player;
-        this.cost = cost;
-        this.creationPoints = creationPoint;
-        this.initialCreationPoints = creationPoint;
-        this.attack = attack;
-        this.defence = defence;
-        this.icon = icon;
-        this.developmentPointsUsed = developmentPointsUsed;
+        getCharacteristics();
+    }
+
+    private void getCharacteristics()
+    {
+        Characteristics characteristics = getClass().getAnnotation(Characteristics.class);
+        if (characteristics == null)
+        {
+            ParasitesUtils.logError("You created a Parasite without characteristics");
+        } else
+        {
+            this.cost = characteristics.cost();
+            this.creationPoints = characteristics.creationPoints();
+            this.initialCreationPoints = characteristics.creationPoints();
+            this.attack = characteristics.attack();
+            this.defence = characteristics.defence();
+            this.developmentPointsUsed = characteristics.developmentPointsCost();
+        }
     }
 
     @Override
@@ -207,7 +219,12 @@ public abstract class Parasite
 
     public String getIcon()
     {
-        return icon;
+        final Representation representation = getClass().getAnnotation(Representation.class);
+        if (representation != null)
+        {
+            return representation.value();
+        }
+        return null;
     }
 
     public void setPosition(int position)

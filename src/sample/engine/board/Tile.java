@@ -57,7 +57,7 @@ public class Tile extends Rectangle
     {
         if (board.getTile(this.tileCoordonate).isOccupied())
         {
-            final Image image = new Image(ParasitesUtils.getImageUrl(board.getTile(this.tileCoordonate).getParasite().getIcon(), getClass()));
+            final Image image = new Image(ParasitesUtils.getResourceUrl(board.getTile(this.tileCoordonate).getParasite().getIcon(), getClass()));
 
             final ImagePattern imagePattern = new ImagePattern(image);
 

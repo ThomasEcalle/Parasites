@@ -1,6 +1,7 @@
 package sample.engine.pieces;
 
-import sample.Constants;
+import sample.annotations.Characteristics;
+import sample.annotations.Representation;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
@@ -13,6 +14,8 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 24/02/2017.
  */
+@Representation("ic_warrior.png")
+@Characteristics(cost = 3, creationPoints = 2, attack = 4, defence = 5)
 public final class Warrior extends Parasite
 {
     /**
@@ -20,10 +23,9 @@ public final class Warrior extends Parasite
      */
     public final static int[] CANDIDATE_PLACEMENTS = {1, -1, Board.DIMENSION, -Board.DIMENSION};
 
-
     public Warrior(int position, Player player)
     {
-        super(position, player, 3, 2, 4, 5, Constants.WARRIOR_NAME, 1);
+        super(position, player);
     }
 
     @Override

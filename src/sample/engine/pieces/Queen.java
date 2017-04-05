@@ -1,6 +1,7 @@
 package sample.engine.pieces;
 
-import sample.Constants;
+import sample.annotations.Characteristics;
+import sample.annotations.Representation;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
@@ -13,6 +14,8 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 25/02/2017.
  */
+@Representation("ic_queen.png")
+@Characteristics(creationPoints = 10, attack = 3, defence = 8, developmentPointsCost = 2)
 public final class Queen extends Parasite
 {
     /**
@@ -48,7 +51,7 @@ public final class Queen extends Parasite
 
     public Queen(int position, Player player)
     {
-        super(position, player, Constants.INFINITE_VALUE, 10, 3, 8, Constants.QUEEN_NAME, 2);
+        super(position, player);
     }
 
     @Override

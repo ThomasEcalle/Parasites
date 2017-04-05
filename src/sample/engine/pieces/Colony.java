@@ -1,6 +1,7 @@
 package sample.engine.pieces;
 
-import sample.Constants;
+import sample.annotations.Characteristics;
+import sample.annotations.Representation;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
@@ -13,6 +14,8 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 25/02/2017.
  */
+@Representation("ic_colony.png")
+@Characteristics(creationPoints = 6, attack = 2)
 public final class Colony extends Parasite
 {
 
@@ -25,7 +28,7 @@ public final class Colony extends Parasite
 
     public Colony(int position, Player player)
     {
-        super(position, player, Constants.INFINITE_VALUE, 6, 2, Constants.INFINITE_VALUE, Constants.COLONY_NAME, 1);
+        super(position, player);
     }
 
     @Override

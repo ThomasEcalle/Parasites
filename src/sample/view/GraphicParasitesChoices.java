@@ -21,10 +21,10 @@ public final class GraphicParasitesChoices extends GridPane
     };
 
     private Image[] images = new Image[]{
-            new Image(ParasitesUtils.getImageUrl(Constants.QUEEN_NAME, getClass())),
-            new Image(ParasitesUtils.getImageUrl(Constants.BUILDER_NAME, getClass())),
-            new Image(ParasitesUtils.getImageUrl(Constants.WARRIOR_NAME, getClass())),
-            new Image(ParasitesUtils.getImageUrl(Constants.DEFENDER_NAME, getClass()))
+            new Image(ParasitesUtils.getResourceUrl(Constants.QUEEN_NAME, getClass())),
+            new Image(ParasitesUtils.getResourceUrl(Constants.BUILDER_NAME, getClass())),
+            new Image(ParasitesUtils.getResourceUrl(Constants.WARRIOR_NAME, getClass())),
+            new Image(ParasitesUtils.getResourceUrl(Constants.DEFENDER_NAME, getClass()))
     };
 
     public GraphicParasitesChoices()

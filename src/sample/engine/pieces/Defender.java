@@ -1,6 +1,7 @@
 package sample.engine.pieces;
 
-import sample.Constants;
+import sample.annotations.Characteristics;
+import sample.annotations.Representation;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.Tile;
@@ -13,6 +14,10 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 25/02/2017.
  */
+
+
+@Representation("ic_defender.png")
+@Characteristics(cost = 2, creationPoints = 4, attack = 2, defence = 8)
 public final class Defender extends Parasite
 {
 
@@ -23,7 +28,7 @@ public final class Defender extends Parasite
 
     public Defender(int position, Player player)
     {
-        super(position, player, 2, 4, 2, 8, Constants.DEFENDER_NAME, 1);
+        super(position, player);
     }
 
     @Override

@@ -15,17 +15,18 @@ import static sample.Constants.ANSI_RESET;
 public class ParasitesUtils
 {
     /**
-     * get the image's path, having its name
+     * get the resource's path, having its name
      *
-     * @param imageName
+     * @param resourceName
      * @param myClass
      * @return
      */
-    public static String getImageUrl(String imageName, Class myClass)
+    public static String getResourceUrl(final String resourceName, final Class myClass)
     {
         try
         {
-            return myClass.getResource("../resources/" + imageName).toURI().toString();
+            if (myClass == null) ParasitesUtils.logWarnings("class == null");
+            return myClass.getResource("../resources/" + resourceName).toURI().toString();
         } catch (URISyntaxException e)
         {
             e.printStackTrace();
@@ -86,7 +87,7 @@ public class ParasitesUtils
             }
             builder.append("\n");
         }
-       ParasitesUtils.logError(builder.toString());
+        ParasitesUtils.logError(builder.toString());
     }
 
 }

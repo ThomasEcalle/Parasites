@@ -3,7 +3,10 @@ package sample.view;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
+import sample.annotations.SoundEffect;
 import sample.engine.board.Board;
 import sample.engine.board.CreationMove;
 import sample.engine.board.FirstMove;
@@ -105,6 +108,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                                 final MoveTransition moveTransition = currentPlayer.makeMove(creationMove);
                                 if (moveTransition.getMoveStatus().isDone())
                                 {
+                                    soudGestion(created);
                                     graphicBoard.setBoard(moveTransition.getTransitionBoard());
                                     graphicBoard.drawBoard();
                                     clearSelectedElements();
@@ -115,6 +119,18 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                 }
                 System.out.println(this.getTileCoordonate());
             }
+        }
+    }
+
+    private void soudGestion(final Parasite created)
+    {
+        Class myClass = created.getClass();
+        final SoundEffect soundName = (SoundEffect) myClass.getAnnotation(SoundEffect.class);
+        if (soundName != null)
+        {
+            final Media sound = new Media(ParasitesUtils.getResourceUrl(soundName.value(), getClass()));
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.play();
         }
     }
 
