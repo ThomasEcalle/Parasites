@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Parasites.iml" filepath="$PROJECT_DIR$/Parasites.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/JavaFXApplication.iml" filepath="$PROJECT_DIR$/.idea/JavaFXApplication.iml" />
     </modules>
   </component>
 </project>
