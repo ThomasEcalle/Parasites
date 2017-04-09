@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>your pet is lost</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/classes/Tileset.js"></script>
+		<script type="text/javascript" src="js/classes/Personnage.js"></script>
+		<script type="text/javascript" src="js/classes/Map.js"></script>
+		<script type="text/javascript" src="js/function.js"></script>
+		<script type="text/javascript" src="js/rpg.js"></script>
+		
+
+
+	</head>
+	<body>
+	<p><input type="text" id="Counter" name="Score" value=100 /></p>
+		<canvas id="canvas" onmouseover="can()" ></canvas>
+	   <button id="reine" onclick='settype("reine")'>reine</button>
+	   <button id="Ouvrier" onclick='settype("Ouvrier")'>Ouvrier</button>
+	   <button id="attaquant" onclick='settype("attaquant")'>attaquant</button>
+	   <button id="defenseur" onclick='settype("defenseur")'>defenseur</button>
+	   <button id="debug" >debug</button>
+	</body>
+</html>
