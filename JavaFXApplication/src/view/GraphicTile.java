@@ -1,21 +1,20 @@
 package JavaFXApplication.src.view;
 
+import JavaFXApplication.src.engine.board.Board;
+import JavaFXApplication.src.engine.board.CreationMove;
+import JavaFXApplication.src.engine.board.FirstMove;
+import JavaFXApplication.src.engine.board.Tile;
+import JavaFXApplication.src.engine.pieces.Parasite;
+import JavaFXApplication.src.engine.pieces.Queen;
+import JavaFXApplication.src.engine.players.MoveTransition;
+import JavaFXApplication.src.engine.players.Player;
+import JavaFXApplication.src.utils.ParasitesUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
-import JavaFXApplication.src.engine.board.Board;
-import JavaFXApplication.src.engine.board.FirstMove;
-import JavaFXApplication.src.engine.board.Tile;
-import JavaFXApplication.src.engine.pieces.Parasite;
-import JavaFXApplication.src.engine.pieces.Queen;
-import JavaFXApplication.src.engine.players.Player;
-import JavaFXApplication.src.annotations.SoundEffect;
-import JavaFXApplication.src.engine.board.CreationMove;
-import JavaFXApplication.src.engine.players.MoveTransition;
-import JavaFXApplication.src.utils.ParasitesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +92,6 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
                     {
                         if (Board.chosenParasite != null && graphicBoard.getBoard().getSelectedParasite() != null)
                         {
-                            ParasitesUtils.logError("mamamia");
                             final Parasite origin = graphicBoard.getBoard().getSelectedParasite();
 
                             final Parasite created = Board.chosenParasite;
@@ -124,11 +122,9 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
 
     private void soudGestion(final Parasite created)
     {
-        Class myClass = created.getClass();
-        final SoundEffect soundName = (SoundEffect) myClass.getAnnotation(SoundEffect.class);
-        if (soundName != null)
+        if (created.getSoundEffect() != null)
         {
-            final Media sound = new Media(ParasitesUtils.getResourceUrl(soundName.value(), getClass()));
+            final Media sound = new Media(ParasitesUtils.getResourceUrl(created.getSoundEffect(), getClass()));
             MediaPlayer mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.play();
         }

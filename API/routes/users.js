@@ -59,8 +59,9 @@ router.get("/:user_id", function(req,res,next){
     if(user){
       res.json(user);
     }
-    res.status(200)
+    res.status(400)
     return res.json({
+      "result": 0,
       "message": "No user found"
     });
   }).catch(next)
@@ -213,7 +214,7 @@ router.post("/friends/add/:friend_id", function(req, res, next){
     }).then(function(friend){
       if (friend){
         if(user.id == friend.id){
-          return res.json({
+          return res.status(400).json({
             result: 0,
             message: "You can't add yourself as a friend... it is a little bit ackward !"
           })
@@ -221,11 +222,9 @@ router.post("/friends/add/:friend_id", function(req, res, next){
         else {
           Friendship.find({
             where: {
-              $or: [{friend_id: user.id,
-                      $and: {user_id: friend.id} }
-                  , {user_id: user.id,
-                      $and: {friend_id: friend.id}}]
-            }
+              friend_id: user.id,
+                  $and: {user_id: friend.id}
+                }
           }).then(function(relation){
             if(relation){
               relation.update({
@@ -249,7 +248,7 @@ router.post("/friends/add/:friend_id", function(req, res, next){
         }
       }
       else {
-        return res.json({
+        return res.status(400).json({
           result: 0,
           message: "You try to add as a friend a user that does not exist"
         })
@@ -259,6 +258,40 @@ router.post("/friends/add/:friend_id", function(req, res, next){
   }
 })
 
+/******************************************
+*               Remove Friend             *
+*******************************************/
+router.delete("/friends/remove/:friend_id", function(req,res,next){
+  if (req.user){
+    let user = req.user;
+    let friend_id = req.params.friend_id
+    Friendship.find({
+      where: {
+        $or: [{friend_id: user.id,
+                $and: {user_id: friend_id} }
+            , {user_id: user.id,
+                $and: {friend_id: friend_id}}],
+        $and: {accepted: 1}
+      }
+    }).then(function(relation){
+      if (relation){
+        return relation.destroy({where: {}}).then(function(){
+          res.json({
+            result: 1,
+            message: "Friendship correctly removed"
+          })
+        }).catch(next)
+      }
+      else{
+        return res.status(400).json({
+          result: 0,
+          message: "Users are not friends"
+        })
+      }
+    }).catch(next)
+  }
+
+})
 
 /******************************************
 *               get friends               *
@@ -284,25 +317,6 @@ router.get("/friends/all", function(req, res, next){
       }
       res.status(200).send(result);
     }).catch(next);
-
-    // user.getFriends({
-    //   where: {
-    //     accepted: true
-    //   }
-    // })
-    // .then(function(possibleFriends){
-    //   let realFriends = [];
-    //   for (let friend of possibleFriends){
-    //
-    //     console.log(friend.accepted);
-    //       console.log("okokokok");
-    //       realFriends.push(friend.responsify());
-    //
-    //   }
-    //   res.status(200);
-    //   return res.json(realFriends);
-    // }).catch(next);
-
   }
 })
 

@@ -119,7 +119,12 @@ app.use(function(req,res,next){
        var decoded = jwt.decode(token, constants.secret);
       //Is the token expired ?
        if (decoded.exp <= Date.now()) {
-          return res.end('Access token has expired', 400);
+         res.status(400);
+         res.json({
+           result : 0,
+           message : "Acces token has expired"
+         })
+          return res;
         }
 
         // We put the User object on every req, for every routes !
@@ -130,6 +135,7 @@ app.use(function(req,res,next){
         })
 
      } catch (err) {
+       err.status = 400
        err.message = "Bad token"
        return next(err);
      }

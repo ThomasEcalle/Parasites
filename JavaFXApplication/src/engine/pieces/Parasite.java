@@ -2,6 +2,7 @@ package JavaFXApplication.src.engine.pieces;
 
 import JavaFXApplication.src.annotations.Characteristics;
 import JavaFXApplication.src.annotations.Representation;
+import JavaFXApplication.src.annotations.SoundEffect;
 import JavaFXApplication.src.engine.board.Board;
 import JavaFXApplication.src.engine.board.CreationMove;
 import JavaFXApplication.src.engine.players.Player;
@@ -27,7 +28,6 @@ public abstract class Parasite
     protected boolean alreadyUsedInTurn = false;
 
     public final static int[] neighbors = {1, -1, Board.DIMENSION, -Board.DIMENSION};
-
 
     Parasite(final int position, final Player player)
     {
@@ -58,7 +58,6 @@ public abstract class Parasite
     {
         return cost * developmentPointsUsed * attack - defence;
     }
-
 
     /**
      * This function is called in order to know which are the creation moves that a parasite can do
@@ -260,5 +259,15 @@ public abstract class Parasite
     public int getAttack()
     {
         return attack;
+    }
+
+    public String getSoundEffect()
+    {
+        final SoundEffect sound = getClass().getAnnotation(SoundEffect.class);
+        if (sound != null)
+        {
+            return sound.value();
+        }
+        return null;
     }
 }

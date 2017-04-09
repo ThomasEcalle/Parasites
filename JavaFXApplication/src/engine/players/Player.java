@@ -97,16 +97,6 @@ public final class Player
         this.parasites = parasites;
     }
 
-    public int getId()
-    {
-        return id;
-    }
-
-    public List<CreationMove> getLegalCreationMoves()
-    {
-        return legalCreationMoves;
-    }
-
     public void setLegalCreationMoves(List<CreationMove> legalCreationMoves)
     {
         this.legalCreationMoves = legalCreationMoves;

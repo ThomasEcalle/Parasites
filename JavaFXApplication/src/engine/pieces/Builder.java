@@ -2,11 +2,11 @@ package JavaFXApplication.src.engine.pieces;
 
 import JavaFXApplication.src.annotations.Characteristics;
 import JavaFXApplication.src.annotations.Representation;
+import JavaFXApplication.src.annotations.SoundEffect;
 import JavaFXApplication.src.engine.board.Board;
 import JavaFXApplication.src.engine.board.CreationMove;
 import JavaFXApplication.src.engine.board.Tile;
 import JavaFXApplication.src.engine.players.Player;
-import JavaFXApplication.src.annotations.SoundEffect;
 import JavaFXApplication.src.utils.ParasitesUtils;
 
 import java.util.ArrayList;
