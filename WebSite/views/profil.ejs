@@ -1,0 +1,115 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+        <link rel="stylesheet" href="stylesheets/style_in_website.css" type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="accueil.html">Parasites</a>
+            </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="#"><a href="accueil">Accueil</a></li>
+                    <li class="#"><a href="regles">Règles</a></li>
+                    <li class="#"><a href="classement">Classement</a></li>
+                    <li class="#"><a href="tutoriel">Tutoriel</a></li>
+                    <li class="#"><a href="telechargement">Telechargement</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <p class="navbar-text">Compte : <b>Jean</b></p>
+                    <li class="active"><a href="#">Profil</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="content">
+        <div id="profil">
+            
+            <!--- PARTIE SUR USERNAME -->
+            
+            <h3>USERNAME</h3>
+            <hr class="hmarg">
+            <form action="#" method="POST" class="form-horizontal marg">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Nouvel username</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Confirmation de l'username</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="valider"></label>
+                    <div class="col-md-4">
+                        <button id="valider" name="valider" class="btn btn-success">valider</button>
+                    </div>
+                </div>
+            </form>
+            
+            <!--- PARTIE SUR PASSWORD -->
+            
+            <h3>PASSWORD</h3>
+            <hr class="hmarg">
+            <form action="#" method="POST" class="form-horizontal marg">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="passwordinput">Nouveau password</label>
+                    <div class="col-md-4">
+                        <input id="passwordinput" name="passwordinput" type="password" placeholder="" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="passwordinput">Confirmation du password</label>
+                    <div class="col-md-4">
+                        <input id="passwordinput" name="passwordinput" type="password" placeholder="" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="valider"></label>
+                    <div class="col-md-4">
+                        <button id="valider" name="valider" class="btn btn-success">valider</button>
+                    </div>
+                </div>
+            </form>
+            
+            <!--- PARTIE SUR LE MAIL -->
+            
+            <h3>MAIL</h3>
+            <hr class="hmarg">
+            <form action="#" method="POST" class="form-horizontal marg">
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="textinput">Nouveau mail</label>  
+                <div class="col-md-4">
+                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="textinput">Confirmation du mail</label>  
+                <div class="col-md-4">
+                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="valider"></label>
+                <div class="col-md-4">
+                    <button id="valider" name="valider" class="btn btn-success">valider</button>
+                </div>
+            </div>
+        </form> 
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <p id="titre">PROFIL</p>
+    </nav>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
