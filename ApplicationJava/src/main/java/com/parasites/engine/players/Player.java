@@ -1,9 +1,11 @@
 package com.parasites.engine.players;
 
-import javafx.scene.paint.Color;
 import com.parasites.engine.board.*;
 import com.parasites.engine.pieces.Parasite;
 import com.parasites.engine.pieces.Queen;
+import javafx.scene.paint.Color;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,9 @@ public final class Player
 
     private boolean stillPlaying;
 
+    // Server data
+    private JSONObject jsonObject;
+
 
     public Player(final String pseudo, final Color color)
 
@@ -38,6 +43,8 @@ public final class Player
         this.playingParasites = new ArrayList<>();
         this.stillPlaying = true;
         developmentPoints = 2;
+
+        jsonObject = new JSONObject();
     }
 
     @Override
@@ -182,5 +189,18 @@ public final class Player
     public void setPlayedLastTurn(boolean playedLastTurn)
     {
         this.playedLastTurn = playedLastTurn;
+    }
+
+    public JSONObject toJSON()
+    {
+        try
+        {
+            jsonObject.put("pseudo", pseudo);
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 }

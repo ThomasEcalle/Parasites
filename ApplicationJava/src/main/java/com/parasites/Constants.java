@@ -30,6 +30,7 @@ public final class Constants
 
 
     //Board
-    public final static boolean LOGGING_BOARD = false;
+    public final static boolean LOGGING_BOARD = true;
+    public final static boolean LOGGING_ENABLE = false;
 
 }

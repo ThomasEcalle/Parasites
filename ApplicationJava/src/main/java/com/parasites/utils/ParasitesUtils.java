@@ -45,17 +45,26 @@ public class ParasitesUtils
 
     public static void logError(final String string)
     {
-        System.out.println(Constants.ANSI_RED + string + Constants.ANSI_RESET);
+        if (Constants.LOGGING_BOARD)
+        {
+            System.out.println(Constants.ANSI_RED + string + Constants.ANSI_RESET);
+        }
     }
 
     public static void logInfos(final String string)
     {
-        System.out.println(Constants.ANSI_GREEN + string + Constants.ANSI_RESET);
+        if (Constants.LOGGING_BOARD)
+        {
+            System.out.println(Constants.ANSI_GREEN + string + Constants.ANSI_RESET);
+        }
     }
 
     public static void logWarnings(final String string)
     {
-        System.out.println(Constants.ANSI_YELLOW + string + Constants.ANSI_RESET);
+        if (Constants.LOGGING_BOARD)
+        {
+            System.out.println(Constants.ANSI_YELLOW + string + Constants.ANSI_RESET);
+        }
     }
 
     public static void logList(List<?> list)

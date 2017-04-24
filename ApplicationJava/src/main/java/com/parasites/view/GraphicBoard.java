@@ -183,7 +183,6 @@ public final class GraphicBoard extends GridPane
                 && j >= board.DIMENSION / 3 && j < ((board.DIMENSION / 3) * 2) + oddDimensionCase);
     }
 
-
     public void passTurn()
     {
         if (!getBoard().getCurrentPlayer().isFirstMove())

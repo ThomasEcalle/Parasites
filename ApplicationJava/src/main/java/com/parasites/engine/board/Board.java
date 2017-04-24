@@ -1,12 +1,14 @@
 package com.parasites.engine.board;
 
 
-import javafx.scene.paint.Color;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.parasites.Constants;
+import com.parasites.engine.pieces.KindOfParasite;
 import com.parasites.engine.pieces.Parasite;
 import com.parasites.engine.players.Player;
-import com.parasites.engine.pieces.KindOfParasite;
 import com.parasites.utils.ParasitesUtils;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +58,7 @@ public final class Board
         this.currentPlayer = builder.nextMoveMaker;
         this.DIMENSION = builder.dimension;
         this.players = builder.players;
+        writeBoardInJSON();
         this.gameBoard = createGameBoard(builder);
 
         calculateEachPlayerParasites(players);
@@ -279,5 +282,10 @@ public final class Board
     public Parasite getSelectedParasite()
     {
         return selectedParasite;
+    }
+
+    private void writeBoardInJSON()
+    {
+        final Gson gson = new GsonBuilder().create();
     }
 }

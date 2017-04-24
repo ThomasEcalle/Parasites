@@ -1,5 +1,13 @@
 package com.parasites;
 
+import com.parasites.engine.board.Board;
+import com.parasites.engine.pieces.Builder;
+import com.parasites.engine.pieces.Defender;
+import com.parasites.engine.pieces.Warrior;
+import com.parasites.engine.players.Player;
+import com.parasites.network.OnlineGameManager;
+import com.parasites.utils.AnimatedZoomOperator;
+import com.parasites.view.GraphicBoard;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +19,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import com.parasites.engine.board.Board;
-import com.parasites.engine.pieces.Builder;
-import com.parasites.engine.pieces.Defender;
-import com.parasites.engine.pieces.Warrior;
-import com.parasites.engine.players.Player;
-import com.parasites.utils.AnimatedZoomOperator;
-import com.parasites.view.GraphicBoard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,9 +42,19 @@ public class Main extends Application
         zoomOperator = new AnimatedZoomOperator();
 
         final List<Player> fakeList = new ArrayList<>();
-        fakeList.add(new Player("thomas", Color.YELLOW));
-        fakeList.add(new Player("jean", Color.GREEN));
-        fakeList.add(new Player("robin", Color.RED));
+        final Player realUser = new Player("robin", Color.YELLOW);
+        final Player jean = new Player("thomas", Color.GREEN);
+        final Player robin = new Player("jean", Color.RED);
+
+        fakeList.add(realUser);
+        fakeList.add(jean);
+        fakeList.add(robin);
+
+        final List<Player> opponents = new ArrayList<>();
+        opponents.add(jean);
+        opponents.add(robin);
+
+        final OnlineGameManager onlineGameManager = OnlineGameManager.getInstance(realUser, opponents);
 
         this.board = Board.createInitialBoard(fakeList.get(0), DIMENSION, fakeList);
 
