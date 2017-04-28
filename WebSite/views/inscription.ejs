@@ -18,55 +18,60 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Username</label>  
                 <div class="col-md-8">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="textinput" name="pseudo" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.pseudo%><%}%>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="passwordinput">Password</label>
                 <div class="col-md-8">
-                    <input id="passwordinput" name="passwordinput" type="password" placeholder="" class="form-control input-md" required="">
+                    <input id="passwordinput" name="password" type="password" placeholder="" class="form-control input-md" required="">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="passwordinput">Confirmation du password</label>
                 <div class="col-md-8">
-                    <input id="passwordinput" name="passwordinput" type="password" placeholder="" class="form-control input-md" required="">
+                    <input id="passwordinput" name="verif_password" type="password" placeholder="" class="form-control input-md" required="">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Mail</label>  
                 <div class="col-md-8">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="textinput" name="email" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.email%><%}%>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Nom</label>  
                 <div class="col-md-8">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="textinput" name="lastname" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.lastname%><%}%>">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Prénom</label>  
                 <div class="col-md-8">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="textinput" name="firstname" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.firstname%><%}%>">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Numéro de téléphone</label>  
                 <div class="col-md-8">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="textinput" name="phone" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.phone%><%}%>">
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="valider"></label>
                 <div class="col-md-8">
-                    <button id="valider" name="valider" class="btn btn-success">valider</button>
+                    <button id="valider" name="valider" value="inscription" class="btn btn-success">valider</button>
                 </div>
             </div>
-        </form> 
+    </form>
+        <% if(alert != ""){%>
+            <div class="alert alert-danger" role="alert"> <%= alert %> </div>
+        <%} else if(info != ""){%>
+            <div class="alert alert-success" role="alert"> <%= info %> </div>
+        <%}%>
     </div>
 </div>
 <div id="footer">

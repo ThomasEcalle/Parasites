@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var url = require('url');
 
 var index = require('./routes/index');
 var accueil = require('./routes/accueil');
@@ -12,6 +14,7 @@ var classement = require('./routes/classement');
 var tutoriel = require('./routes/tutoriel');
 var telechargement = require('./routes/telechargement');
 var profil = require('./routes/profil');
+var deconnexion = require('./routes/deconnexion');
 
 
 var app = express();
@@ -26,10 +29,28 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'ssshhhhh'}));
 app.use(express.static(__dirname + '/public'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); 
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
+app.use(function(req, res, next){
+    var sess = req.session;
+    var path = url.parse(req.url).path;
+    if(path == '/' || path == '/?page=inscription'){
+        if(sess.email){
+            res.redirect('/accueil');
+        }
+        next();
+    }
+    else{
+        if(!sess.email){
+            res.redirect('/');
+        }
+        next();
+    }
+});
 
 app.use('/', index);
 app.use('/accueil', accueil);
@@ -38,6 +59,8 @@ app.use('/classement', classement);
 app.use('/tutoriel', tutoriel);
 app.use('/telechargement', telechargement);
 app.use('/profil', profil);
+app.use('/deconnexion', deconnexion);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
