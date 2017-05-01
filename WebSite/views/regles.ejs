@@ -1,162 +1,124 @@
-<html>
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="stylesheets/style_in_website.css" type="text/css" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-</head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-            <a class="navbar-brand" href="accueil.html">Parasites</a>
-            </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="#"><a href="accueil">Accueil</a></li>
-                    <li class="active"><a href="#">Règles</a></li>
-                    <li class="#"><a href="classement">Classement</a></li>
-                    <li class="#"><a href="tutoriel">Tutoriel</a></li>
-                    <li class="#"><a href="telechargement">Telechargement</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <p class="navbar-text">Compte : <b>Jean</b></p>
-                    <li><a href="profil">Profil</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div id="content">
-        <div id="rules">
-            <div id="button_drop" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    What are you looking for ?
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#vocabulary">Vocabulary</a></li>
-                    <li><a href="#goal">Goal</a></li>
-                    <li><a href="#players">Players</a></li>
-                    <li><a href="#beginning">Beginning</a></li>
-                    <li><a href="#play">Way to play</a></li>
-                    <li><a href="#end">End</a></li>
-                    <li><a href="#others">Others rules</a></li>
-                    <li><a href="#colonies">Colonies</a></li>
-                    <li><a href="#understand">Understand better</a></li>
-                    <li><a href="#understand_colonies">Understand colonies</a></li>
-                    <li><a href="#end_example">End example</a></li>
-                </ul>
-            </div>
-            <h3 id="vocabulary">Vocabulary</h3>
-            <p>In order to understand the following rules, here are some vocabulary’s words you need to know:</p>
-            <ul class="pad">
-                <li>The board’s squares are named territories</li>
-                <li>A development’s point is the capacity for the player to create a parasite. A player has 2
-                development’s points by turn.</li>
-                <li>A creation’s point is the cost of a parasite.</li>
-            </ul>
-            <h3 id="goal">Goal</h3>
-            <p>Conquer more territory than opponents or eat all opponents’ queens.</p>
-            <p>The game consists of a board composed of territories that the player will need to conquer. To
-            achieve this goal, the player can create 5 different types of parasites.</p>
-            <p>A parasite can’t move and the only way for the player to progress on the board is to create new
-            parasites from its already created parasites. Indeed, every parasite can create other parasites
-            (depending of their creation power and their creation scope).</p>
-            <p>Here are the different kinds of parasites: The queen, the attacker, the defender, the builder and the
-            colony. Their powers will be discussed later.</p>
-            <h3 id="players">Number of players</h3>
-            <p>2 to 99: The board is as big as the players want, so there are no real limits.</p>
-            <h3 id="beginning">Beginning of the game</h3>
-            <p>The game pick, a random way, which of the players play at first.</p>
-            <p>First player put his queen on the board. He can’t put it more than 1/3 of the board size from the
-            border.</p>
-            <p>For example, if the board is a 10x10 board, the player can’t put his queen further than 3 lines of any
-            border (1/3 * 10 = 3).</p>
-            <p>The other players must follow the same rule, plus one. They also can’t put their queen less than 5
-            territory of an opponent queen.</p>
-            <p>The only exception is when the game’s board is bigger than 30x30. In this case, the 1/3’s rule don’t
-            need to be respected, but the “not less than 5 territories of another queen” rule remains the same</p>
-            <h3 id="play">The way the game works</h3>
-            <p>This game is a turn by turn’s game in which every player has the same rights and power.
-            When it is your turn, you have 2 development’s point to use. Playing queen costs the player 2
-            development’s points but playing parasite of another kind (a defender, for example) costs him only 1
-            point.</p>
-            <p>So, if the player creates one parasite with its queen, he won’t be able to create a parasite with
-            another parasite than its queen, because playing queen will cost him 2 development points. But if he 
-            starts creating a parasite with a builder, for example, the player can use the rest of the builder’s
-            creation’s points, and then, play with another parasite with its 1 development point left.</p>
-            <p>All parasites cost several creation’s point, and to create a parasite from another, the first one needs
-            to have enough creation’s points.
-            For example, a builder has 6 creation’s points and an attacker needs 3 creation’s point. 
-            So, the builder will be able to create 2 attacker (it will cost him 6 creation’s points and cost the player 1
-            development point). Then, the player can use another parasite, paying its last development point.</p>
-            <p>When a parasite is created beside an opponent’s parasite, there is a fight!
-            Each parasite has attack’s points and defence’s points, depending of its king of parasite.
-            When two parasites are beside each other, we calculate the amount of attack’s point from the
-            parasite that attacks and the amount of the attacked parasite, then:</p>
-            <ul class="pad">
-                <li>If attack’s points are less than defence’s points: nothing change.</li>
-                <li>If attack’s point are equals or bigger than defence’s points: the opponent’s parasite is
-                destroyed and replaces by a colony of the offender.</li>
-            </ul>
-            <h3 id="end">End of the game</h3>
-            <p>There are 2 ways the game ends:</p>
-            <ul class="pad">
-                <li>At each turn, the player can pass its turn without creating a parasite. If all players passed their turn
-                doing nothing, then the game ends.</li>
-                <li>If a player remains the only one on the board, he is the winner.
-                In the first option, the winner is the player which has the bigger territories area.</li>
-            </ul>
-            <h3 id="others">Others rules</h3>
-            <ul class="pad">
-                <li>If a player eats an opponent’s queen, then all the parasites of the opponents become the player’s
-                parasites and the opponent lost the game.</li>
-                <li>If a player creates a parasite “2” from a parasite “1”, then he cans, in the same turn, create
-                parasites with the parasite “2” which has just been created.</li>
-            </ul>
-            <h3 id="colonies">Colonies' rules</h3>
-            <p>Colonies are special parasites:</p>
-            <ul class="pad">
-                <li>They have unlimited defence’s points.</li>
-                <li>The only way to destroy a colony is in surrounding it with 4 of your parasites.</li>
-                <li>A player can change any of his parasites (except the queen) into a colony, paying 2
-                development’s points (so, if a player does that, he would not be able to do anything else
-                after for this turn).</li>
-                <li>Eating an opponent’s parasite changes it in one of your colonies.</li>
-            </ul>
-            <h3 id="understand">To understand better</h3>
-            <img src="images/explain.png" class="img-responsive" id="exp" alt="explanation">
-            <h3 id="understand_colonies">Understanding colonies</h3>
-            <img src="images/desc.png" class="img-responsive" id="desc" alt="description">
-            <ul class="pad">
-                <li><b><u>Case 1:</u></b></li>
-                The number of offenders’ attack points is: 4 + 2 + 2 = 8<br>
-                The number of defender points is: 8<br>
-                8 = 8, so the Red defender is destroyed and replaced by a Black colony.
-                <li><b><u>Case 2:</u></b></li>
-                Red colony is surrounded by 4 Black parasites, so it is destroyed and replaced by a black colony.
-                <li><b><u>Case 3:</u></b></li>
-                Red colonies are not destroyed because they are not surrounded by parasites of the same player
-                (there is 5 black parasites and one blue).<br> So, colonies remain red’s.
-                <li><b><u>Case 4:</u></b></li>
-                Three red’s colonies are surrounded by the same player, so the three of them are destroyed and
-                become black’s colonies!
-            </ul>
-            <h3 id="end_example">Exemple of end of the game</h3>
-            <img src="images/position.png" class="img-responsive" id="position" alt="position">
-            <p>This situation is the end of the game because no players can attack other player and every player
-            pass their turn.</p>
-            <p>To discover which player won, we count the number of territories of each player.</p>
-            <p>Be careful: When an empty territory is surrounded by several players, the one with the higher
-            attack’s points takes this territory.</p>
-            <p>So, in this case, the winner is the red player!</p>
-        </div>
+<div id="rules">
+    <div id="button_drop" class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            What are you looking for ?
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#vocabulary">Vocabulary</a></li>
+            <li><a href="#goal">Goal</a></li>
+            <li><a href="#players">Players</a></li>
+            <li><a href="#beginning">Beginning</a></li>
+            <li><a href="#play">Way to play</a></li>
+            <li><a href="#end">End</a></li>
+            <li><a href="#others">Others rules</a></li>
+            <li><a href="#colonies">Colonies</a></li>
+            <li><a href="#understand">Understand better</a></li>
+            <li><a href="#understand_colonies">Understand colonies</a></li>
+            <li><a href="#end_example">End example</a></li>
+        </ul>
     </div>
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-        <p id="titre">REGLES</p>
-    </nav>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <h3 id="vocabulary">Vocabulary</h3>
+    <p>In order to understand the following rules, here are some vocabulary’s words you need to know:</p>
+    <ul class="pad">
+        <li>The board’s squares are named territories</li>
+        <li>A development’s point is the capacity for the player to create a parasite. A player has 2
+        development’s points by turn.</li>
+        <li>A creation’s point is the cost of a parasite.</li>
+    </ul>
+    <h3 id="goal">Goal</h3>
+    <p>Conquer more territory than opponents or eat all opponents’ queens.</p>
+    <p>The game consists of a board composed of territories that the player will need to conquer. To
+    achieve this goal, the player can create 5 different types of parasites.</p>
+    <p>A parasite can’t move and the only way for the player to progress on the board is to create new
+    parasites from its already created parasites. Indeed, every parasite can create other parasites
+    (depending of their creation power and their creation scope).</p>
+    <p>Here are the different kinds of parasites: The queen, the attacker, the defender, the builder and the
+    colony. Their powers will be discussed later.</p>
+    <h3 id="players">Number of players</h3>
+    <p>2 to 99: The board is as big as the players want, so there are no real limits.</p>
+    <h3 id="beginning">Beginning of the game</h3>
+    <p>The game pick, a random way, which of the players play at first.</p>
+    <p>First player put his queen on the board. He can’t put it more than 1/3 of the board size from the
+    border.</p>
+    <p>For example, if the board is a 10x10 board, the player can’t put his queen further than 3 lines of any
+    border (1/3 * 10 = 3).</p>
+    <p>The other players must follow the same rule, plus one. They also can’t put their queen less than 5
+    territory of an opponent queen.</p>
+    <p>The only exception is when the game’s board is bigger than 30x30. In this case, the 1/3’s rule don’t
+    need to be respected, but the “not less than 5 territories of another queen” rule remains the same</p>
+    <h3 id="play">The way the game works</h3>
+    <p>This game is a turn by turn’s game in which every player has the same rights and power.
+    When it is your turn, you have 2 development’s point to use. Playing queen costs the player 2
+    development’s points but playing parasite of another kind (a defender, for example) costs him only 1
+    point.</p>
+    <p>So, if the player creates one parasite with its queen, he won’t be able to create a parasite with
+    another parasite than its queen, because playing queen will cost him 2 development points. But if he 
+    starts creating a parasite with a builder, for example, the player can use the rest of the builder’s
+    creation’s points, and then, play with another parasite with its 1 development point left.</p>
+    <p>All parasites cost several creation’s point, and to create a parasite from another, the first one needs
+    to have enough creation’s points.
+    For example, a builder has 6 creation’s points and an attacker needs 3 creation’s point. 
+    So, the builder will be able to create 2 attacker (it will cost him 6 creation’s points and cost the player 1
+    development point). Then, the player can use another parasite, paying its last development point.</p>
+    <p>When a parasite is created beside an opponent’s parasite, there is a fight!
+    Each parasite has attack’s points and defence’s points, depending of its king of parasite.
+    When two parasites are beside each other, we calculate the amount of attack’s point from the
+    parasite that attacks and the amount of the attacked parasite, then:</p>
+    <ul class="pad">
+        <li>If attack’s points are less than defence’s points: nothing change.</li>
+        <li>If attack’s point are equals or bigger than defence’s points: the opponent’s parasite is
+        destroyed and replaces by a colony of the offender.</li>
+    </ul>
+    <h3 id="end">End of the game</h3>
+    <p>There are 2 ways the game ends:</p>
+    <ul class="pad">
+        <li>At each turn, the player can pass its turn without creating a parasite. If all players passed their turn
+        doing nothing, then the game ends.</li>
+        <li>If a player remains the only one on the board, he is the winner.
+        In the first option, the winner is the player which has the bigger territories area.</li>
+    </ul>
+    <h3 id="others">Others rules</h3>
+    <ul class="pad">
+        <li>If a player eats an opponent’s queen, then all the parasites of the opponents become the player’s
+        parasites and the opponent lost the game.</li>
+        <li>If a player creates a parasite “2” from a parasite “1”, then he cans, in the same turn, create
+        parasites with the parasite “2” which has just been created.</li>
+    </ul>
+    <h3 id="colonies">Colonies' rules</h3>
+    <p>Colonies are special parasites:</p>
+    <ul class="pad">
+        <li>They have unlimited defence’s points.</li>
+        <li>The only way to destroy a colony is in surrounding it with 4 of your parasites.</li>
+        <li>A player can change any of his parasites (except the queen) into a colony, paying 2
+        development’s points (so, if a player does that, he would not be able to do anything else
+        after for this turn).</li>
+        <li>Eating an opponent’s parasite changes it in one of your colonies.</li>
+    </ul>
+    <h3 id="understand">To understand better</h3>
+    <img src="images/explain.png" class="img-responsive" id="exp" alt="explanation">
+    <h3 id="understand_colonies">Understanding colonies</h3>
+    <img src="images/desc.png" class="img-responsive" id="desc" alt="description">
+    <ul class="pad">
+        <li><b><u>Case 1:</u></b></li>
+        The number of offenders’ attack points is: 4 + 2 + 2 = 8<br>
+        The number of defender points is: 8<br>
+        8 = 8, so the Red defender is destroyed and replaced by a Black colony.
+        <li><b><u>Case 2:</u></b></li>
+        Red colony is surrounded by 4 Black parasites, so it is destroyed and replaced by a black colony.
+        <li><b><u>Case 3:</u></b></li>
+        Red colonies are not destroyed because they are not surrounded by parasites of the same player
+        (there is 5 black parasites and one blue).<br> So, colonies remain red’s.
+        <li><b><u>Case 4:</u></b></li>
+        Three red’s colonies are surrounded by the same player, so the three of them are destroyed and
+        become black’s colonies!
+    </ul>
+    <h3 id="end_example">Exemple of end of the game</h3>
+    <img src="images/position.png" class="img-responsive" id="position" alt="position">
+    <p>This situation is the end of the game because no players can attack other player and every player
+    pass their turn.</p>
+    <p>To discover which player won, we count the number of territories of each player.</p>
+    <p>Be careful: When an empty territory is surrounded by several players, the one with the higher
+    attack’s points takes this territory.</p>
+    <p>So, in this case, the winner is the red player!</p>
+</div>

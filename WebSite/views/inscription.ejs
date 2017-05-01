@@ -1,82 +1,70 @@
-<html>
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="stylesheets/style_page_accueil.css" type="text/css" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-</head>
-<body>
-<div id="header">
-    <p id="titre">PARASITES</p>
-</div>
-<div id="connexion_parent">
-    <div id="connexion">
-        <ul class="nav nav-pills" id="nav">
-            <li role="presentation" class="#"><a href="?page=connexion">connexion</a></li>
-            <li role="presentation" class="active"><a href="#">inscription</a></li>
-        </ul>
-        <form action="#" method="POST" class="form-horizontal">
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Username</label>  
-                <div class="col-md-8">
-                    <input id="textinput" name="pseudo" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.pseudo%><%}%>">
-                </div>
+<div class="modal fade" id="inscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-inscription">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2 class="modal-title" id="myModalLabel">P A R A S I T E S</h2>
             </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="passwordinput">Password</label>
-                <div class="col-md-8">
-                    <input id="passwordinput" name="password" type="password" placeholder="" class="form-control input-md" required="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="passwordinput">Confirmation du password</label>
-                <div class="col-md-8">
-                    <input id="passwordinput" name="verif_password" type="password" placeholder="" class="form-control input-md" required="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Mail</label>  
-                <div class="col-md-8">
-                    <input id="textinput" name="email" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.email%><%}%>">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Nom</label>  
-                <div class="col-md-8">
-                    <input id="textinput" name="lastname" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.lastname%><%}%>">
+            <div class="modal-body">
+                <div id="inscr">
+                    <form action="#" method="POST" class="form-horizontal" id="form_inscription">
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="textinput">Username</label>  
+                            <div class="col-md-6">
+                                <input id="pseudo" name="pseudo" type="text" placeholder="" class="form-control input-md" required="" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="passwordinput">Password</label>
+                            <div class="col-md-6">
+                                <input id="password" name="password" type="password" placeholder="" class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="passwordinput">Confirmation du password</label>
+                            <div class="col-md-6">
+                                <input id="verif_password" name="verif_password" type="password" placeholder="" class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="textinput">Mail</label>  
+                            <div class="col-md-6">
+                                <input id="email" name="email" type="text" placeholder="" class="form-control input-md" required="" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="textinput">Nom</label>  
+                            <div class="col-md-6">
+                                <input id="lastname" name="lastname" type="text" placeholder="" class="form-control input-md" required="" value="">
 
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Prénom</label>  
-                <div class="col-md-8">
-                    <input id="textinput" name="firstname" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.firstname%><%}%>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="textinput">Prénom</label>  
+                            <div class="col-md-6">
+                                <input id="firstname" name="firstname" type="text" placeholder="" class="form-control input-md" required="" value="">
 
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Numéro de téléphone</label>  
-                <div class="col-md-8">
-                    <input id="textinput" name="phone" type="text" placeholder="" class="form-control input-md" required="" value="<%if(alert != ""){%><%=req.body.phone%><%}%>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="textinput">Numéro de téléphone</label>  
+                            <div class="col-md-6">
+                                <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" required="" value="">
 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="valider"></label>
+                            <div class="col-md-6">
+                                <button id="valider_inscription" name="valider_inscription" value="inscription" class="btn btn-success">valider</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="error_box_inscription" class="alert alert-danger" role="alert"></div>
                 </div>
+                <script src="/js/jquery.min.js"></script>
+                <script src="/js/bootstrap.min.js"></script>
             </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="valider"></label>
-                <div class="col-md-8">
-                    <button id="valider" name="valider" value="inscription" class="btn btn-success">valider</button>
-                </div>
-            </div>
-    </form>
-        <% if(alert != ""){%>
-            <div class="alert alert-danger" role="alert"> <%= alert %> </div>
-        <%} else if(info != ""){%>
-            <div class="alert alert-success" role="alert"> <%= info %> </div>
-        <%}%>
+        </div>
     </div>
 </div>
-<div id="footer">
-</div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-</body>
-</html>
