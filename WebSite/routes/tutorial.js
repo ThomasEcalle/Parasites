@@ -7,7 +7,7 @@ let router = express.Router();
 router.get("/", function(req, res, next){
     var sess = req.session;
     var connected = sess.user ? true : false;
-    res.render('template_commun.ejs', { page : "TUTORIEL", user : sess.user, connected : connected });
+    res.render('template_commun.ejs', { page : "TUTORIAL", user : sess.user, connected : connected });
 });	
 
 module.exports = router;

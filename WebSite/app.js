@@ -11,7 +11,7 @@ var url = require('url');
 var accueil = require('./routes/accueil');
 var regles = require('./routes/regles');
 var classement = require('./routes/classement');
-var tutoriel = require('./routes/tutoriel');
+var tutorial = require('./routes/tutorial');
 var telechargement = require('./routes/telechargement');
 var profil = require('./routes/profil');
 var deconnexion = require('./routes/deconnexion');
@@ -23,7 +23,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,17 +36,18 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
-app.use(function(req, res, next){
+app.use(function(req, res, next){ 
     var sess = req.session;
     if(url.parse(req.url).pathname == "/profil" && !sess.user && !sess.token){
         	res.redirect('accueil');
     }
     next();
 });
+
 app.use('/accueil', accueil);
 app.use('/regles', regles);
 app.use('/classement', classement);
-app.use('/tutoriel', tutoriel);
+app.use('/tutorial', tutorial);
 app.use('/telechargement', telechargement);
 app.use('/profil', profil);
 app.use('/deconnexion', deconnexion);

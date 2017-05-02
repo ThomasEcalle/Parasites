@@ -14,6 +14,12 @@ body
     background-size: 100% auto;
 }
 
+#canvas
+{
+    display: block;
+    margin: 0 auto;
+}
+
 .navbar
 {
     border-image: linear-gradient(to right, #343434 0%, #33ff33 50%, #343434 100%) !important;
@@ -95,6 +101,16 @@ body
     width: 65%;
     margin: 0 auto;
     min-height: 100%;
+}
+
+#tutorial
+{
+    padding-top: 10%;
+    width: 65%;
+    margin: 0 auto;
+    min-height: 100%;
+    text-align: center;
+    font-size: 1.3em;
 }
 
 .pad
