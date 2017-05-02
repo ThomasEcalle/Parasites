@@ -1,0 +1,86 @@
+/* * * * * * * * * * *
+    HEADER
+* * * * * * * * * * */
+
+.modal-title
+{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    color: #e6ffe6;
+	font-size: 30px;
+	letter-spacing: 10px;
+    text-shadow: 3px 3px 4px black;
+    text-align: center;
+}
+
+.modal-header
+{
+    background-image:url('http://127.0.0.1:8080/images/crb.png');
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-size: 100% auto;
+    border-image: linear-gradient(to right, #343434 0%, #33ff33 50%, #343434 100%);
+    border-image-slice: 1;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+}
+
+.close
+{
+    color: #33ff33 !important;
+    opacity: 1 !important;
+}
+
+/* * * * * * * * * * *
+    BODY
+* * * * * * * * * * */
+
+label
+{
+    color: white !important;
+}
+
+.modal-inscription
+{
+    background-image: url('http://127.0.0.1:8080/images/space2.jpg');
+    background-size: auto 100%;
+    border: 1px solid black !important;
+}
+.modal-connexion
+{
+    background-image: url('http://127.0.0.1:8080/images/space2.jpg');
+    background-size: 100% auto;
+    border: 1px solid black !important;
+}
+
+#connexion
+{
+    margin-top: 7%;
+    margin-bottom: -4%;
+}
+
+#inscr
+{
+    margin-top: 7%;
+    margin-bottom: -4%;
+}
+
+.alertmodal
+{
+    margin: 0 auto;
+    height: 4%;
+    line-height: 5%;
+    padding-top: 100px;
+    text-align: center !important;
+    font-size: 0.9em;
+}
+
+#error_box_connexion
+{
+    visibility: hidden;
+}
+
+#error_box_inscription
+{
+    visibility: hidden;
+}
