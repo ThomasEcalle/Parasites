@@ -1,0 +1,127 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheets/style_in_website.css" type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="accueil.html">Parasites</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="<%if(page == "ACCUEIL"){%>active<%}%>"><a href="accueil">Accueil</a></li>
+                    <li class="<%if(page == "REGLES"){%>active<%}%>"><a href="regles">Règles</a></li>
+                    <li class="<%if(page == "CLASSEMENT"){%>active<%}%>"><a href="classement">Classement</a></li>
+                    <li class="<%if(page == "TUTORIEL"){%>active<%}%>"><a href="tutoriel">Tutoriel</a></li>
+                    <li class="<%if(page == "TELECHARGEMENT"){%>active<%}%>"><a href="telechargement">Telechargement</a></li>
+                    <% if(connected){ %><li class="<%if(page == "PROFIL"){%>active<%}%>"><a href="profil">Profil</a></li><%}%>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <p class="navbar-text"><b><% if(connected){ %> Compte : <%= user %> <%}%></b></p>
+                    <% if(connected){ %>
+                        <button type="button" class="btn btn-danger navbar-btn" onclick="location.href = '/deconnexion'">Déconnexion</button>
+                    <%} else{ %>
+                        <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#connexion">Connexion</button>
+                    <%}%>
+                    <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#inscription">Inscription</button>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="content">
+        <% 
+            switch(page){
+                case "ACCUEIL" : %>
+                    <% include accueil %>
+                    <% break;
+                case "REGLES" : %>
+                    <% include regles %>
+                    <% break;
+                case "CLASSEMENT" : %>
+                    <% include classement %>
+                    <% break;
+                case "PROFIL" : %>
+                    <% include profil %>
+                    <% break;
+                case "TELECHARGEMENT" : %>
+                    <% include telechargement %>
+                    <% break;
+                case "TUTORIEL" : %>
+                    <% include tutoriel %>
+                    <% break;
+            }
+        %>
+    </div>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <p id="titre"><%= page %></p>
+    </nav>
+
+    <% include inscription %> <!-- Fenêtre modale inscription -->
+    <% include connexion %> <!-- Fenêtre modale connexion -->
+    
+    
+    <script type="application/javascript">
+        $(document).ready(function() {
+            
+            // Permet d'effacer les données des formulaires et de réinitialiser le message d'erreur des fenêtres modales
+            $('.modal').on('hidden.bs.modal', function(){
+                $(this).find('form')[0].reset();
+                $("#error_box_inscription").css('visibility', 'hidden');
+                $("#error_box_connexion").css('visibility', 'hidden');
+            });
+            
+            // Clic sur le bouton valider de la fenêtre modale inscription
+            $("#valider_inscription").click(function(){
+                $.post('/inscription', 
+                {
+                    pseudo: $("#pseudo").val(),
+                    password: $("#password").val(),
+                    verif_password: $("#verif_password").val(),
+                    lastname: $("#lastname").val(),
+                    firstname: $("#firstname").val(),
+                    phone: $("#phone").val(),
+                    email: $("#email").val()
+                }).done(function(data){
+                    if(data.statusCode != 200){
+                        $("#error_box_inscription").attr('class', 'alert alert-danger');
+                        $("#error_box_inscription").css('visibility', 'visible');
+                        $("#error_box_inscription").text(data.body.errors[0].split("Validation error: ")[1]
+                                                         + (data.body.errors.length > 1 ? " + " + (data.body.errors.length - 1) + " error(s)." : ""));
+                    }
+                    else{
+                        $("#error_box_inscription").attr('class', 'alert alert-success');
+                        $("#error_box_inscription").css('visibility', 'visible');
+                        $("#error_box_inscription").text("The user had been succefully added to the database.");
+                    }
+                });
+            });
+            
+            // Clic sur le bouton valider de la fenêtre modale connexion
+            $("#valider_connexion").click(function(){
+                $.post('/connexion', 
+                {
+                    pseudo: $("#pseudo_connexion").val(),
+                    password: $("#password_connexion").val()
+                }).done(function(data){
+                    if(data.statusCode != 200){
+                        $("#error_box_connexion").attr('class', 'alert alert-danger');
+                        $("#error_box_connexion").css('visibility', 'visible');
+                        $("#error_box_connexion").text("This combination of pseudo and password does not exists.");
+                    }
+                    else{
+                        $("#error_box_connexion").attr('class', 'alert alert-success');
+                        $("#error_box_connexion").css('visibility', 'visible');
+                        $("#error_box_connexion").text("Success, wait for the redirect !");
+                        setTimeout(location.reload.bind(location), 2000);                              
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

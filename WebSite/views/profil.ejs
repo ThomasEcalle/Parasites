@@ -1,115 +1,172 @@
-<html>
-<head>
-    <meta charset="utf-8" />
-        <link rel="stylesheet" href="stylesheets/style_in_website.css" type="text/css" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-</head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-            <a class="navbar-brand" href="accueil.html">Parasites</a>
-            </div>
+<div id="profil">
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="#"><a href="accueil">Accueil</a></li>
-                    <li class="#"><a href="regles">Règles</a></li>
-                    <li class="#"><a href="classement">Classement</a></li>
-                    <li class="#"><a href="tutoriel">Tutoriel</a></li>
-                    <li class="#"><a href="telechargement">Telechargement</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <p class="navbar-text">Compte : <b>Jean</b></p>
-                    <li class="active"><a href="#">Profil</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div id="content">
-        <div id="profil">
-            
-            <!--- PARTIE SUR USERNAME -->
-            
+    <div id="button_drop" class="dropdown parameter_dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Parameter to change :
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu menu-profil" aria-labelledby="dropdownMenu1">
+            <li><a href="profil?mod=pseudo">Pseudo</a></li>
+            <li><a href="profil?mod=password">Password</a></li>
+            <li><a href="profil?mod=lastname">Last name</a></li>
+            <li><a href="profil?mod=firstname">First name</a></li>
+            <li><a href="profil?mod=email">Email</a></li>
+        </ul>
+    </div>
+    <div id="form_profil">
+        <!--- PARTIE SUR USERNAME -->
+
+        <% if(mod == "pseudo"){%>
+        <div id="username-form">
             <h3>USERNAME</h3>
             <hr class="hmarg">
             <form action="#" method="POST" class="form-horizontal marg">
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="textinput">Nouvel username</label>  
                     <div class="col-md-4">
-                        <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="textinput" name="input1" type="text" class="form-control input-md" required="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="textinput">Confirmation de l'username</label>  
                     <div class="col-md-4">
-                        <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="textinput" name="input2" type="text" class="form-control input-md" required="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="valider"></label>
                     <div class="col-md-4">
-                        <button id="valider" name="valider" class="btn btn-success">valider</button>
+                        <input type="hidden" name="type_form" value="pseudo">
+                        <button class="btn btn-success">valider</button>
                     </div>
                 </div>
             </form>
-            
-            <!--- PARTIE SUR PASSWORD -->
-            
+        </div>
+        <%}%>
+
+        <!--- PARTIE SUR PASSWORD -->
+
+        <% if(mod == "password"){%>
+        <div id="password-form">
             <h3>PASSWORD</h3>
             <hr class="hmarg">
             <form action="#" method="POST" class="form-horizontal marg">
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="passwordinput">Nouveau password</label>
                     <div class="col-md-4">
-                        <input id="passwordinput" name="passwordinput" type="password" placeholder="" class="form-control input-md" required="">
+                        <input id="passwordinput" name="input1" type="password" class="form-control input-md" required="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="passwordinput">Confirmation du password</label>
                     <div class="col-md-4">
-                        <input id="passwordinput" name="passwordinput" type="password" placeholder="" class="form-control input-md" required="">
+                        <input id="passwordinput" name="input2" type="password" class="form-control input-md" required="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="valider"></label>
                     <div class="col-md-4">
-                        <button id="valider" name="valider" class="btn btn-success">valider</button>
+                        <input type="hidden" name="type_form" value="password">
+                        <button class="btn btn-success">valider</button>
                     </div>
                 </div>
             </form>
-            
-            <!--- PARTIE SUR LE MAIL -->
-            
+        </div>
+        <%}%>
+
+        <!--- PARTIE SUR LE MAIL -->
+
+        <% if(mod == "email"){%>
+        <div id="email-form">
             <h3>MAIL</h3>
             <hr class="hmarg">
             <form action="#" method="POST" class="form-horizontal marg">
-            <div class="form-group">
-                <label class="col-md-5 control-label" for="textinput">Nouveau mail</label>  
-                <div class="col-md-4">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Nouveau mail</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input1" type="text" class="form-control input-md" required="">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-5 control-label" for="textinput">Confirmation du mail</label>  
-                <div class="col-md-4">
-                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Confirmation du mail</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input2" type="text" class="form-control input-md" required="">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-5 control-label" for="valider"></label>
-                <div class="col-md-4">
-                    <button id="valider" name="valider" class="btn btn-success">valider</button>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="valider"></label>
+                    <div class="col-md-4">
+                        <input type="hidden" name="type_form" value="email">
+                        <button class="btn btn-success">valider</button>
+                    </div>
                 </div>
-            </div>
-        </form> 
+            </form> 
         </div>
+        <%}%>
+
+        <!--- PARTIE SUR LE LASTNAME -->
+
+        <% if(mod == "lastname"){%>
+        <div id="lastname-form">
+            <h3>LAST NAME</h3>
+            <hr class="hmarg">
+            <form action="#" method="POST" class="form-horizontal marg">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Nouveau nom de famille</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input1" type="text" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Confirmation du nom de famille</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input2" type="text" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="valider"></label>
+                    <div class="col-md-4">
+                        <input type="hidden" name="type_form" value="lastname">
+                        <button class="btn btn-success">valider</button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+        <%}%>
+
+        <!--- PARTIE SUR LE FIRSTNAME -->
+
+        <% if(mod == "firstname"){%>
+        <div id="firstname-form">
+            <h3>FIRST NAME</h3>
+            <hr class="hmarg">
+            <form action="#" method="POST" class="form-horizontal marg">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Nouveau prénom</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input1" type="text" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Confirmation du prénom</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input2" type="text" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="valider"></label>
+                    <div class="col-md-4">
+                        <input type="hidden" name="type_form" value="firstname">
+                        <button class="btn btn-success">valider</button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+        <%}%>
+        <% if(error != ""){%>
+            <div id="error_box_profil" class="alert alert-danger" role="alert"> <%= error %> </div>
+        <%} else if(info != ""){%>
+            <div id="error_box_profil" class="alert alert-success" role="alert"> <%= info %> </div>
+        <%}%>
     </div>
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-        <p id="titre">PROFIL</p>
-    </nav>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-</body>
-</html>
+</div>
