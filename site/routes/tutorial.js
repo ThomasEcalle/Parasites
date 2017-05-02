@@ -55,7 +55,7 @@ module.exports = function(app)
         html += '<body>'
         html += '<canvas id="canvas" onmouseover="can()" ></canvas>'
         html += '<label id="annoncer">d</label>'
-        html += '<button id="debug" >debug</button>'
+        //html += '<button id="debug" >debug</button>'
 
 
         html += '</body>'
