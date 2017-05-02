@@ -53,6 +53,17 @@ label
     border: 1px solid black !important;
 }
 
+.alert
+{
+    margin: 0 auto;
+    height: 4%;
+    line-height: 5%;
+    padding-top: 100px;
+    text-align: center !important;
+    font-size: 0.9em;
+}
+
+
 #connexion
 {
     margin-top: 7%;
@@ -63,16 +74,6 @@ label
 {
     margin-top: 7%;
     margin-bottom: -4%;
-}
-
-.alertmodal
-{
-    margin: 0 auto;
-    height: 4%;
-    line-height: 5%;
-    padding-top: 100px;
-    text-align: center !important;
-    font-size: 0.9em;
 }
 
 #error_box_connexion
