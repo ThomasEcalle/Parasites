@@ -91,9 +91,10 @@ body
 
 #profil
 {
+    padding-top: 12%;
     width: 65%;
     margin: 0 auto;
-    padding-top: 8%;
+    min-height: 100%;
 }
 
 .pad
@@ -103,14 +104,24 @@ body
 
 .marg
 {
-   margin-bottom: 7%; 
+   padding-bottom:7%; 
 }
 
 .hmarg
 {
     margin-bottom: 7%;
 }
+
 #presentation
+{
+    padding-top: 15%;
+    text-align: center;
+    width: 65%;
+    margin: 0 auto;
+    min-height: 95%;
+}
+
+#404
 {
     padding-top: 15%;
     text-align: center;
@@ -127,6 +138,16 @@ body
 	letter-spacing: 9px;
     text-shadow: 1px 2px 5px black;
     padding-top: 10px;
+}
+
+.parameter_dropdown
+{
+    float: right;
+}
+
+#form_profil
+{
+    padding-top: 8%;
 }
 
 .cp
@@ -173,10 +194,10 @@ label
 
 .modal-header
 {
-    background-image:url('http://127.0.0.1:8080/images/carbon3.jpg');
+    background-image:url('http://127.0.0.1:8080/images/crb.png');
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-size: 100% 100%;
+    background-size: 100% auto;
     border-image: linear-gradient(to right, #343434 0%, #33ff33 50%, #343434 100%);
     border-image-slice: 1;
     border-style: solid;
@@ -195,11 +216,22 @@ label
     margin-bottom: -4%;
 }
 
-.alert{
+.alert
+{
     margin: 0 auto;
     height: 4%;
     line-height: 5%;
     padding-top: 100px;
     text-align: center;
+    font-size: 0.9em;
+}
+
+#error_box_connexion
+{
+    visibility: hidden;
+}
+
+#error_box_inscription
+{
     visibility: hidden;
 }

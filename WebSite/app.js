@@ -36,6 +36,13 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
+app.use(function(req, res, next){
+    var sess = req.session;
+    if(url.parse(req.url).pathname == "/profil" && !sess.user && !sess.token){
+        	res.redirect('accueil');
+    }
+    next();
+});
 app.use('/accueil', accueil);
 app.use('/regles', regles);
 app.use('/classement', classement);
@@ -63,7 +70,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   // res.status(err.status || 500);
   // res.render('error');
-  //  res.redirect('/accueil');
 });
 
 module.exports = app;

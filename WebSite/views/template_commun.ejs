@@ -32,7 +32,6 @@
         </div>
     </nav>
     <div id="content">
-
         <% 
             switch(page){
                 case "ACCUEIL" : %>
@@ -80,6 +79,7 @@
                 {
                     pseudo: $("#pseudo").val(),
                     password: $("#password").val(),
+                    verif_password: $("#verif_password").val(),
                     lastname: $("#lastname").val(),
                     firstname: $("#firstname").val(),
                     phone: $("#phone").val(),
@@ -88,7 +88,8 @@
                     if(data.statusCode != 200){
                         $("#error_box_inscription").attr('class', 'alert alert-danger');
                         $("#error_box_inscription").css('visibility', 'visible');
-                        $("#error_box_inscription").text(data.body.errors[0] + " + " + data.body.errors.length + " error(s).");
+                        $("#error_box_inscription").text(data.body.errors[0].split("Validation error: ")[1]
+                                                         + (data.body.errors.length > 1 ? " + " + (data.body.errors.length - 1) + " error(s)." : ""));
                     }
                     else{
                         $("#error_box_inscription").attr('class', 'alert alert-success');
