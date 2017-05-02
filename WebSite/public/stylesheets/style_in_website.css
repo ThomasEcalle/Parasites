@@ -18,6 +18,10 @@ body
 {
     display: block;
     margin: 0 auto;
+    background-image: url('http://127.0.0.1:8080/images/circuit.jpg');
+    border-radius: 15px;
+    border: 10px solid #000710;
+    box-shadow: 1px 1px 12px black;
 }
 
 .navbar
