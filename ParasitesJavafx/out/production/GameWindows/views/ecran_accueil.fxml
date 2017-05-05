@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ConnexionWindowController">
+   <children>
+      <GridPane prefHeight="588.0" prefWidth="375.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="300.0" minHeight="-Infinity" prefHeight="140.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.0" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="521.0" minHeight="10.0" prefHeight="450.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.0" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="468.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="130.0" prefWidth="375.0" stylesheets="@style.css">
+               <styleClass>
+                  <String fx:value="header" />
+                  <String fx:value="top-to-bottom" />
+               </styleClass>
+               <children>
+                  <Label alignment="CENTER" layoutX="130.0" layoutY="83.0" prefHeight="160.0" prefWidth="375.0" styleClass="parasites" stylesheets="@style.css" text="P A R A S I T E S" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="lumin" stylesheets="@style.css" GridPane.rowIndex="1" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="lumin" stylesheets="@style.css" GridPane.rowIndex="3" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="header" stylesheets="@style.css" GridPane.rowIndex="4">
+               <children>
+                  <Hyperlink fx:id="site" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="270.0" layoutY="-1.0" prefHeight="28.0" prefWidth="105.0" styleClass="link" text="parasites.com" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="12.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="contact" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="14.0" layoutY="3.0" prefHeight="28.0" prefWidth="110.0" styleClass="link" text="Nous contacter" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="12.0" />
+                     </font>
+                  </Hyperlink>
+               </children></AnchorPane>
+            <GridPane GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="184.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="211.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="319.0" styleClass="pane" stylesheets="@style.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="7.0" prefWidth="105.0" styleClass="label_in_pane" stylesheets="@style.css" text="Password" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="2.0" right="2.0" />
+                           </padding>
+                        </Label>
+                        <PasswordField fx:id="password_textfield" maxWidth="-Infinity" prefHeight="30.0" prefWidth="214.0" styleClass="textfield_in_pane" StackPane.alignment="CENTER_RIGHT" />
+                     </children>
+                  </StackPane>
+                  <StackPane layoutX="38.0" layoutY="180.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="319.0" styleClass="pane" stylesheets="@style.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="7.0" prefWidth="105.0" styleClass="label_in_pane" stylesheets="@style.css" text="Pseudo" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="2.0" right="2.0" />
+                           </padding>
+                        </Label>
+                        <TextField fx:id="pseudo_textfield" maxWidth="-Infinity" prefHeight="30.0" prefWidth="214.0" styleClass="textfield_in_pane" StackPane.alignment="CENTER_RIGHT">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </TextField>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="46.0" prefWidth="375.0" GridPane.rowIndex="3">
+                     <children>
+                        <Button fx:id="valider_button" defaultButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="VALIDER" StackPane.alignment="CENTER">
+                           <StackPane.margin>
+                              <Insets right="150.0" />
+                           </StackPane.margin>
+                           <padding>
+                              <Insets top="2.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="inscription_button" focusTraversable="false" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="S'INSCRIRE" StackPane.alignment="CENTER">
+                           <StackPane.margin>
+                              <Insets left="150.0" />
+                           </StackPane.margin>
+                           <padding>
+                              <Insets top="2.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </StackPane>
+                  <Hyperlink fx:id="forgotten_password" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" prefHeight="29.0" prefWidth="154.0" styleClass="link" text="Mot de passe oublié ?" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="13.0" />
+                     </font>
+                  </Hyperlink>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
