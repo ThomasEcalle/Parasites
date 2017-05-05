@@ -8,6 +8,7 @@ var list2;
 var ready = 1;
 var interv1;
 var prevv = 0;
+var play = 0;
 function showCases(cord)
 {
 
@@ -62,16 +63,18 @@ window.onload = function() {
     canvas.height = board.getHauteur() * 32;
 
     board.dessinerBoard(ctx);
-
-     speak("Bienvenue sur Parasite!","");
-     speak("Tout d'abord, placez votre reine sur le plateau","");
-     // speak("Bienvenue sur Parasite!\nTout d'abord, placez votre reine sur le plateau","");
+	 play=0;
+    // speak("Bienvenue sur Parasite!","");
+    // speak("Tout d'abord, placez votre reine sur le plateau","");
+	  speak("Bienvenue sur Parasite!\n\n\nTout d'abord, placez votre reine sur le plateau","");
     setInterval(function() {
         board.dessinerBoard(ctx);
     }, 40);
 
     $("#canvas").click(function(e)
     {
+		if (play == 0)
+			return;
         var coords = getCoords(this,e);
         var val = 0;
 
@@ -101,8 +104,10 @@ window.onload = function() {
             }
             if (pawn.val == 7)
 			{
-                speak("Felicitation !","");
-                speak("Maintenant placez un attaquant!","");
+				play = 0;
+               // speak("Felicitation !","");
+                speak("Felicitation !\nMaintenant placez un attaquant!","");
+				
 			}
 
             pawn = new Fighter(0,0);
@@ -196,6 +201,7 @@ function speak(str, interval)
 
     if (ready == 1)
 	{
+		play=0;
         $('#annoncer').text("")
         var i = 0;
         ready = 0;
@@ -207,14 +213,22 @@ function speak(str, interval)
 			// }
 
             var tmp = $('#annoncer').text();
-            $('#annoncer').text(tmp + str.charAt(i))
+			if (str.charAt(i) == "\n")
+				$('#annoncer').text("")
+			else
+				$('#annoncer').text(tmp + str.charAt(i))
             ++i;
             if (i >= str.length)
 			{
 				ready=1;
 				if (interval == 'interv')
+				{
 					clearInterval(interv1);
+					
+				}
+				play=1;
 				clearInterval(interv);
+				
 
 			}
 
