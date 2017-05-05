@@ -16,7 +16,7 @@ html
 body
 {
     height: 100%;
-    background-image: url('http://127.0.0.1:8080/images/space2.jpg');
+    background-image: url('../images/space2.jpg');
     background-attachment: fixed;
     background-size: 100% auto;
 }
@@ -101,7 +101,7 @@ body
 {
     display: block;
     margin: 0 auto;
-    background-image: url('http://127.0.0.1:8080/images/circuit.jpg');
+    background-image: url('../images/circuit.jpg');
     border-radius: 15px;
     border: 10px solid #000710;
     box-shadow: 1px 1px 12px black;
