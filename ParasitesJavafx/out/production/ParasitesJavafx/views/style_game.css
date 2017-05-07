@@ -1,0 +1,151 @@
+.pane_principal{
+	-fx-background-image: url("space.jpg");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.game{
+	-fx-background-color: white;
+}
+
+.header{
+	-fx-background-color: black;
+	-fx-background-size: 60px;
+    -fx-background-radius: 0 0 50% 50%;
+	-fx-border-color: linear-gradient(to right, #195608 15%,#195608 15%,#33ff33 50%,#195608 85%);
+	-fx-border-width: 0 0 1 0;
+	-fx-border-radius : 50%;
+	/* -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 7, 0, 0, 0); */
+}
+
+.parasites{
+	-fx-text-fill: #e6ffe6;
+	-fx-text-align: center;
+	-fx-effect: dropshadow(three-pass-box, rgba(122,236,44,0.7), 10, 0, 0, 0);
+	-fx-font-family: "Enter The Grid";
+	-fx-font-size: 57px;
+	-fx-letter-spacing: 10px;
+}
+
+.button{
+	-fx-width: 200px;
+	-fx-background-color: linear-gradient(to bottom, #606060 0%,#383838 9%,#303030 48%,#262626 54%,#000000 100%);
+	-fx-background-radius: 6;
+	-fx-border-color: linear-gradient(to right, #195608 15%,#195608 15%,#33ff33 50%,#195608 85%);
+	-fx-border-width: 0 0 1 0;
+	-fx-border-radius: 6;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,4), 8, 0, 0, 0);
+	-fx-text-fill: linear-gradient(to right, #195608 0%,#33ff33 50%,#195608 99%);
+}
+
+.button LabeledText {
+    
+	-fx-font-family: lucida;
+	-fx-font-size: 19px;
+	-fx-effect: dropshadow(three-pass-box, rgba(122,236,44,0.5), 8, 0, 0, 0);
+}
+
+.toolbox_container{
+	-fx-background-color: black;
+	-fx-background-size: 30px;
+	-fx-border-radius : 7;
+	-fx-background-radius: 7;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,4), 8, 0, 0, 0);
+	-fx-border-color: linear-gradient(to right, #195608 15%,#195608 15%,#33ff33 50%,#195608 85%);
+}
+
+.toolbox {
+	-fx-background-color: #404040;
+	-fx-background-radius: 7;
+	/* -fx-border-color: red; */
+	/* -fx-border-width: 26 3 3 3; */
+	/* -fx-border-image: url("carbon4.png") 30 30 repeat; */
+}
+
+.toolbox_label{
+	-fx-text-fill: #00ff00;
+	-fx-effect: dropshadow(gaussian, rgba(0,255,0, 3.0), 4, 0, 0, 0);
+	-fx-font-family: lucida;
+	-fx-font-size: 14px;
+}
+
+.item_with_border{
+	-fx-border-color: linear-gradient(to bottom, rgba(51,255,51,0) 10%,rgba(51,255,51,0.49) 50%,rgba(51,255,51,0) 90%);
+	-fx-border-width: 0 1 0 0;
+}
+
+.chat_container{
+	-fx-background-color: black;
+	-fx-background-size: 30px;
+	-fx-border-radius : 7 0 0 0;
+	-fx-background-radius: 7 0 0 0;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,4), 8, 0, 0, 0);
+	-fx-border-color: linear-gradient(to right, #195608 15%,#195608 15%,#33ff33 50%,#195608 85%);
+	-fx-border-width: 1 0 0 1;
+}
+
+.chat{
+	-fx-background-color: #404040;
+	-fx-background-radius: 7 0 0 0;	
+}
+
+.chat_box_left{
+	-fx-border-color: linear-gradient(to bottom, rgba(51,255,51,0) 10%,rgba(51,255,51,0.49) 50%,rgba(51,255,51,0) 90%);
+	-fx-border-width: 0 1 0 0;
+}
+
+.chat_box_title_box{
+	-fx-border-color: linear-gradient(to right, rgba(51,255,51,0.08) 10%,rgba(51,255,51,0.6) 50%,rgba(51,255,51,0) 77%);
+	-fx-border-width: 0 0 1 0;
+}
+
+.chat_box_title{
+	-fx-text-fill: #00ff00;
+	-fx-effect: dropshadow(gaussian, rgba(0,255,0, 3.0), 4, 0, 0, 0);
+	-fx-font-family: arial;
+	-fx-font-style: italic;
+	-fx-font-size: 15px;
+	-fx-padding: 5 0 0 10;
+}
+
+/* .table-view { */
+	/* -fx-background-color: #404040; */
+/* } */
+
+/* .table-view .column-header-background { */
+    /* visibility: hidden; */
+/* } */
+
+.list_view {
+	-fx-background-color: #404040;
+}
+
+.chat_button LabeledText{
+	-fx-font-size: 14px;
+}
+
+.titled-pane{
+	-fx-text-fill: white;
+	-fx-font-size: 13px;
+	-fx-font-family: arial;
+}
+
+.titled-pane > *.content{
+	-fx-background-color: #404040;
+	-fx-border-width: 0;
+}
+
+.titled-pane > .title{
+	-fx-background-color: #404040;
+}
+
+.titled-pane > .title > .arrow-button .arrow
+{
+	-fx-background-color: white;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow 
+{
+	-fx-effect: dropshadow(gaussian, rgba(0,255,0, 3.0), 4, 0, 0, 0);
+}

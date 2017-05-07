@@ -15,7 +15,7 @@
 
 .modal-header
 {
-    background-image:url('http://127.0.0.1:8080/images/crb.png');
+    background-image:url('../images/crb.png');
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-size: 100% auto;
@@ -42,13 +42,13 @@ label
 
 .modal-inscription
 {
-    background-image: url('http://127.0.0.1:8080/images/space2.jpg');
+    background-image: url('../images/space2.jpg');
     background-size: auto 100%;
     border: 1px solid black !important;
 }
 .modal-connexion
 {
-    background-image: url('http://127.0.0.1:8080/images/space2.jpg');
+    background-image: url('../images/space2.jpg');
     background-size: 100% auto;
     border: 1px solid black !important;
 }
