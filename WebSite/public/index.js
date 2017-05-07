@@ -9,6 +9,30 @@ var ready = 1;
 var interv1;
 var prevv = 0;
 var play = 0;
+var coords;
+var reineX;
+var reineY;
+function distanceFromCell(x,y,x1,y1)
+{
+	var dist = Math.abs(x-x1 + y-y1);
+	console.log("dist="+dist);
+	return dist;
+}
+function tutorialIA()
+{
+	console.log("toto");
+	var randX = Math.floor((Math.random() * 14));
+	var randY = Math.floor((Math.random() * 14));
+	while (distanceFromCell(randX,randY,reineX,reineY) < 5)
+	{
+		randX = Math.floor((Math.random() * 14));
+		randY = Math.floor((Math.random() * 14));
+	}
+	
+	list.push({x:randX , y:randY})
+	board.setFloor(Math.floor(randX), Math.floor(randY), 7);
+	list2.push({x:randX , y:randY, z:7});
+}
 function showCases(cord)
 {
 
@@ -75,7 +99,7 @@ window.onload = function() {
     {
 		if (play == 0)
 			return;
-        var coords = getCoords(this,e);
+        coords = getCoords(this,e);
         var val = 0;
 
 
@@ -106,6 +130,9 @@ window.onload = function() {
 			{
 				play = 0;
                // speak("Felicitation !","");
+			   reineX = Math.floor(coords.x / 32);
+			   reineY = Math.floor(coords.y / 32);
+			    tutorialIA();
                 speak("Felicitation !\nMaintenant placez un attaquant!","");
 				
 			}
