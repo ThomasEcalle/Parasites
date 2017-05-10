@@ -60,12 +60,18 @@ app.post("/users/connect", function(req,res,next){
         exp: expires
       }, constants.secret);
 
-      res.status(200).send({
-        "result": 1,
-        "message": "Athentification is a success",
-        "expires in": "1 day",
-        "token": token
-      })
+      // We register the actual token in database
+      user.update({
+      token_available: token
+      }).then(function() {
+        return res.status(200).send({
+          "result": 1,
+          "message": "Athentification is a success",
+          "expires in": "1 day",
+          "token": token
+        })
+      }).catch(next);
+
     }else{
       res.status(400).send({
         "result": 0,
@@ -117,21 +123,34 @@ app.use(function(req,res,next){
     // verifies secret and checks exp
     try {
        var decoded = jwt.decode(token, constants.secret);
+
       //Is the token expired ?
        if (decoded.exp <= Date.now()) {
          res.status(400);
          res.json({
            result : 0,
-           message : "Acces token has expired"
+           message : "Token is not valid anymore"
          })
           return res;
         }
 
+
         // We put the User object on every req, for every routes !
         User.findById(decoded.iss).then(function(user) {
-          console.log(user);
-          req.user = user;
-          return next();
+          if (user.token_available == token){
+            console.log(user);
+            req.user = user;
+            return next();
+          }
+          else {
+            res.status(400);
+            res.json({
+              result : 0,
+              message : "Token is not valid anymore"
+            })
+             return res;
+          }
+
         })
 
      } catch (err) {

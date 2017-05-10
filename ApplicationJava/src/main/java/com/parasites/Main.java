@@ -48,7 +48,7 @@ public class Main extends Application
 
         fakeList.add(realUser);
         fakeList.add(jean);
-        fakeList.add(robin);
+//        fakeList.add(robin);
 
         final List<Player> opponents = new ArrayList<>();
         opponents.add(jean);

@@ -194,6 +194,24 @@ router.put("/update/password/:user_password", function(req,res,next){
   }
 })
 
+/******************************************
+*             Deconnect User              *
+*******************************************/
+router.put("/deconnect", function(req,res,next){
+  if (req.user){
+    let user = req.user;
+
+    user.update({
+    token_available: null
+    }).then(function() {
+      return res.status(200).send({
+        result: 1,
+        message: "Successfully deconnected"
+      })
+    }).catch(next);
+
+  }
+})
 
 /********************************************************************************************
 *                                      FRIEND ZONE                                          *

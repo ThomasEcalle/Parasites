@@ -62,6 +62,9 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'A phone number has to contain only numbers'
          }
        }
+     },
+     token_available: {
+       type: DataTypes.STRING,
      }
    }, {
   paranoid: true,
