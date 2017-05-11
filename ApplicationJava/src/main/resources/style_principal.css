@@ -1,0 +1,170 @@
+.pane_principal{
+	-fx-background-image: url("space.jpg");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.pane_clip{
+	-fx-background-color: #262626;
+    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.6 ), 30, 0.5, 0, 0 );
+	-fx-background-radius: 0 10 10 10;
+	-fx-border-color: linear-gradient(to right, black 10%,#33ff33 50%,black 90%);
+	-fx-border-width: 0 0 2 0;
+	-fx-border-radius: 0 10 10 10;
+}
+
+/* * * * * * * * * * * * 
+* * * * * * * * * * * * *
+		 TAB PANE
+* * * * * * * * * * * * *
+* * * * * * * * * * * * */
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+	-fx-tab-min-width:170px;
+	-fx-tab-max-width:170px;
+	-fx-tab-min-height:35px;
+	-fx-tab-max-height:35px;
+}
+
+.tab
+{
+    /*-fx-background-color: #e6e6e6;*/
+	-fx-background-color: linear-gradient(to bottom, #606060 0%,#383838 9%,#303030 48%,#262626 54%,#000000 100%);
+	-fx-border-color: black;
+	-fx-border-width: 0 0 2 0;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    /*-fx-text-fill: #828282;*/
+	-fx-text-fill: linear-gradient(to right, #195608 15%,#195608 15%,#33ff33 50%,#195608 85%);
+	-fx-effect: dropshadow(three-pass-box, rgba(122,236,44,0.2), 5, 0, 0, 0);
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.tab:disabled
+{
+    /*-fx-background-color: #e6e6e6;*/
+	-fx-background-color: linear-gradient(to bottom, #606060 0%,#383838 9%,#303030 48%,#262626 54%,#000000 100%);
+	-fx-border-color: black;
+	-fx-border-width: 0 0 2 0;
+	-fx-opacity: 1;
+}
+
+.tab:disabled .tab-label{
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.3) , 0,0,0,1 );
+	-fx-text-fill: black;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator{
+	-fx-border-color: linear-gradient(to right, #195608 15%,#195608 15%,#33ff33 50%,#195608 85%);
+	-fx-border-width: 0 0 1 0;
+}
+
+.tab-pane:top *.tab-header-area {
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em;
+}
+
+/* * * * * * * * * * * * 
+* * * * * * * * * * * * *
+		  BOUTONS
+* * * * * * * * * * * * *
+* * * * * * * * * * * * */
+
+.button { 
+	-fx-text-alignment: center;
+    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #02A910 40%, #006E09 50%); 
+	-fx-border-color: #00CC11;
+	-fx-border-width: 0 1 2 1;
+	-fx-border-radius : 6;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0, 1;
+	-fx-font-family: lucida;
+	-fx-font-weight: bold;
+	-fx-font-size: 15px;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7), 10, 0, 0, 0);
+}
+
+.button_red{
+	-fx-text-alignment: center;
+	-fx-background-color: radial-gradient(center 50% -40%, radius 200%, #ff0000 40%, #990000 50%);
+	-fx-border-color: #ff1a1a;
+}
+
+.button:hover {
+	-fx-text-alignment: center;
+    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #02ca13 40%, #00990d 50%); 
+}
+
+.button_red:hover {
+	-fx-text-alignment: center;
+    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #ff3333 40%, #cc0000 50%); 
+}
+
+.button:pressed {
+	-fx-text-alignment: center;
+	-fx-background-color: radial-gradient(center 50% -40%, radius 200%, #02970e 40%, #02b110 50%); 
+	-fx-border-width: 1 1 1 1;
+}
+
+.button_red:pressed {
+	-fx-text-alignment: center;
+	-fx-background-color: radial-gradient(center 50% -40%, radius 200%, #cc0000 40%, #ff3333 50%); 
+	-fx-border-width: 1 1 1 1;
+}
+
+.button LabeledText {
+	-fx-text-alignment: center;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.3) , 0,0,0,1 );
+}
+
+
+/* * * * * * * * * * * * 
+* * * * * * * * * * * * *
+		  PARTIE
+* * * * * * * * * * * * *
+* * * * * * * * * * * * */
+
+.pane_border_right{
+	-fx-border-color: linear-gradient(to bottom, rgba(51,255,51,0) 10%,rgba(51,255,51,0.49) 50%,rgba(51,255,51,0) 90%);
+	-fx-border-width: 0 1 0 0;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: #262626;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+	-fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+/* * * * * * * * * * * * 
+* * * * * * * * * * * * *
+		  PROFIL
+* * * * * * * * * * * * *
+* * * * * * * * * * * * */
+
+.pane_border_bottom{
+	-fx-border-color: linear-gradient(to right, rgba(51,255,51,0) 10%,rgba(51,255,51,0.49) 50%);
+	-fx-border-width: 0 0 1 0;
+}
