@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" styleClass="pane_principal" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@style_principal.css" fx:controller="com.parasites.javafxapp.controllers.PrincipalWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" styleClass="pane_principal" stylesheets="@style_principal.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parasites.javafxapp.controllers.PrincipalWindowController">
    <children>
       <VBox layoutX="249.0" layoutY="48.0" prefHeight="700.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -53,11 +42,11 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="Partie">
+                      <Tab fx:id="partie_tab" text="Partie">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane_clip">
                                  <children>
-                                    <TableView layoutX="233.0" layoutY="56.0" prefHeight="475.0" prefWidth="1190.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="85.0">
+                                    <TableView fx:id="parties_disponibles" layoutX="233.0" layoutY="56.0" prefHeight="475.0" prefWidth="1190.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="85.0">
                                       <columns>
                                         <TableColumn prefWidth="359.0" text="Nom de la partie" />
                                         <TableColumn minWidth="0.0" prefWidth="260.0" text="Créateur" />
@@ -66,7 +55,7 @@
                                           <TableColumn prefWidth="146.66668701171875" text="Temps restant" />
                                       </columns>
                                     </TableView>
-                                    <Button alignment="CENTER" layoutX="993.0" layoutY="31.0" mnemonicParsing="false" text="créer une partie" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="23.0" />
+                                    <Button fx:id="creer_partie" alignment="CENTER" layoutX="993.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#clickOnCreation" text="créer une partie" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="23.0" />
                                     <Label layoutX="67.0" layoutY="31.0" text="Liste des parties en cours" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0">
                                        <font>
                                           <Font name="Arial Black" size="15.0" />
@@ -75,7 +64,7 @@
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                        <Tab closable="false" text="Salon">
+                        <Tab fx:id="salon_tab" text="Salon">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane_clip">
                                  <children>
@@ -83,7 +72,7 @@
                                        <children>
                                           <AnchorPane prefHeight="473.0" prefWidth="649.0" styleClass="pane_border_right">
                                              <children>
-                                                <TableView prefHeight="354.0" prefWidth="485.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="85.0">
+                                                <TableView fx:id="membres_partie" prefHeight="354.0" prefWidth="485.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="85.0">
                                                   <columns>
                                                     <TableColumn prefWidth="484.0" text="Nom" />
                                                   </columns>
@@ -172,32 +161,32 @@
                                                                         <Insets right="20.0" />
                                                                      </GridPane.margin>
                                                                   </Label>
-                                                                  <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                                  <Label fx:id="proprietaire" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                                      <font>
                                                                         <Font name="Arial Italic" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                                  <Label fx:id="joueurs_max" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                                      <font>
                                                                         <Font name="Arial Italic" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                                  <Label fx:id="joueurs_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                                                      <font>
                                                                         <Font name="Arial Italic" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                                                  <Label fx:id="nombre_cases" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                                                      <font>
                                                                         <Font name="Arial Italic" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                                                  <Label fx:id="creation" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                                                      <font>
                                                                         <Font name="Arial Italic" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                                                  <Label fx:id="expiration" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                                                      <font>
                                                                         <Font name="Arial Italic" size="12.0" />
                                                                      </font>
@@ -208,8 +197,8 @@
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="81.0" prefWidth="645.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="quitter" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
-                                                            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" text="lancer" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
+                                                            <Button fx:id="quitter" mnemonicParsing="false" onMouseClicked="#clickOnQuitterSalon" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="quitter" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
+                                                            <Button fx:id="lancer" mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" text="lancer" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
@@ -264,13 +253,13 @@
                                                             <Font name="Arial Black" size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <Label fx:id="pseudo_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                          <font>
                                                             <Font name="Arial Italic" size="12.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                                      <PasswordField maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                                      <TextField fx:id="pseudo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                                      <TextField fx:id="confirmation_pseudo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                                                    </children>
                                                    <padding>
                                                       <Insets bottom="20.0" />
@@ -311,13 +300,13 @@
                                                             <Font name="Arial Black" size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <Label fx:id="password_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                          <font>
                                                             <Font name="Arial Italic" size="12.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                                      <PasswordField maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                                      <PasswordField fx:id="password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                                      <PasswordField fx:id="confirmation_password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                                    </children>
                                                    <VBox.margin>
                                                       <Insets bottom="20.0" />
@@ -393,26 +382,26 @@
                                                                   <Font name="Arial Black" size="11.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                                            <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                                            <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                                            <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                                                            <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                                            <TextField fx:id="mail" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                            <TextField fx:id="nom" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                            <TextField fx:id="prenom" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                                            <TextField fx:id="telephone" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                                            <Label fx:id="mail_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                                                <font>
                                                                   <Font name="Arial Italic" size="12.0" />
                                                                </font>
                                                             </Label>
-                                                            <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                                            <Label fx:id="nom_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                                                <font>
                                                                   <Font name="Arial Italic" size="12.0" />
                                                                </font>
                                                             </Label>
-                                                            <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                                            <Label fx:id="prenom_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font name="Arial Italic" size="12.0" />
                                                                </font>
                                                             </Label>
-                                                            <Label text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                                            <Label fx:id="telephone_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                                                <font>
                                                                   <Font name="Arial Italic" size="12.0" />
                                                                </font>
@@ -425,7 +414,7 @@
                                                       <AnchorPane prefHeight="74.0" prefWidth="595.0">
                                                          <children>
                                                             <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" text="valider" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
-                                                            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="reset" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
+                                                            <Button mnemonicParsing="false" onMouseClicked="#clickOnQuitterSalon" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="reset" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
