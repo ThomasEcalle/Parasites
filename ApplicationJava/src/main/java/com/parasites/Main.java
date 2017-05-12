@@ -5,7 +5,6 @@ import com.parasites.engine.pieces.Builder;
 import com.parasites.engine.pieces.Defender;
 import com.parasites.engine.pieces.Warrior;
 import com.parasites.engine.players.Player;
-import com.parasites.network.OnlineGameManager;
 import com.parasites.utils.AnimatedZoomOperator;
 import com.parasites.view.GraphicBoard;
 import javafx.application.Application;
@@ -48,13 +47,11 @@ public class Main extends Application
 
         fakeList.add(realUser);
         fakeList.add(jean);
-//        fakeList.add(robin);
+        //        fakeList.add(robin);
 
         final List<Player> opponents = new ArrayList<>();
         opponents.add(jean);
         opponents.add(robin);
-
-        final OnlineGameManager onlineGameManager = OnlineGameManager.getInstance(realUser, opponents);
 
         this.board = Board.createInitialBoard(fakeList.get(0), DIMENSION, fakeList);
 
