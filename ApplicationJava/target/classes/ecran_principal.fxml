@@ -6,431 +6,821 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" styleClass="pane_principal" stylesheets="@style_principal.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parasites.controllers.PrincipalWindowController">
-   <children>
-      <VBox layoutX="249.0" layoutY="48.0" prefHeight="700.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane prefHeight="224.0" prefWidth="1250.0">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="592.0" layoutY="56.0" prefHeight="151.0" prefWidth="1250.0" text="P A R A S I T E S" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="Arial Black" size="47.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="622.0" prefWidth="1250.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="30.0" left="30.0" right="30.0" />
-               </padding>
-               <children>
-                  <TabPane layoutX="129.0" layoutY="124.0" prefHeight="573.0" prefWidth="1250.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <tabs>
-                      <Tab text="Accueil">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane_clip">
-                                 <children>
-                                    <Label alignment="CENTER" layoutX="456.0" layoutY="218.0" lineSpacing="10.0" prefHeight="475.0" prefWidth="1190.0" text="Lorem ipsum dolor sit amet consectetur adipiscing elit.  Morbi consequat suscipit mauris eu sodales. Praesent fringilla mollis risus, vitae ultrices urna porta sodales. Cras dictum vitae ipsum vel porttitor. Phasellus lectus nisi, semper non lorem eget, porttitor mattis lacus. Quisque nec ligula sem. Praesent vehicula odio felis, sit amet sollicitudin justo elementum ut. Donec lorem risus, feugiat malesuada bibendum nec, dapibus sed neque. Quisque ornare velit metus, nec vehicula mi cursus sed. Cras maximus sapien urna, et gravida augue pulvinar ac. Aliquam eu tortor gravida, condimentum ex a, laoreet nisi. Donec lacinia feugiat felis at scelerisque. Praesent augue lorem, pellentesque nec urna sed, sollicitudin molestie neque. Phasellus sed felis tincidunt, interdum ante sed, mattis diam. Morbi metus tortor, lobortis in ante vel, mattis pulvinar lorem. Sed ornare lorem non dolor consequat ullamcorper.&#10;" textAlignment="CENTER" textFill="WHITE" textOverrun="LEADING_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font name="Arial" size="17.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab fx:id="partie_tab" text="Partie">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane_clip">
-                                 <children>
-                                    <TableView fx:id="parties_disponibles" layoutX="233.0" layoutY="56.0" prefHeight="475.0" prefWidth="1190.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="85.0">
-                                      <columns>
-                                        <TableColumn prefWidth="359.0" text="Nom de la partie" />
-                                        <TableColumn minWidth="0.0" prefWidth="260.0" text="Créateur" />
-                                          <TableColumn prefWidth="193.66668701171875" text="Nombre de joueurs" />
-                                          <TableColumn minWidth="1.0" prefWidth="171.0" text="Nombre de joueurs max" />
-                                          <TableColumn prefWidth="146.66668701171875" text="Temps restant" />
-                                      </columns>
-                                    </TableView>
-                                    <Button fx:id="creer_partie" alignment="CENTER" layoutX="993.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#clickOnCreation" text="créer une partie" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="23.0" />
-                                    <Label layoutX="67.0" layoutY="31.0" text="Liste des parties en cours" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0">
-                                       <font>
-                                          <Font name="Arial Black" size="15.0" />
-                                       </font>
-                                    </Label>
-                                 </children></AnchorPane>
-                        </content>
-                      </Tab>
-                        <Tab fx:id="salon_tab" text="Salon">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane_clip">
-                                 <children>
-                                    <HBox prefHeight="475.0" prefWidth="1190.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <AnchorPane prefHeight="473.0" prefWidth="649.0" styleClass="pane_border_right">
-                                             <children>
-                                                <TableView fx:id="membres_partie" prefHeight="354.0" prefWidth="485.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="85.0">
-                                                  <columns>
-                                                    <TableColumn prefWidth="484.0" text="Nom" />
-                                                  </columns>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
+            prefWidth="1250.0" styleClass="pane_principal" stylesheets="@style_principal.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.parasites.controllers.PrincipalWindowController">
+    <children>
+        <VBox layoutX="249.0" layoutY="48.0" prefHeight="700.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane prefHeight="224.0" prefWidth="1250.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="592.0" layoutY="56.0"
+                               prefHeight="151.0" prefWidth="1250.0" text="P A R A S I T E S" textAlignment="CENTER"
+                               textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <font>
+                                <Font name="Arial Black" size="47.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="622.0" prefWidth="1250.0">
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0"/>
+                    </padding>
+                    <children>
+                        <TabPane layoutX="129.0" layoutY="124.0" prefHeight="573.0" prefWidth="1250.0"
+                                 tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <tabs>
+                                <Tab text="Accueil">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                                    styleClass="pane_clip">
+                                            <children>
+                                                <Label alignment="CENTER" layoutX="456.0" layoutY="218.0"
+                                                       lineSpacing="10.0" prefHeight="475.0" prefWidth="1190.0"
+                                                       text="Lorem ipsum dolor sit amet consectetur adipiscing elit.  Morbi consequat suscipit mauris eu sodales. Praesent fringilla mollis risus, vitae ultrices urna porta sodales. Cras dictum vitae ipsum vel porttitor. Phasellus lectus nisi, semper non lorem eget, porttitor mattis lacus. Quisque nec ligula sem. Praesent vehicula odio felis, sit amet sollicitudin justo elementum ut. Donec lorem risus, feugiat malesuada bibendum nec, dapibus sed neque. Quisque ornare velit metus, nec vehicula mi cursus sed. Cras maximus sapien urna, et gravida augue pulvinar ac. Aliquam eu tortor gravida, condimentum ex a, laoreet nisi. Donec lacinia feugiat felis at scelerisque. Praesent augue lorem, pellentesque nec urna sed, sollicitudin molestie neque. Phasellus sed felis tincidunt, interdum ante sed, mattis diam. Morbi metus tortor, lobortis in ante vel, mattis pulvinar lorem. Sed ornare lorem non dolor consequat ullamcorper.&#10;"
+                                                       textAlignment="CENTER" textFill="WHITE"
+                                                       textOverrun="LEADING_ELLIPSIS" wrapText="true"
+                                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+                                                       AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+                                                    <font>
+                                                        <Font name="Arial" size="17.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="partie_tab" text="Partie">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                                    styleClass="pane_clip">
+                                            <children>
+                                                <TableView fx:id="parties_disponibles" layoutX="233.0" layoutY="56.0"
+                                                           prefHeight="475.0" prefWidth="1190.0"
+                                                           AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"
+                                                           AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="85.0">
+                                                    <columns>
+                                                        <TableColumn prefWidth="359.0" text="Nom de la partie"/>
+                                                        <TableColumn fx:id="gameCreatorNameColumn" minWidth="0.0"
+                                                                     prefWidth="260.0" text="Créateur"/>
+                                                        <TableColumn prefWidth="193.66668701171875"
+                                                                     text="Nombre de joueurs"/>
+                                                        <TableColumn minWidth="1.0" prefWidth="171.0"
+                                                                     text="Nombre de joueurs max"/>
+                                                        <TableColumn prefWidth="146.66668701171875"
+                                                                     text="Temps restant"/>
+                                                    </columns>
                                                 </TableView>
-                                                <Label text="Liste des joueurs" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0">
-                                                   <font>
-                                                      <Font name="Arial Black" size="15.0" />
-                                                   </font>
+                                                <Button fx:id="creer_partie" alignment="CENTER" layoutX="993.0"
+                                                        layoutY="31.0" mnemonicParsing="false"
+                                                        onMouseClicked="#clickOnCreation" text="créer une partie"
+                                                        AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="23.0"/>
+                                                <Label layoutX="67.0" layoutY="31.0" text="Liste des parties en cours"
+                                                       textFill="WHITE" AnchorPane.leftAnchor="50.0"
+                                                       AnchorPane.topAnchor="35.0">
+                                                    <font>
+                                                        <Font name="Arial Black" size="15.0"/>
+                                                    </font>
                                                 </Label>
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane prefHeight="473.0" prefWidth="748.0">
-                                             <children>
-                                                <VBox prefHeight="473.0" prefWidth="645.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <children>
-                                                      <AnchorPane prefHeight="82.0" prefWidth="645.0">
-                                                         <children>
-                                                            <Label text="Caractéristiques de la partie" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="15.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </AnchorPane>
-                                                      <AnchorPane prefHeight="333.0" prefWidth="645.0">
-                                                         <children>
-                                                            <GridPane prefHeight="308.0" prefWidth="645.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
-                                                              <columnConstraints>
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                              </columnConstraints>
-                                                              <rowConstraints>
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                              </rowConstraints>
-                                                               <children>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" text="Propriétaire :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="11.0" />
-                                                                     </font>
-                                                                     <GridPane.margin>
-                                                                        <Insets right="20.0" />
-                                                                     </GridPane.margin>
-                                                                  </Label>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" text="Nombre de joueurs max :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="11.0" />
-                                                                     </font>
-                                                                     <GridPane.margin>
-                                                                        <Insets right="20.0" />
-                                                                     </GridPane.margin>
-                                                                  </Label>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" text="Nombre de joueurs actuel :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="11.0" />
-                                                                     </font>
-                                                                     <GridPane.margin>
-                                                                        <Insets right="20.0" />
-                                                                     </GridPane.margin>
-                                                                  </Label>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" text="Créée depuis :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="11.0" />
-                                                                     </font>
-                                                                     <GridPane.margin>
-                                                                        <Insets right="20.0" />
-                                                                     </GridPane.margin>
-                                                                  </Label>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" text="Expire dans :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="11.0" />
-                                                                     </font>
-                                                                     <GridPane.margin>
-                                                                        <Insets right="20.0" />
-                                                                     </GridPane.margin>
-                                                                  </Label>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" text="Nombre de cases (hauteur x largeur) :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="11.0" />
-                                                                     </font>
-                                                                     <GridPane.margin>
-                                                                        <Insets right="20.0" />
-                                                                     </GridPane.margin>
-                                                                  </Label>
-                                                                  <Label fx:id="proprietaire" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Italic" size="12.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label fx:id="joueurs_max" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Italic" size="12.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label fx:id="joueurs_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Italic" size="12.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label fx:id="nombre_cases" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Italic" size="12.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label fx:id="creation" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Italic" size="12.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label fx:id="expiration" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="Arial Italic" size="12.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </children>
-                                                            </GridPane>
-                                                         </children>
-                                                      </AnchorPane>
-                                                      <AnchorPane prefHeight="81.0" prefWidth="645.0">
-                                                         <children>
-                                                            <Button fx:id="quitter" mnemonicParsing="false" onMouseClicked="#clickOnQuitterSalon" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="quitter" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
-                                                            <Button fx:id="lancer" mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" text="lancer" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </HBox>
-                                 </children></AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Profil">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane_clip">
-                                 <children>
-                                    <HBox layoutX="100.0" layoutY="181.0" prefHeight="475.0" prefWidth="1190.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <VBox prefHeight="473.0" prefWidth="595.0" styleClass="pane_border_right">
-                                             <children>
-                                                <GridPane prefHeight="236.0" prefWidth="595.0" styleClass="pane_border_bottom">
-                                                  <columnConstraints>
-                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="251.0" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="343.0" />
-                                                  </columnConstraints>
-                                                  <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                  </rowConstraints>
-                                                   <children>
-                                                      <Label text="Pseudo" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-                                                         <font>
-                                                            <Font name="Arial Black" size="15.0" />
-                                                         </font>
-                                                         <padding>
-                                                            <Insets left="50.0" top="35.0" />
-                                                         </padding>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" text="Actuel :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                                                         <font>
-                                                            <Font name="Arial Black" size="11.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" text="Nouveau pseudo :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                                                         <font>
-                                                            <Font name="Arial Black" size="11.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" text="Confirmation :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                                                         <font>
-                                                            <Font name="Arial Black" size="11.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="pseudo_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                                         <font>
-                                                            <Font name="Arial Italic" size="12.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="pseudo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                                      <TextField fx:id="confirmation_pseudo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                                   </children>
-                                                   <padding>
-                                                      <Insets bottom="20.0" />
-                                                   </padding>
-                                                </GridPane>
-                                                <GridPane prefHeight="211.0" prefWidth="594.0">
-                                                  <columnConstraints>
-                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="251.0" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="344.0" />
-                                                  </columnConstraints>
-                                                  <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                  </rowConstraints>
-                                                   <children>
-                                                      <Label text="Password" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="Arial Black" size="15.0" />
-                                                         </font>
-                                                         <padding>
-                                                            <Insets left="50.0" top="35.0" />
-                                                         </padding>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" text="Actuel :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                                                         <font>
-                                                            <Font name="Arial Black" size="11.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" text="Nouveau password :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                                                         <font>
-                                                            <Font name="Arial Black" size="11.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" text="Confirmation :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                                                         <font>
-                                                            <Font name="Arial Black" size="11.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="password_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                                         <font>
-                                                            <Font name="Arial Italic" size="12.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <PasswordField fx:id="password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                                      <PasswordField fx:id="confirmation_password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets bottom="20.0" />
-                                                   </VBox.margin>
-                                                </GridPane>
-                                             </children>
-                                          </VBox>
-                                          <AnchorPane prefHeight="473.0" prefWidth="595.0">
-                                             <children>
-                                                <Label text="Autre" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Arial Black" size="15.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="50.0" top="35.0" />
-                                                   </padding>
-                                                </Label>
-                                                <VBox layoutX="267.0" layoutY="29.0" prefHeight="473.0" prefWidth="595.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <children>
-                                                      <AnchorPane prefHeight="65.0" prefWidth="595.0" />
-                                                      <GridPane prefHeight="362.0" prefWidth="595.0">
-                                                        <columnConstraints>
-                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="152.0" />
-                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="236.0" />
-                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="54.0" />
-                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="153.0" />
-                                                        </columnConstraints>
-                                                        <rowConstraints>
-                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                        </rowConstraints>
-                                                         <children>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Nouveau mail :" textFill="WHITE" GridPane.halignment="RIGHT">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Nouveau nom :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Nouveau prénom :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Nouveau téléphone :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Actuel :" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Actuel :" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Actuel :" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Actuel :" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                                                               <font>
-                                                                  <Font name="Arial Black" size="11.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <TextField fx:id="mail" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                                            <TextField fx:id="nom" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                                            <TextField fx:id="prenom" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                                            <TextField fx:id="telephone" maxWidth="-Infinity" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                                                            <Label fx:id="mail_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                                                               <font>
-                                                                  <Font name="Arial Italic" size="12.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label fx:id="nom_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                                               <font>
-                                                                  <Font name="Arial Italic" size="12.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label fx:id="prenom_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                                                               <font>
-                                                                  <Font name="Arial Italic" size="12.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label fx:id="telephone_actuel" text="à remplir" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                                               <font>
-                                                                  <Font name="Arial Italic" size="12.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets top="50.0" />
-                                                         </padding>
-                                                      </GridPane>
-                                                      <AnchorPane prefHeight="74.0" prefWidth="595.0">
-                                                         <children>
-                                                            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" text="valider" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
-                                                            <Button mnemonicParsing="false" onMouseClicked="#clickOnQuitterSalon" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="reset" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </HBox>
-                                 </children></AnchorPane>
-                           </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </children>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="salon_tab" text="Salon">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                                    styleClass="pane_clip">
+                                            <children>
+                                                <HBox prefHeight="475.0" prefWidth="1190.0"
+                                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <AnchorPane prefHeight="473.0" prefWidth="649.0"
+                                                                    styleClass="pane_border_right">
+                                                            <children>
+                                                                <TableView fx:id="membres_partie" prefHeight="354.0"
+                                                                           prefWidth="485.0"
+                                                                           AnchorPane.bottomAnchor="34.0"
+                                                                           AnchorPane.leftAnchor="30.0"
+                                                                           AnchorPane.topAnchor="85.0">
+                                                                    <columns>
+                                                                        <TableColumn prefWidth="484.0" text="Nom"/>
+                                                                    </columns>
+                                                                </TableView>
+                                                                <Label text="Liste des joueurs" textFill="WHITE"
+                                                                       AnchorPane.leftAnchor="50.0"
+                                                                       AnchorPane.topAnchor="35.0">
+                                                                    <font>
+                                                                        <Font name="Arial Black" size="15.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane prefHeight="473.0" prefWidth="748.0">
+                                                            <children>
+                                                                <VBox prefHeight="473.0" prefWidth="645.0"
+                                                                      AnchorPane.bottomAnchor="0.0"
+                                                                      AnchorPane.leftAnchor="0.0"
+                                                                      AnchorPane.rightAnchor="0.0"
+                                                                      AnchorPane.topAnchor="0.0">
+                                                                    <children>
+                                                                        <AnchorPane prefHeight="82.0" prefWidth="645.0">
+                                                                            <children>
+                                                                                <Label text="Caractéristiques de la partie"
+                                                                                       textFill="WHITE"
+                                                                                       AnchorPane.leftAnchor="50.0"
+                                                                                       AnchorPane.topAnchor="35.0">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="15.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane prefHeight="333.0"
+                                                                                    prefWidth="645.0">
+                                                                            <children>
+                                                                                <GridPane prefHeight="308.0"
+                                                                                          prefWidth="645.0"
+                                                                                          AnchorPane.bottomAnchor="30.0"
+                                                                                          AnchorPane.leftAnchor="30.0"
+                                                                                          AnchorPane.rightAnchor="30.0"
+                                                                                          AnchorPane.topAnchor="30.0">
+                                                                                    <columnConstraints>
+                                                                                        <ColumnConstraints
+                                                                                                hgrow="SOMETIMES"
+                                                                                                minWidth="10.0"
+                                                                                                prefWidth="100.0"/>
+                                                                                        <ColumnConstraints
+                                                                                                hgrow="SOMETIMES"
+                                                                                                minWidth="10.0"
+                                                                                                prefWidth="100.0"/>
+                                                                                    </columnConstraints>
+                                                                                    <rowConstraints>
+                                                                                        <RowConstraints minHeight="10.0"
+                                                                                                        prefHeight="30.0"
+                                                                                                        vgrow="SOMETIMES"/>
+                                                                                        <RowConstraints minHeight="10.0"
+                                                                                                        prefHeight="30.0"
+                                                                                                        vgrow="SOMETIMES"/>
+                                                                                        <RowConstraints minHeight="10.0"
+                                                                                                        prefHeight="30.0"
+                                                                                                        vgrow="SOMETIMES"/>
+                                                                                        <RowConstraints minHeight="10.0"
+                                                                                                        prefHeight="30.0"
+                                                                                                        vgrow="SOMETIMES"/>
+                                                                                        <RowConstraints minHeight="10.0"
+                                                                                                        prefHeight="30.0"
+                                                                                                        vgrow="SOMETIMES"/>
+                                                                                        <RowConstraints minHeight="10.0"
+                                                                                                        prefHeight="30.0"
+                                                                                                        vgrow="SOMETIMES"/>
+                                                                                    </rowConstraints>
+                                                                                    <children>
+                                                                                        <Label alignment="CENTER"
+                                                                                               contentDisplay="CENTER"
+                                                                                               text="Propriétaire :"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.halignment="RIGHT"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Black"
+                                                                                                      size="11.0"/>
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets right="20.0"/>
+                                                                                            </GridPane.margin>
+                                                                                        </Label>
+                                                                                        <Label alignment="CENTER"
+                                                                                               contentDisplay="CENTER"
+                                                                                               text="Nombre de joueurs max :"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.halignment="RIGHT"
+                                                                                               GridPane.rowIndex="1"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Black"
+                                                                                                      size="11.0"/>
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets right="20.0"/>
+                                                                                            </GridPane.margin>
+                                                                                        </Label>
+                                                                                        <Label alignment="CENTER"
+                                                                                               contentDisplay="CENTER"
+                                                                                               text="Nombre de joueurs actuel :"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.halignment="RIGHT"
+                                                                                               GridPane.rowIndex="2"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Black"
+                                                                                                      size="11.0"/>
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets right="20.0"/>
+                                                                                            </GridPane.margin>
+                                                                                        </Label>
+                                                                                        <Label alignment="CENTER"
+                                                                                               contentDisplay="CENTER"
+                                                                                               text="Créée depuis :"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.halignment="RIGHT"
+                                                                                               GridPane.rowIndex="4"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Black"
+                                                                                                      size="11.0"/>
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets right="20.0"/>
+                                                                                            </GridPane.margin>
+                                                                                        </Label>
+                                                                                        <Label alignment="CENTER"
+                                                                                               contentDisplay="CENTER"
+                                                                                               text="Expire dans :"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.halignment="RIGHT"
+                                                                                               GridPane.rowIndex="5"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Black"
+                                                                                                      size="11.0"/>
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets right="20.0"/>
+                                                                                            </GridPane.margin>
+                                                                                        </Label>
+                                                                                        <Label alignment="CENTER"
+                                                                                               contentDisplay="CENTER"
+                                                                                               text="Nombre de cases (hauteur x largeur) :"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.halignment="RIGHT"
+                                                                                               GridPane.rowIndex="3"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Black"
+                                                                                                      size="11.0"/>
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets right="20.0"/>
+                                                                                            </GridPane.margin>
+                                                                                        </Label>
+                                                                                        <Label fx:id="proprietaire"
+                                                                                               text="à remplir"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.columnIndex="1"
+                                                                                               GridPane.halignment="CENTER"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Italic"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <Label fx:id="joueurs_max"
+                                                                                               text="à remplir"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.columnIndex="1"
+                                                                                               GridPane.halignment="CENTER"
+                                                                                               GridPane.rowIndex="1"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Italic"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <Label fx:id="joueurs_actuel"
+                                                                                               text="à remplir"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.columnIndex="1"
+                                                                                               GridPane.halignment="CENTER"
+                                                                                               GridPane.rowIndex="2"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Italic"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <Label fx:id="nombre_cases"
+                                                                                               text="à remplir"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.columnIndex="1"
+                                                                                               GridPane.halignment="CENTER"
+                                                                                               GridPane.rowIndex="3"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Italic"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <Label fx:id="creation"
+                                                                                               text="à remplir"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.columnIndex="1"
+                                                                                               GridPane.halignment="CENTER"
+                                                                                               GridPane.rowIndex="4"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Italic"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                        <Label fx:id="expiration"
+                                                                                               text="à remplir"
+                                                                                               textFill="WHITE"
+                                                                                               GridPane.columnIndex="1"
+                                                                                               GridPane.halignment="CENTER"
+                                                                                               GridPane.rowIndex="5"
+                                                                                               GridPane.valignment="CENTER">
+                                                                                            <font>
+                                                                                                <Font name="Arial Italic"
+                                                                                                      size="12.0"/>
+                                                                                            </font>
+                                                                                        </Label>
+                                                                                    </children>
+                                                                                </GridPane>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                        <AnchorPane prefHeight="81.0" prefWidth="645.0">
+                                                                            <children>
+                                                                                <Button fx:id="quitter"
+                                                                                        mnemonicParsing="false"
+                                                                                        onMouseClicked="#clickOnQuitterSalon"
+                                                                                        prefHeight="37.0"
+                                                                                        prefWidth="75.0"
+                                                                                        styleClass="button_red"
+                                                                                        text="quitter"
+                                                                                        AnchorPane.bottomAnchor="23.0"
+                                                                                        AnchorPane.rightAnchor="30.0"/>
+                                                                                <Button fx:id="lancer"
+                                                                                        mnemonicParsing="false"
+                                                                                        prefHeight="37.0"
+                                                                                        prefWidth="75.0" text="lancer"
+                                                                                        AnchorPane.bottomAnchor="23.0"
+                                                                                        AnchorPane.rightAnchor="125.0"/>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Profil">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                                    styleClass="pane_clip">
+                                            <children>
+                                                <HBox layoutX="100.0" layoutY="181.0" prefHeight="475.0"
+                                                      prefWidth="1190.0" AnchorPane.bottomAnchor="0.0"
+                                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                      AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <VBox prefHeight="473.0" prefWidth="595.0"
+                                                              styleClass="pane_border_right">
+                                                            <children>
+                                                                <GridPane prefHeight="236.0" prefWidth="595.0"
+                                                                          styleClass="pane_border_bottom">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           maxWidth="293.0"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="251.0"/>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           maxWidth="345.0"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="343.0"/>
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <Label text="Pseudo" textFill="WHITE"
+                                                                               GridPane.halignment="LEFT"
+                                                                               GridPane.valignment="TOP">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="15.0"/>
+                                                                            </font>
+                                                                            <padding>
+                                                                                <Insets left="50.0" top="35.0"/>
+                                                                            </padding>
+                                                                        </Label>
+                                                                        <Label alignment="CENTER"
+                                                                               contentDisplay="CENTER" text="Actuel :"
+                                                                               textFill="WHITE"
+                                                                               GridPane.halignment="RIGHT"
+                                                                               GridPane.rowIndex="1">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="11.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label alignment="CENTER"
+                                                                               contentDisplay="CENTER"
+                                                                               text="Nouveau pseudo :" textFill="WHITE"
+                                                                               GridPane.halignment="RIGHT"
+                                                                               GridPane.rowIndex="2">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="11.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label alignment="CENTER"
+                                                                               contentDisplay="CENTER"
+                                                                               text="Confirmation :" textFill="WHITE"
+                                                                               GridPane.halignment="RIGHT"
+                                                                               GridPane.rowIndex="3">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="11.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label fx:id="pseudo_actuel" text="à remplir"
+                                                                               textFill="WHITE" GridPane.columnIndex="1"
+                                                                               GridPane.halignment="CENTER"
+                                                                               GridPane.rowIndex="1"
+                                                                               GridPane.valignment="CENTER">
+                                                                            <font>
+                                                                                <Font name="Arial Italic" size="12.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="pseudo" maxWidth="-Infinity"
+                                                                                   prefHeight="25.0" prefWidth="200.0"
+                                                                                   GridPane.columnIndex="1"
+                                                                                   GridPane.halignment="CENTER"
+                                                                                   GridPane.rowIndex="2"
+                                                                                   GridPane.valignment="CENTER"/>
+                                                                        <TextField fx:id="confirmation_pseudo"
+                                                                                   maxWidth="-Infinity"
+                                                                                   prefHeight="25.0" prefWidth="200.0"
+                                                                                   GridPane.columnIndex="1"
+                                                                                   GridPane.halignment="CENTER"
+                                                                                   GridPane.rowIndex="3"
+                                                                                   GridPane.valignment="CENTER"/>
+                                                                    </children>
+                                                                    <padding>
+                                                                        <Insets bottom="20.0"/>
+                                                                    </padding>
+                                                                </GridPane>
+                                                                <GridPane prefHeight="211.0" prefWidth="594.0">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           maxWidth="293.0"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="251.0"/>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           maxWidth="349.0"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="344.0"/>
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <Label text="Password" textFill="WHITE">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="15.0"/>
+                                                                            </font>
+                                                                            <padding>
+                                                                                <Insets left="50.0" top="35.0"/>
+                                                                            </padding>
+                                                                        </Label>
+                                                                        <Label alignment="CENTER"
+                                                                               contentDisplay="CENTER" text="Actuel :"
+                                                                               textFill="WHITE"
+                                                                               GridPane.halignment="RIGHT"
+                                                                               GridPane.rowIndex="1">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="11.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label alignment="CENTER"
+                                                                               contentDisplay="CENTER"
+                                                                               text="Nouveau password :"
+                                                                               textFill="WHITE"
+                                                                               GridPane.halignment="RIGHT"
+                                                                               GridPane.rowIndex="2">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="11.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label alignment="CENTER"
+                                                                               contentDisplay="CENTER"
+                                                                               text="Confirmation :" textFill="WHITE"
+                                                                               GridPane.halignment="RIGHT"
+                                                                               GridPane.rowIndex="3">
+                                                                            <font>
+                                                                                <Font name="Arial Black" size="11.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Label fx:id="password_actuel" text="à remplir"
+                                                                               textFill="WHITE" GridPane.columnIndex="1"
+                                                                               GridPane.halignment="CENTER"
+                                                                               GridPane.rowIndex="1"
+                                                                               GridPane.valignment="CENTER">
+                                                                            <font>
+                                                                                <Font name="Arial Italic" size="12.0"/>
+                                                                            </font>
+                                                                        </Label>
+                                                                        <PasswordField fx:id="password"
+                                                                                       maxWidth="-Infinity"
+                                                                                       prefHeight="25.0"
+                                                                                       prefWidth="200.0"
+                                                                                       GridPane.columnIndex="1"
+                                                                                       GridPane.halignment="CENTER"
+                                                                                       GridPane.rowIndex="3"
+                                                                                       GridPane.valignment="CENTER"/>
+                                                                        <PasswordField fx:id="confirmation_password"
+                                                                                       maxWidth="-Infinity"
+                                                                                       prefHeight="25.0"
+                                                                                       prefWidth="200.0"
+                                                                                       GridPane.columnIndex="1"
+                                                                                       GridPane.halignment="CENTER"
+                                                                                       GridPane.rowIndex="2"
+                                                                                       GridPane.valignment="CENTER"/>
+                                                                    </children>
+                                                                    <VBox.margin>
+                                                                        <Insets bottom="20.0"/>
+                                                                    </VBox.margin>
+                                                                </GridPane>
+                                                            </children>
+                                                        </VBox>
+                                                        <AnchorPane prefHeight="473.0" prefWidth="595.0">
+                                                            <children>
+                                                                <Label text="Autre" textFill="WHITE">
+                                                                    <font>
+                                                                        <Font name="Arial Black" size="15.0"/>
+                                                                    </font>
+                                                                    <padding>
+                                                                        <Insets left="50.0" top="35.0"/>
+                                                                    </padding>
+                                                                </Label>
+                                                                <VBox layoutX="267.0" layoutY="29.0" prefHeight="473.0"
+                                                                      prefWidth="595.0" AnchorPane.bottomAnchor="0.0"
+                                                                      AnchorPane.leftAnchor="0.0"
+                                                                      AnchorPane.rightAnchor="0.0"
+                                                                      AnchorPane.topAnchor="0.0">
+                                                                    <children>
+                                                                        <AnchorPane prefHeight="65.0"
+                                                                                    prefWidth="595.0"/>
+                                                                        <GridPane prefHeight="362.0" prefWidth="595.0">
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   maxWidth="292.0"
+                                                                                                   minWidth="10.0"
+                                                                                                   prefWidth="152.0"/>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   maxWidth="292.0"
+                                                                                                   minWidth="10.0"
+                                                                                                   prefWidth="236.0"/>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   maxWidth="460.0"
+                                                                                                   minWidth="10.0"
+                                                                                                   prefWidth="54.0"/>
+                                                                                <ColumnConstraints hgrow="SOMETIMES"
+                                                                                                   maxWidth="460.0"
+                                                                                                   minWidth="10.0"
+                                                                                                   prefWidth="153.0"/>
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Nouveau mail :"
+                                                                                       textFill="WHITE"
+                                                                                       GridPane.halignment="RIGHT">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Nouveau nom :"
+                                                                                       textFill="WHITE"
+                                                                                       GridPane.halignment="RIGHT"
+                                                                                       GridPane.rowIndex="1">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Nouveau prénom :"
+                                                                                       textFill="WHITE"
+                                                                                       GridPane.halignment="RIGHT"
+                                                                                       GridPane.rowIndex="2">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Nouveau téléphone :"
+                                                                                       textFill="WHITE"
+                                                                                       GridPane.halignment="RIGHT"
+                                                                                       GridPane.rowIndex="3">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Actuel :" textFill="WHITE"
+                                                                                       GridPane.columnIndex="2"
+                                                                                       GridPane.halignment="RIGHT">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Actuel :" textFill="WHITE"
+                                                                                       GridPane.columnIndex="2"
+                                                                                       GridPane.halignment="RIGHT"
+                                                                                       GridPane.rowIndex="1">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Actuel :" textFill="WHITE"
+                                                                                       GridPane.columnIndex="2"
+                                                                                       GridPane.halignment="RIGHT"
+                                                                                       GridPane.rowIndex="2">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Actuel :" textFill="WHITE"
+                                                                                       GridPane.columnIndex="2"
+                                                                                       GridPane.halignment="RIGHT"
+                                                                                       GridPane.rowIndex="3">
+                                                                                    <font>
+                                                                                        <Font name="Arial Black"
+                                                                                              size="11.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <TextField fx:id="mail"
+                                                                                           maxWidth="-Infinity"
+                                                                                           prefHeight="25.0"
+                                                                                           prefWidth="158.0"
+                                                                                           GridPane.columnIndex="1"
+                                                                                           GridPane.halignment="CENTER"
+                                                                                           GridPane.valignment="CENTER"/>
+                                                                                <TextField fx:id="nom"
+                                                                                           maxWidth="-Infinity"
+                                                                                           prefHeight="25.0"
+                                                                                           prefWidth="158.0"
+                                                                                           GridPane.columnIndex="1"
+                                                                                           GridPane.halignment="CENTER"
+                                                                                           GridPane.rowIndex="1"/>
+                                                                                <TextField fx:id="prenom"
+                                                                                           maxWidth="-Infinity"
+                                                                                           prefHeight="25.0"
+                                                                                           prefWidth="158.0"
+                                                                                           GridPane.columnIndex="1"
+                                                                                           GridPane.halignment="CENTER"
+                                                                                           GridPane.rowIndex="2"/>
+                                                                                <TextField fx:id="telephone"
+                                                                                           maxWidth="-Infinity"
+                                                                                           prefHeight="25.0"
+                                                                                           prefWidth="158.0"
+                                                                                           GridPane.columnIndex="1"
+                                                                                           GridPane.halignment="CENTER"
+                                                                                           GridPane.rowIndex="3"/>
+                                                                                <Label fx:id="mail_actuel"
+                                                                                       text="à remplir" textFill="WHITE"
+                                                                                       GridPane.columnIndex="3"
+                                                                                       GridPane.halignment="CENTER">
+                                                                                    <font>
+                                                                                        <Font name="Arial Italic"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label fx:id="nom_actuel"
+                                                                                       text="à remplir" textFill="WHITE"
+                                                                                       GridPane.columnIndex="3"
+                                                                                       GridPane.halignment="CENTER"
+                                                                                       GridPane.rowIndex="1">
+                                                                                    <font>
+                                                                                        <Font name="Arial Italic"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label fx:id="prenom_actuel"
+                                                                                       text="à remplir" textFill="WHITE"
+                                                                                       GridPane.columnIndex="3"
+                                                                                       GridPane.halignment="CENTER"
+                                                                                       GridPane.rowIndex="2">
+                                                                                    <font>
+                                                                                        <Font name="Arial Italic"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                                <Label fx:id="telephone_actuel"
+                                                                                       text="à remplir" textFill="WHITE"
+                                                                                       GridPane.columnIndex="3"
+                                                                                       GridPane.halignment="CENTER"
+                                                                                       GridPane.rowIndex="3">
+                                                                                    <font>
+                                                                                        <Font name="Arial Italic"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                            <padding>
+                                                                                <Insets top="50.0"/>
+                                                                            </padding>
+                                                                        </GridPane>
+                                                                        <AnchorPane prefHeight="74.0" prefWidth="595.0">
+                                                                            <children>
+                                                                                <Button mnemonicParsing="false"
+                                                                                        prefHeight="37.0"
+                                                                                        prefWidth="75.0" text="valider"
+                                                                                        AnchorPane.bottomAnchor="23.0"
+                                                                                        AnchorPane.rightAnchor="125.0"/>
+                                                                                <Button mnemonicParsing="false"
+                                                                                        onMouseClicked="#clickOnQuitterSalon"
+                                                                                        prefHeight="37.0"
+                                                                                        prefWidth="75.0"
+                                                                                        styleClass="button_red"
+                                                                                        text="reset"
+                                                                                        AnchorPane.bottomAnchor="23.0"
+                                                                                        AnchorPane.rightAnchor="30.0"/>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

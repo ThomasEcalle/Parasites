@@ -26,7 +26,7 @@ io.sockets.on('connection', function (socket) {
       players.push(player.pseudo);
       socket.player = player;
 
-      socket.broadcast.emit('updateServer', 'SERVER', player.pseudo + ' has connected');
+      socket.broadcast.emit('updateServer', player.pseudo + ' has connected');
       socket.emit('currentServerState',JSON.stringify(players), JSON.stringify(games));
 
       console.log("a new player has connected : " + player.pseudo);
@@ -37,19 +37,27 @@ io.sockets.on('connection', function (socket) {
   	// when the client emits 'createGame', this listens and executes
   	socket.on('createGame', function(gameInJson){
 
-    var game = JSON.parse( gameInJson );
-		// store the game in the socket session for this client
-		socket.game = game;
-		// add the client's username to the global list
-		games.push(game);
-		// send client to room 1
-		socket.join(game.id);
-		// echo to client they've connected
-		socket.emit('updateServer', 'SERVER', 'you have created the game : ' + game.id);
-    console.log(socket.player.pseudo +" has created a game : " +  JSON.stringify(game));
-		// // echo to room 1 that a person has connected to their room
-		// socket.broadcast.to(game.name).emit('updateServer', 'SERVER', username + ' has connected to this room');
-		socket.broadcast.emit('updateGames', JSON.stringify(games), JSON.stringify(game));
+    // A user can only create one game at a time
+    if (socket.game){
+      socket.emit('updateServer', 'You cannot create two games at a time');
+    }
+    else {
+      var game = JSON.parse( gameInJson );
+  		// store the game in the socket session for this client
+  		socket.game = game;
+  		// add the client's username to the global list
+  		games.push(game);
+  		// send client to room 1
+  		socket.join(game.id);
+  		// echo to client they've connected
+
+      console.log(socket.player.pseudo +" has created a game : " +  JSON.stringify(game));
+  		// // echo to room 1 that a person has connected to their room
+  		// socket.broadcast.to(game.name).emit('updateServer', 'SERVER', username + ' has connected to this room');
+
+      socket.emit('personalGameCreation', JSON.stringify(game));
+  		socket.broadcast.emit('generalGameCreation', JSON.stringify(games), JSON.stringify(game));
+    }
 	});
 
 	// when the client emits 'sendchat', this listens and executes
@@ -58,16 +66,22 @@ io.sockets.on('connection', function (socket) {
 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	});
 
-	socket.on('switchRoom', function(newroom){
-		socket.leave(socket.room);
-		socket.join(newroom);
-		socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-		// sent message to OLD room
-		socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
-		// update socket session room title
-		socket.room = newroom;
-		socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
-		socket.emit('updaterooms', rooms, newroom);
+	socket.on('leaveGame', function(){
+		socket.leave(socket.game.id);
+		socket.emit('updateServer', 'you have left the game '+ socket.game.id.value);
+		// sent message to players in game
+		socket.broadcast.to(socket.game.id).emit('updateGame', socket.player.pseudo+' has left this game');
+
+    // If user is the creator of the game
+    console.log(JSON.stringify(socket.game));
+    if (socket.game.creatorPseudo.value == socket.player.pseudo){
+        var index = games.indexOf(socket.game);
+        games.splice(index, 1);
+        socket.game = null;
+    }
+		// // update socket session room title
+		// socket.room = newroom;
+		// socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
 	});
 
 
@@ -83,7 +97,7 @@ io.sockets.on('connection', function (socket) {
 		// io.sockets.emit('updateusers', usernames);
 
 		// echo globally that this client has left
-		socket.broadcast.emit('updateServer', 'SERVER', socket.player.pseudo + ' has disconnected');
+		socket.broadcast.emit('updateServer', socket.player.pseudo + ' has disconnected');
     console.log(socket.player.pseudo + " has disconnected");
 		socket.leave(socket.room);
 	});
