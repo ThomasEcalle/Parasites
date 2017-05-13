@@ -76,7 +76,7 @@ public class ParasitesUtils
             {
                 logInfos(i + ") " + list.get(i));
             }
-            logWarnings("List beginning");
+            logWarnings("List ending");
         }
     }
 

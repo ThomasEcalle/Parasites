@@ -12,21 +12,26 @@ const Game = bo.Game;
 server.listen(3080);
 
 // players which are currently connected to the server
-var players = {};
+var players = [];
 
 // games which are currently available on server
 var games = [];
 
 io.sockets.on('connection', function (socket) {
 
-    //When the client register itself
-    socket.on('register', function(player){
-      players[player] = player;
+
+    var player = socket.handshake.query.register;
+    player = JSON.parse(player);
+    if (player){
+      players.push(player.pseudo);
       socket.player = player;
+
       socket.broadcast.emit('updateServer', 'SERVER', player.pseudo + ' has connected');
+      socket.emit('currentServerState',JSON.stringify(players), JSON.stringify(games));
+
       console.log("a new player has connected : " + player.pseudo);
       console.log("connected players are : " + JSON.stringify(players));
-    });
+    }
 
 
   	// when the client emits 'createGame', this listens and executes
@@ -44,7 +49,7 @@ io.sockets.on('connection', function (socket) {
     console.log(socket.player.pseudo +" has created a game : " +  JSON.stringify(game));
 		// // echo to room 1 that a person has connected to their room
 		// socket.broadcast.to(game.name).emit('updateServer', 'SERVER', username + ' has connected to this room');
-		socket.emit('updateGames', JSON.stringify(games), game.name);
+		socket.broadcast.emit('updateGames', JSON.stringify(games), JSON.stringify(game));
 	});
 
 	// when the client emits 'sendchat', this listens and executes
@@ -69,9 +74,11 @@ io.sockets.on('connection', function (socket) {
 	// when the user disconnects.. perform this
 	socket.on('disconnect', function(){
 		// remove the player from global players list
-		delete players[socket.player];
+    var index = players.indexOf(socket.player);
+    players.splice(index, 1);
     // remove the game where the player is the host
-    delete games[socket.game];
+    var index = games.indexOf(socket.game);
+    games.splice(index, 1);
 		// // update list of users in chat, client-side
 		// io.sockets.emit('updateusers', usernames);
 
