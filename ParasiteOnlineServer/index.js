@@ -4,33 +4,31 @@ var express = require('express')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server);
 
-
-const bo = require("./bo");
-const Game = bo.Game;
-
-
 server.listen(3080);
 
 // players which are currently connected to the server
-var players = [];
+var userList = {};
 
 // games which are currently available on server
-var games = [];
+var gamesList = {};
+
+var currentSocket;
 
 io.sockets.on('connection', function (socket) {
 
+    currentSocket = socket;
+    var user = JSON.parse(socket.handshake.query.register);
+    if (user){
+      userList[user.pseudo] = user;
+      socket.userPseudo = user.pseudo;
 
-    var player = socket.handshake.query.register;
-    player = JSON.parse(player);
-    if (player){
-      players.push(player.pseudo);
-      socket.player = player;
+      socket.broadcast.emit('updateServer', user.pseudo + ' has connected');
 
-      socket.broadcast.emit('updateServer', player.pseudo + ' has connected');
-      socket.emit('currentServerState',JSON.stringify(players), JSON.stringify(games));
+      currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+      currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 
-      console.log("a new player has connected : " + player.pseudo);
-      console.log("connected players are : " + JSON.stringify(players));
+      console.log("\na new player has connected : " + socket.userPseudo+"\n");
+      console.log("\nconnected players are : " + JSON.stringify(userList)+"\n");
     }
 
 
@@ -42,63 +40,130 @@ io.sockets.on('connection', function (socket) {
       socket.emit('updateServer', 'You cannot create two games at a time');
     }
     else {
-      var game = JSON.parse( gameInJson );
-  		// store the game in the socket session for this client
-  		socket.game = game;
-  		// add the client's username to the global list
-  		games.push(game);
-  		// send client to room 1
-  		socket.join(game.id);
-  		// echo to client they've connected
+      var game = JSON.parse(gameInJson);
 
-      console.log(socket.player.pseudo +" has created a game : " +  JSON.stringify(game));
+  		// store the game in the socket session for this client
+  		socket.gameID = game.id;
+
+  		// add the client's username to the global list
+  		gamesList[game.id] = game;
+
+      console.log("\n"+socket.userPseudo +" has created a game : " +  JSON.stringify(socket.gameID)+"\n");
   		// // echo to room 1 that a person has connected to their room
   		// socket.broadcast.to(game.name).emit('updateServer', 'SERVER', username + ' has connected to this room');
 
       socket.emit('personalGameCreation', JSON.stringify(game));
-  		socket.broadcast.emit('generalGameCreation', JSON.stringify(games), JSON.stringify(game));
+
+      console.log("\n\ngames : " + JSON.stringify(gamesList) +"\nusers" +JSON.stringify(userList)+"\n\n");
+      currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+      currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
     }
 	});
 
-	// when the client emits 'sendchat', this listens and executes
-	socket.on('sendchat', function (data) {
-		// we tell the client to execute 'updatechat' with 2 parameters
-		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	});
+	// // when the client emits 'sendchat', this listens and executes
+	// socket.on('sendchat', function (data) {
+	// 	// we tell the client to execute 'updatechat' with 2 parameters
+	// 	io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+	// });
+
+  socket.on('joinGame', function(game){
+    var game = JSON.parse(game);
+
+    console.log("\n"+socket.userPseudo +" try to join game : " + game.id+"\n");
+
+
+    game.playersList.push(userList[socket.userPseudo]);
+
+    //delete gamesList[game.id];
+    gamesList[game.id] = game;
+
+    socket.gameID = game.id;
+
+
+    console.log("\nnew socket.game : " + socket.gameID +" pour user : " + socket.userPseudo+"\n");
+    currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+
+  });
 
 	socket.on('leaveGame', function(){
-		socket.leave(socket.game.id);
-		socket.emit('updateServer', 'you have left the game '+ socket.game.id.value);
+		socket.emit('updateServer', 'you have left the game '+ socket.gameID);
 		// sent message to players in game
-		socket.broadcast.to(socket.game.id).emit('updateGame', socket.player.pseudo+' has left this game');
+		//socket.broadcast.to(socket.game.id).emit('updateGame', socket.user.pseudo+' has left this game');
 
-    // If user is the creator of the game
-    console.log(JSON.stringify(socket.game));
-    if (socket.game.creatorPseudo.value == socket.player.pseudo){
-        var index = games.indexOf(socket.game);
-        games.splice(index, 1);
-        socket.game = null;
+    console.log("\n**********\nBefore leaving game : \nsocket.gameID: "
+    + JSON.stringify(socket.gameID) +"\n**********\nGames : " + JSON.stringify(gamesList)+"\n\n");
+
+
+    var newGame = gamesList[socket.gameID];
+
+    var indexOfUser;
+    for(var i = 0; i < newGame.playersList.length; i++) {
+      if (newGame.playersList[i].pseudo == socket.userPseudo){
+        indexOfUser = i;
+      }
     }
+
+    newGame.playersList.splice(indexOfUser, 1);
+
+    //Adding the new game configuration
+    gamesList[socket.gameID] = newGame;
+
+    console.log("\n**********\nAfter leaving game : \nnewGame : "
+    + JSON.stringify(newGame) +"\n**********\nGames : " + JSON.stringify(gamesList)+"\n\n");
+
+    if (gamesList[socket.gameID].playersList.length <= 0){
+      delete gamesList[socket.gameID];
+    }
+    // // If user is the creator of the game
+    // if (gamesList[socket.gameID].creator.pseudo == socket.user.pseudo){
+    //     delete gamesList[socket.gameID];
+    // }
+
+    socket.gameID = null;
+
+    currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 		// // update socket session room title
 		// socket.room = newroom;
 		// socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
 	});
 
-
 	// when the user disconnects.. perform this
 	socket.on('disconnect', function(){
 		// remove the player from global players list
-    var index = players.indexOf(socket.player);
-    players.splice(index, 1);
-    // remove the game where the player is the host
-    var index = games.indexOf(socket.game);
-    games.splice(index, 1);
+    delete userList[socket.userPseudo];
+
+
+    if (socket.gameID){
+      var newGame = gamesList[socket.gameID];
+
+      var indexOfUser;
+      for(var i = 0; i < newGame.playersList.length; i++) {
+        if (newGame.playersList[i].pseudo == socket.userPseudo){
+          indexOfUser = i;
+        }
+      }
+
+      newGame.playersList.splice(indexOfUser, 1);
+
+      //Adding the new game configuration
+      gamesList[socket.gameID] = newGame;
+
+      if (gamesList[socket.gameID].playersList.length <= 0){
+        delete gamesList[socket.gameID];
+      }
+    }
+
+
 		// // update list of users in chat, client-side
 		// io.sockets.emit('updateusers', usernames);
 
 		// echo globally that this client has left
-		socket.broadcast.emit('updateServer', socket.player.pseudo + ' has disconnected');
-    console.log(socket.player.pseudo + " has disconnected");
-		socket.leave(socket.room);
+		socket.broadcast.emit('updateServer', socket.userPseudo + ' has disconnected');
+    console.log(socket.userPseudo + " has disconnected");
+
+    currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 	});
 });

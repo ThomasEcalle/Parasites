@@ -68,14 +68,16 @@
                                                            AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"
                                                            AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="85.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="359.0" text="Nom de la partie"/>
                                                         <TableColumn fx:id="gameCreatorNameColumn" minWidth="0.0"
                                                                      prefWidth="260.0" text="Créateur"/>
-                                                        <TableColumn prefWidth="193.66668701171875"
+                                                        <TableColumn fx:id="nbPlayersColumn"
+                                                                     prefWidth="193.66668701171875"
                                                                      text="Nombre de joueurs"/>
-                                                        <TableColumn minWidth="1.0" prefWidth="171.0"
+                                                        <TableColumn fx:id="nbMaxPlayersColumn" minWidth="1.0"
+                                                                     prefWidth="171.0"
                                                                      text="Nombre de joueurs max"/>
-                                                        <TableColumn prefWidth="146.66668701171875"
+                                                        <TableColumn fx:id="remainingTimeColumn"
+                                                                     prefWidth="146.66668701171875"
                                                                      text="Temps restant"/>
                                                     </columns>
                                                 </TableView>
@@ -112,7 +114,8 @@
                                                                            AnchorPane.leftAnchor="30.0"
                                                                            AnchorPane.topAnchor="85.0">
                                                                     <columns>
-                                                                        <TableColumn prefWidth="484.0" text="Nom"/>
+                                                                        <TableColumn fx:id="gameMembersColumn"
+                                                                                     prefWidth="484.0" text="Nom"/>
                                                                     </columns>
                                                                 </TableView>
                                                                 <Label text="Liste des joueurs" textFill="WHITE"
