@@ -4,13 +4,15 @@ import com.parasites.network.OnlineServerManager;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
 import com.parasites.utils.ParasitesUtils;
-import javafx.collections.FXCollections;
+import com.parasites.utils.Toast;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -109,6 +111,7 @@ public class PrincipalWindowController extends ParasitesFXController implements 
     @FXML
     private Label telephone_actuel;
 
+    private Stage stage;
     private PopOver pop;
     private List<Game> actualGamesList;
     private List<User> actualUserList;
@@ -219,8 +222,7 @@ public class PrincipalWindowController extends ParasitesFXController implements 
 
         actualGamesList.addAll(list);
 
-        parties_disponibles.setItems(FXCollections.observableArrayList(actualGamesList));
-        parties_disponibles.refresh();
+        refreshTableView(actualGamesList, parties_disponibles);
 
         for (Game game : list)
         {
@@ -252,8 +254,7 @@ public class PrincipalWindowController extends ParasitesFXController implements 
 
     private void updateSalonList(final List<User> users)
     {
-        membres_partie.setItems(FXCollections.observableArrayList(users));
-        membres_partie.refresh();
+        refreshTableView(users, membres_partie);
     }
 
     private void updateSalonInformations(final Game game)
@@ -292,6 +293,8 @@ public class PrincipalWindowController extends ParasitesFXController implements 
     @Override
     public void onMessageFromServer(String message)
     {
+
+        showNotification(message);
         ParasitesUtils.logError(message);
     }
 
@@ -300,7 +303,6 @@ public class PrincipalWindowController extends ParasitesFXController implements 
     {
         updateListOfUsers(users);
         updateListOfGames(games);
-        ParasitesUtils.logList(games);
     }
 
 }

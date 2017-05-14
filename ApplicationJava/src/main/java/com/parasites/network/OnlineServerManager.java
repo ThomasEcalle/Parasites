@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import com.parasites.Constants;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
-import com.parasites.utils.ParasitesUtils;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
@@ -237,8 +236,8 @@ public final class OnlineServerManager
             }
             gameList.addAll(tempGame);
 
-            ParasitesUtils.logWarnings("\n*****\nParties en cours : " + gameList.toString() +
-                    "\nJoueurs présents : " + userList.toString() + "\n*****\n");
+            //            ParasitesUtils.logWarnings("\n*****\nParties en cours : " + gameList.toString() +
+            //                    "\nJoueurs présents : " + userList.toString() + "\n*****\n");
 
             for (OnlineServerObservable observer : observers)
             {

@@ -84,13 +84,17 @@ public class ConnexionWindowController extends ParasitesFXController implements 
     {
         Stage stage = new Stage();
         Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ecran_principal.fxml"));
         try
         {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("ecran_principal.fxml"));
+            root = loader.load();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+        PrincipalWindowController controller = loader.getController();
+        controller.setStage(stage);
+
         stage.setTitle("Parasites");
         stage.setScene(new Scene(root));
         stage.setResizable(false);
@@ -116,6 +120,7 @@ public class ConnexionWindowController extends ParasitesFXController implements 
     {
         if (success)
         {
+            ParasitesUtils.logInfos("Weell connected as : " + OnlineServerManager.getInstance().getCurrentUser().getPseudo());
             Platform.runLater(() -> openPrincipalWindow());
         } else
         {
