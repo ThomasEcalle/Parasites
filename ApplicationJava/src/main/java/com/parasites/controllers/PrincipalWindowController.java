@@ -1,17 +1,19 @@
 package com.parasites.controllers;
 
 import com.parasites.network.OnlineServerManager;
+import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
 import com.parasites.utils.ParasitesUtils;
-import com.parasites.utils.Toast;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
@@ -25,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  * Created by spyro on 11/05/2017.
  */
-public class PrincipalWindowController extends ParasitesFXController implements Initializable
+public final class PrincipalWindowController extends ParasitesFXController implements Initializable
 {
 
     /*******************************************
@@ -45,6 +47,8 @@ public class PrincipalWindowController extends ParasitesFXController implements 
     private TableColumn<Game, Integer> nbPlayersColumn;
     @FXML
     private TableColumn<Game, Integer> nbMaxPlayersColumn;
+    @FXML
+    private TableColumn<Game, String> stateColumn;
 
 
     /*******************************************
@@ -141,7 +145,7 @@ public class PrincipalWindowController extends ParasitesFXController implements 
                 if (event.getClickCount() == 2 && (!row.isEmpty()))
                 {
                     final Game game = parties_disponibles.getItems().get(row.getIndex());
-                    if (game.getActualPlayersCount() < game.getNbPlayerMax())
+                    if (game.getActualPlayersCount() < game.getNbPlayerMax() && !game.isLaunched())
                     {
                         OnlineServerManager.getInstance().joinGame(game);
                         showSalon();
@@ -159,9 +163,11 @@ public class PrincipalWindowController extends ParasitesFXController implements 
         gameCreatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("creatorPseudo"));
         nbMaxPlayersColumn.setCellValueFactory(new PropertyValueFactory<>("nbPlayerMax"));
         nbPlayersColumn.setCellValueFactory(new PropertyValueFactory<>("actualPlayersCount"));
+        stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
 
         // Salon Column
         gameMembersColumn.setCellValueFactory(new PropertyValueFactory<>("pseudo"));
+
     }
 
     @FXML
@@ -189,6 +195,12 @@ public class PrincipalWindowController extends ParasitesFXController implements 
     }
 
     @FXML
+    public void clickOnLaunch()
+    {
+        OnlineServerManager.getInstance().launchGame();
+    }
+
+    @FXML
     public void clickOnQuitterSalon()
     {
         partie_tab.setDisable(false);
@@ -196,6 +208,31 @@ public class PrincipalWindowController extends ParasitesFXController implements 
         salon_tab.setDisable(true);
 
         OnlineServerManager.getInstance().leaveGame();
+    }
+
+    private void showGame()
+    {
+        Platform.runLater(() ->
+        {
+            final Stage stage = new Stage();
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ecran_game.fxml"));
+            try
+            {
+                root = loader.load();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            final GameWindowController controller = loader.getController();
+
+            stage.setTitle("Parasites");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("game_ico.png")));
+            stage.show();
+            ((Stage) lancer.getScene().getWindow()).close();
+        });
     }
 
     public void popoverValidation(int numb_players, int width, int height)
@@ -244,7 +281,6 @@ public class PrincipalWindowController extends ParasitesFXController implements 
         actualUserList.addAll(list);
     }
 
-
     private void showSalon()
     {
         salon_tab.setDisable(false);
@@ -263,6 +299,11 @@ public class PrincipalWindowController extends ParasitesFXController implements 
         setTextInLabel(joueurs_actuel, String.valueOf(game.getActualPlayersCount()));
         setTextInLabel(joueurs_max, String.valueOf(game.getNbPlayerMax()));
         setTextInLabel(nombre_cases, String.valueOf(game.getSize()));
+
+        if (!game.getCreator().equals(OnlineServerManager.getInstance().getCurrentUser()))
+        {
+            lancer.setDisable(true);
+        }
     }
 
 
@@ -303,6 +344,18 @@ public class PrincipalWindowController extends ParasitesFXController implements 
     {
         updateListOfUsers(users);
         updateListOfGames(games);
+    }
+
+    @Override
+    public void onLaunchingGame()
+    {
+        showGame();
+    }
+
+    @Override
+    public void onReceivingGameMessage(final ChatMessage chatMessage)
+    {
+        // No utility here.
     }
 
 }

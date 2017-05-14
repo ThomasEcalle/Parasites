@@ -5,6 +5,7 @@ import com.parasites.utils.Toast;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
@@ -50,7 +51,21 @@ public abstract class ParasitesFXController implements OnlineServerObservable
             tableView.setItems(FXCollections.observableArrayList(list));
             tableView.refresh();
         });
+    }
 
+    /**
+     * Refresh a ListView
+     *
+     * @param list
+     * @param listView
+     */
+    protected void refreshListView(final List<?> list, final ListView listView)
+    {
+        Platform.runLater(() ->
+        {
+            listView.setItems(FXCollections.observableArrayList(list));
+            listView.refresh();
+        });
     }
 
     /**

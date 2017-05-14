@@ -1,5 +1,6 @@
 package com.parasites.network;
 
+import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
 
@@ -44,4 +45,16 @@ public interface OnlineServerObservable
      * @param games
      */
     void onServerStateChange(final List<User> users, final List<Game> games);
+
+    /**
+     * Method called when the game is launched
+     */
+    void onLaunchingGame();
+
+
+    /**
+     *  When someone from the game sent a message
+     * @param chatMessage
+     */
+    void onReceivingGameMessage(final ChatMessage chatMessage);
 }

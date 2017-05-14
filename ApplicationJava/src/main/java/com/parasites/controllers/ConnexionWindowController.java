@@ -2,6 +2,7 @@ package com.parasites.controllers;
 
 import com.parasites.models.ConnectionAPICall;
 import com.parasites.network.OnlineServerManager;
+import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
 import com.parasites.utils.ParasitesUtils;
@@ -20,7 +21,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ConnexionWindowController extends ParasitesFXController implements Initializable
+public final class ConnexionWindowController extends ParasitesFXController implements Initializable
 {
 
     @FXML
@@ -141,5 +142,17 @@ public class ConnexionWindowController extends ParasitesFXController implements 
     public void onServerStateChange(List<User> users, List<Game> games)
     {
         // NO utility here.
+    }
+
+    @Override
+    public void onLaunchingGame()
+    {
+        // NO utility here.
+    }
+
+    @Override
+    public void onReceivingGameMessage(final ChatMessage chatMessage)
+    {
+        /// No utility here.
     }
 }

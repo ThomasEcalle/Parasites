@@ -13,6 +13,7 @@ public final class Game
     private int nbPlayerMax;
     private List<User> playersList;
     private int size;
+    private boolean launched;
 
     public Game(final User creator, final int id, final int nbPlayerMax, final int size)
     {
@@ -23,6 +24,7 @@ public final class Game
 
         playersList = new ArrayList<>();
         playersList.add(creator);
+        launched = false;
     }
 
     public void addUser(User user)
@@ -109,5 +111,20 @@ public final class Game
     public void setSize(int size)
     {
         this.size = size;
+    }
+
+    public boolean isLaunched()
+    {
+        return launched;
+    }
+
+    public void setLaunched(boolean launched)
+    {
+        this.launched = launched;
+    }
+
+    public String getState()
+    {
+        return launched ? "En cours" : "En attente";
     }
 }

@@ -119,6 +119,24 @@ io.sockets.on('connection', function (socket) {
 		// socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
 	});
 
+  socket.on('sendGameChatMessage', function(chatMessage){
+
+    socket.broadcast.to(socket.gameID).emit('receivingGameChatMessage', chatMessage);
+    socket.emit('receivingGameChatMessage', chatMessage);
+  });
+
+  socket.on('launchGame', function(){
+
+    var game = gamesList[socket.gameID];
+    game.launched = true;
+    gamesList[socket.gameID] = game;
+
+
+    updateServerState();
+    socket.broadcast.to(socket.gameID).emit('launchingGame');
+    socket.emit('launchingGame');
+  });
+
 	// when the user disconnects.. perform this
 	socket.on('disconnect', function(){
 		// remove the player from global players list

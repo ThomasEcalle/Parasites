@@ -77,6 +77,9 @@
                                                         <TableColumn fx:id="remainingTimeColumn"
                                                                      prefWidth="146.66668701171875"
                                                                      text="Temps restant"/>
+                                                        <TableColumn fx:id="stateColumn"
+                                                                     prefWidth="146.66668701171875"
+                                                                     text="Etat"/>
                                                     </columns>
                                                 </TableView>
                                                 <Button fx:id="creer_partie" alignment="CENTER" layoutX="993.0"
@@ -362,6 +365,7 @@
                                                                                         AnchorPane.bottomAnchor="23.0"
                                                                                         AnchorPane.rightAnchor="30.0"/>
                                                                                 <Button fx:id="lancer"
+                                                                                        onMouseClicked="#clickOnLaunch"
                                                                                         mnemonicParsing="false"
                                                                                         prefHeight="37.0"
                                                                                         prefWidth="75.0" text="lancer"

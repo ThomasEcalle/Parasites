@@ -3,6 +3,7 @@ package com.parasites.network;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parasites.Constants;
+import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
 import io.socket.client.IO;
@@ -20,19 +21,24 @@ import java.util.List;
 public final class OnlineServerManager
 {
     // Calls to server
-    public static final String CREATE_GAME = "createGame";
-    public static final String LEAVE_GAME = "leaveGame";
-    public static final String JOIN_GAME = "joinGame";
+    private static final String CREATE_GAME = "createGame";
+    private static final String LEAVE_GAME = "leaveGame";
+    private static final String JOIN_GAME = "joinGame";
+    private static final String LAUNCH_GAME = "launchGame";
+    private static final String SEND_GAME_CHAT_MESSAGE = "sendGameChatMessage";
+
 
     //Events from server
-    public static final String UPDATE_SERVER = "updateServer";
-    public static final String PERSONAL_GAME_CREATION = "personalGameCreation";
-    public static final String CURRENT_SERVER_STATE = "currentServerState";
-    public static final String GAME_DESTRUCTION = "gameDestruction";
+    private static final String UPDATE_SERVER = "updateServer";
+    private static final String PERSONAL_GAME_CREATION = "personalGameCreation";
+    private static final String CURRENT_SERVER_STATE = "currentServerState";
+    private static final String LAUNCHING_GAME = "launchingGame";
+    private static final String RECEIVING_GAME_CHAT_MESSAGE = "receivingGameChatMessage";
 
 
     private List<OnlineServerObservable> observers;
     private User currentUser;
+    private Game currentGame;
     private List<Game> gameList;
     private List<User> userList;
 
@@ -116,17 +122,31 @@ public final class OnlineServerManager
      */
     public void createGame(final Game game)
     {
+        currentGame = game;
         socket.emit(OnlineServerManager.CREATE_GAME, gson.toJson(game));
     }
 
     public void leaveGame()
     {
+        currentGame = null;
         socket.emit(OnlineServerManager.LEAVE_GAME);
     }
 
     public void joinGame(final Game game)
     {
+        currentGame = game;
         socket.emit(OnlineServerManager.JOIN_GAME, gson.toJson(game));
+    }
+
+    public void launchGame()
+    {
+        socket.emit(OnlineServerManager.LAUNCH_GAME);
+    }
+
+    public void sendGameChatMessage(final String message)
+    {
+        final ChatMessage chatMessage = new ChatMessage(currentUser, message);
+        socket.emit(OnlineServerManager.SEND_GAME_CHAT_MESSAGE, gson.toJson(chatMessage));
     }
 
 
@@ -236,14 +256,28 @@ public final class OnlineServerManager
             }
             gameList.addAll(tempGame);
 
-            //            ParasitesUtils.logWarnings("\n*****\nParties en cours : " + gameList.toString() +
-            //                    "\nJoueurs présents : " + userList.toString() + "\n*****\n");
-
             for (OnlineServerObservable observer : observers)
             {
                 observer.onServerStateChange(userList, gameList);
             }
 
+        });
+
+        socket.on(OnlineServerManager.LAUNCHING_GAME, objects ->
+        {
+            for (OnlineServerObservable observer : observers)
+            {
+                observer.onLaunchingGame();
+            }
+        });
+
+        socket.on(OnlineServerManager.RECEIVING_GAME_CHAT_MESSAGE, objects ->
+        {
+            final ChatMessage chatMessage = gson.fromJson(String.valueOf(objects[0]), ChatMessage.class);
+            for (OnlineServerObservable observer : observers)
+            {
+                observer.onReceivingGameMessage(chatMessage);
+            }
         });
     }
 }

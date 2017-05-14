@@ -1,195 +1,237 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" styleClass="pane_principal" stylesheets="@style_game.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parasites.controllers.GameWindowController">
-   <children>
-      <BorderPane layoutY="117.0" prefHeight="700.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <AnchorPane minWidth="-Infinity" prefHeight="152.0" prefWidth="1465.0" styleClass="header" BorderPane.alignment="TOP_LEFT">
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin></AnchorPane>
-         </top>
-      </BorderPane>
-      <GridPane prefHeight="700.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="688.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="579.6666870117188" minWidth="10.0" prefWidth="562.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="game">
-               <GridPane.margin>
-                  <Insets bottom="12.0" left="12.0" top="12.0" />
-               </GridPane.margin>
-            </AnchorPane>
-            <GridPane GridPane.columnIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="304.6666717529297" minHeight="10.0" prefHeight="187.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="232.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="avance_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="avance" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="360.0" />
-                     </GridPane.margin></Button>
-                  <Button fx:id="valider_button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="valider" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin></Button>
-                  <Button fx:id="retour_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="retour" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets right="360.0" />
-                     </GridPane.margin></Button>
-                  <AnchorPane prefHeight="146.0" prefWidth="491.0" styleClass="toolbox_container" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="30.0" right="30.0" top="10.0" />
-                     </GridPane.margin>
-                     <children>
-                        <HBox layoutX="71.0" layoutY="23.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="146.0" prefWidth="480.0" styleClass="toolbox" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="30.0">
-                           <children>
-                              <AnchorPane prefHeight="121.0" prefWidth="99.0" styleClass="item_with_border" />
-                              <AnchorPane prefHeight="146.0" prefWidth="99.0" styleClass="item_with_border" />
-                              <AnchorPane prefHeight="146.0" prefWidth="99.0" styleClass="item_with_border" />
-                              <AnchorPane prefHeight="146.0" prefWidth="99.0" styleClass="item_with_border" />
-                              <AnchorPane prefHeight="200.0" prefWidth="100.0" />
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </HBox>
-                        <Label styleClass="toolbox_label" text="TOOLBOX" textFill="WHITE" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="5.0">
-                           <font>
-                              <Font name="Lucida Sans Regular" size="12.0" />
-                           </font>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
+            prefWidth="1250.0" styleClass="pane_principal" stylesheets="@style_game.css"
+            xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.parasites.controllers.GameWindowController">
+    <children>
+        <BorderPane layoutY="117.0" prefHeight="700.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <AnchorPane minWidth="-Infinity" prefHeight="152.0" prefWidth="1465.0" styleClass="header"
+                            BorderPane.alignment="TOP_LEFT">
+                    <BorderPane.margin>
+                        <Insets/>
+                    </BorderPane.margin>
+                </AnchorPane>
+            </top>
+        </BorderPane>
+        <GridPane prefHeight="700.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0"
+                                   prefWidth="688.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="579.6666870117188" minWidth="10.0" prefWidth="562.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="game">
+                    <GridPane.margin>
+                        <Insets bottom="12.0" left="12.0" top="12.0"/>
+                    </GridPane.margin>
+                </AnchorPane>
+                <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="304.6666717529297" minHeight="10.0" prefHeight="187.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="232.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="avance_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
+                                text="avance" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="360.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="valider_button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0"
+                                prefWidth="120.0" text="valider" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="retour_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
+                                text="retour" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets right="360.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <AnchorPane prefHeight="146.0" prefWidth="491.0" styleClass="toolbox_container"
+                                    GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="30.0" right="30.0" top="10.0"/>
+                            </GridPane.margin>
+                            <children>
+                                <HBox layoutX="71.0" layoutY="23.0" maxWidth="-Infinity" minWidth="-Infinity"
+                                      prefHeight="146.0" prefWidth="480.0" styleClass="toolbox"
+                                      AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0"
+                                      AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="30.0">
+                                    <children>
+                                        <AnchorPane prefHeight="121.0" prefWidth="99.0" styleClass="item_with_border"/>
+                                        <AnchorPane prefHeight="146.0" prefWidth="99.0" styleClass="item_with_border"/>
+                                        <AnchorPane prefHeight="146.0" prefWidth="99.0" styleClass="item_with_border"/>
+                                        <AnchorPane prefHeight="146.0" prefWidth="99.0" styleClass="item_with_border"/>
+                                        <AnchorPane prefHeight="200.0" prefWidth="100.0"/>
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </HBox>
+                                <Label styleClass="toolbox_label" text="TOOLBOX" textFill="WHITE"
+                                       AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="5.0">
+                                    <font>
+                                        <Font name="Lucida Sans Regular" size="12.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                        <Label styleClass="parasites" text="P A R A S I T E S" GridPane.halignment="CENTER"
+                               GridPane.valignment="CENTER">
+                            <GridPane.margin>
+                                <Insets bottom="50.0"/>
+                            </GridPane.margin>
                         </Label>
-                     </children>
-                  </AnchorPane>
-                  <Label styleClass="parasites" text="P A R A S I T E S" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="chat_container" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="30.0" />
-                     </GridPane.margin>
-                     <children>
-                        <Label styleClass="toolbox_label" text="CHAT" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="5.0" />
-                        <HBox layoutX="113.0" layoutY="95.0" prefHeight="232.0" prefWidth="532.0" styleClass="chat" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-                           <children>
-                              <VBox prefHeight="201.0" prefWidth="151.0" styleClass="chat_box_left">
-                                 <children>
-                                    <AnchorPane prefHeight="30.0" prefWidth="148.0" styleClass="chat_box_title_box">
-                                       <children>
-                                          <Label styleClass="chat_box_title" text="Joueurs" />
-                                       </children>
-                                    </AnchorPane>
-                                    <Accordion prefHeight="168.0" prefWidth="205.0">
-                                      <panes>
-                                        <TitledPane animated="false" text="Partie">
-                                          <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TableView layoutX="5.4" layoutY="1.4000000000000004" prefHeight="112.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        <columns>
-                                                          <TableColumn fx:id="partie_tablecolumn" prefWidth="127.99999845027924" text="C1" />
-                                                          <TableColumn prefWidth="51.00000762939453" text="C2" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="chat_container"
+                                    GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets left="30.0"/>
+                            </GridPane.margin>
+                            <children>
+                                <Label styleClass="toolbox_label" text="CHAT" AnchorPane.leftAnchor="12.0"
+                                       AnchorPane.topAnchor="5.0"/>
+                                <HBox layoutX="113.0" layoutY="95.0" prefHeight="232.0" prefWidth="532.0"
+                                      styleClass="chat" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                                    <children>
+                                        <VBox prefHeight="201.0" prefWidth="151.0" styleClass="chat_box_left">
+                                            <children>
+                                                <AnchorPane prefHeight="30.0" prefWidth="148.0"
+                                                            styleClass="chat_box_title_box">
+                                                    <children>
+                                                        <Label styleClass="chat_box_title" text="Joueurs"/>
+                                                    </children>
                                                 </AnchorPane>
-                                          </content>
-                                        </TitledPane>
-                                        <TitledPane animated="false" text="Amis">
-                                          <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TableView layoutY="-44.0" prefHeight="112.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        <columns>
-                                                          <TableColumn fx:id="amis_tablecolumn" prefWidth="124.99999845027924" text="C1" />
-                                                          <TableColumn prefWidth="54.00000762939453" text="C2" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </children>
+                                                <Accordion prefHeight="168.0" prefWidth="205.0">
+                                                    <panes>
+                                                        <TitledPane animated="false" text="Partie">
+                                                            <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                                            prefHeight="180.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <TableView layoutX="5.4"
+                                                                                   layoutY="1.4000000000000004"
+                                                                                   prefHeight="112.0" prefWidth="200.0"
+                                                                                   AnchorPane.bottomAnchor="0.0"
+                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                   AnchorPane.rightAnchor="0.0"
+                                                                                   AnchorPane.topAnchor="0.0">
+                                                                            <columns>
+                                                                                <TableColumn fx:id="partie_tablecolumn"
+                                                                                             prefWidth="127.99999845027924"
+                                                                                             text="C1"/>
+                                                                                <TableColumn
+                                                                                        prefWidth="51.00000762939453"
+                                                                                        text="C2"/>
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </content>
+                                                        </TitledPane>
+                                                        <TitledPane animated="false" text="Amis">
+                                                            <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                                            prefHeight="180.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <TableView layoutY="-44.0" prefHeight="112.0"
+                                                                                   prefWidth="200.0"
+                                                                                   AnchorPane.bottomAnchor="0.0"
+                                                                                   AnchorPane.leftAnchor="0.0"
+                                                                                   AnchorPane.rightAnchor="0.0"
+                                                                                   AnchorPane.topAnchor="0.0">
+                                                                            <columns>
+                                                                                <TableColumn fx:id="amis_tablecolumn"
+                                                                                             prefWidth="124.99999845027924"
+                                                                                             text="C1"/>
+                                                                                <TableColumn
+                                                                                        prefWidth="54.00000762939453"
+                                                                                        text="C2"/>
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </content>
+                                                        </TitledPane>
+                                                    </panes>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                    <padding>
+                                                        <Insets right="3.0" top="3.0"/>
+                                                    </padding>
+                                                </Accordion>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="201.0" prefWidth="382.0">
+                                            <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="323.0"
+                                                            styleClass="chat_box_title_box">
+                                                    <children>
+                                                        <Label styleClass="chat_box_title" text="Général"/>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
                                                 </AnchorPane>
-                                          </content>
-                                        </TitledPane>
-                                      </panes>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets right="3.0" top="3.0" />
-                                       </padding>
-                                    </Accordion>
-                                 </children>
-                              </VBox>
-                              <VBox prefHeight="201.0" prefWidth="382.0">
-                                 <children>
-                                    <AnchorPane prefHeight="33.0" prefWidth="323.0" styleClass="chat_box_title_box">
-                                       <children>
-                                          <Label styleClass="chat_box_title" text="Général" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </AnchorPane>
-                                    <ListView fx:id="chat_listview" prefHeight="126.0" prefWidth="317.0" styleClass="list_view">
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" left="3.0" right="3.0" top="3.0" />
-                                       </VBox.margin>
-                                    </ListView>
-                                    <HBox prefHeight="35.0" prefWidth="380.0">
-                                       <children>
-                                          <TextField fx:id="chat_textfield" prefHeight="28.0" prefWidth="266.0">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                          <Button fx:id="chat_button" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" styleClass="chat_button" text="OK">
-                                             <HBox.margin>
-                                                <Insets left="20.0" right="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="4.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </GridPane>
-         </children>
-      </GridPane>
-   </children>
+                                                <ListView fx:id="chat_listview" prefHeight="126.0" prefWidth="317.0"
+                                                          styleClass="list_view">
+                                                    <VBox.margin>
+                                                        <Insets bottom="10.0" left="3.0" right="3.0" top="3.0"/>
+                                                    </VBox.margin>
+                                                </ListView>
+                                                <HBox prefHeight="35.0" prefWidth="380.0">
+                                                    <children>
+                                                        <TextField fx:id="chat_textfield" prefHeight="28.0"
+                                                                   prefWidth="266.0">
+                                                            <HBox.margin>
+                                                                <Insets left="10.0"/>
+                                                            </HBox.margin>
+                                                        </TextField>
+                                                        <Button fx:id="chat_button" alignment="CENTER"
+                                                                onMouseClicked="#sendChat"
+                                                                contentDisplay="CENTER" maxHeight="-Infinity"
+                                                                maxWidth="-Infinity" minHeight="-Infinity"
+                                                                minWidth="-Infinity" mnemonicParsing="false"
+                                                                prefHeight="27.0" prefWidth="59.0"
+                                                                styleClass="chat_button" text="OK">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" right="10.0"/>
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>
