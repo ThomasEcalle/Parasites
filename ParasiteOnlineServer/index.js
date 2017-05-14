@@ -12,11 +12,9 @@ var userList = {};
 // games which are currently available on server
 var gamesList = {};
 
-var currentSocket;
 
 io.sockets.on('connection', function (socket) {
 
-    currentSocket = socket;
     var user = JSON.parse(socket.handshake.query.register);
     if (user){
       userList[user.pseudo] = user;
@@ -24,8 +22,8 @@ io.sockets.on('connection', function (socket) {
 
       socket.broadcast.emit('updateServer', user.pseudo + ' has connected');
 
-      currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
-      currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+      socket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+      socket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 
       console.log("\na new player has connected : " + socket.userPseudo+"\n");
       console.log("\nconnected players are : " + JSON.stringify(userList)+"\n");
@@ -55,8 +53,8 @@ io.sockets.on('connection', function (socket) {
       socket.emit('personalGameCreation', JSON.stringify(game));
 
       console.log("\n\ngames : " + JSON.stringify(gamesList) +"\nusers" +JSON.stringify(userList)+"\n\n");
-      currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
-      currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+      socket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+      socket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
     }
 	});
 
@@ -81,8 +79,8 @@ io.sockets.on('connection', function (socket) {
 
 
     console.log("\nnew socket.game : " + socket.gameID +" pour user : " + socket.userPseudo+"\n");
-    currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
-    currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    socket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    socket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 
   });
 
@@ -122,8 +120,8 @@ io.sockets.on('connection', function (socket) {
 
     socket.gameID = null;
 
-    currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
-    currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    socket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    socket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 		// // update socket session room title
 		// socket.room = newroom;
 		// socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
@@ -163,7 +161,7 @@ io.sockets.on('connection', function (socket) {
 		socket.broadcast.emit('updateServer', socket.userPseudo + ' has disconnected');
     console.log(socket.userPseudo + " has disconnected");
 
-    currentSocket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
-    currentSocket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    socket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    socket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
 	});
 });

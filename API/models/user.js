@@ -1,4 +1,18 @@
 'use strict';
+var isUnique = function(modelName, field) {
+  return function(value, next) {
+    var Model = require("../models")[modelName];
+    var query = {};
+    query[field] = value;
+    Model.find({where: query, attributes: ["id"]}).then(function(obj) {
+      if (obj) {
+        next(field + ' "' + value + '" is already in use');
+      } else {
+        next();
+      }
+    });
+  };
+}
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     id: {
@@ -39,10 +53,9 @@ module.exports = function(sequelize, DataTypes) {
      pseudo: {
          type: DataTypes.STRING,
          allowNull: false,
-        //  unique: {
-        //       args: true,
-        //       msg: 'pseudo already exist !'
-        //   }
+         validate: {
+           isUnique: isUnique("User", "pseudo")
+         }
      },
      password: {
        type: DataTypes.STRING,
