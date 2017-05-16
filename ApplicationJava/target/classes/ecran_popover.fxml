@@ -36,7 +36,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="nombre_joueurs" layoutX="19.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" />
+                        <ComboBox fx:id="players_number" layoutX="19.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -54,12 +54,12 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="taille_map" layoutX="18.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" />
+                        <ComboBox fx:id="map_size" layoutX="18.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" />
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
-            <Button fx:id="valider" mnemonicParsing="false" onMouseClicked="#clickOnValider" prefHeight="33.0" prefWidth="86.0" text="valider" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button fx:id="validate" mnemonicParsing="false" onMouseClicked="#clickOnValider" prefHeight="33.0" prefWidth="86.0" text="valider" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>

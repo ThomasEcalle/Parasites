@@ -48,7 +48,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="lumin" stylesheets="@style.css" GridPane.rowIndex="3" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="header" stylesheets="@style.css" GridPane.rowIndex="4">
                <children>
-                  <Hyperlink fx:id="site" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="270.0" layoutY="-1.0" prefHeight="28.0" prefWidth="105.0" styleClass="link" text="parasites.com" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Hyperlink fx:id="website" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="270.0" layoutY="-1.0" prefHeight="28.0" prefWidth="105.0" styleClass="link" text="parasites.com" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Lucida Sans Regular" size="12.0" />
                      </font>
@@ -103,7 +103,7 @@
                   </StackPane>
                   <StackPane prefHeight="46.0" prefWidth="375.0" GridPane.rowIndex="3">
                      <children>
-                        <Button fx:id="valider_button" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#clickOnValider" prefHeight="35.0" prefWidth="110.0" text="VALIDER" StackPane.alignment="CENTER">
+                        <Button fx:id="validate_button" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#clickOnValider" prefHeight="35.0" prefWidth="110.0" text="VALIDER" StackPane.alignment="CENTER">
                            <StackPane.margin>
                               <Insets right="150.0" />
                            </StackPane.margin>

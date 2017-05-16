@@ -24,11 +24,11 @@ public class GameWindowController extends ParasitesFXController implements Initi
 
 
     @FXML
-    private Button retour_button;
+    private Button back_button;
     @FXML
-    private Button valider_button;
+    private Button validate_button;
     @FXML
-    private Button avance_button;
+    private Button forward_button;
     @FXML
     private TextField chat_textfield;
     @FXML
@@ -36,9 +36,9 @@ public class GameWindowController extends ParasitesFXController implements Initi
     @FXML
     private ListView chat_listview;
     @FXML
-    private TableColumn partie_tablecolumn;
+    private TableColumn game_tablecolumn;
     @FXML
-    private TableColumn amis_tablecolumn;
+    private TableColumn friends_tablecolumn;
 
     private List<ChatMessage> gameMessages;
 

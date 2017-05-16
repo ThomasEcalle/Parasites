@@ -56,12 +56,12 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="partie_tab" text="Partie">
+                                <Tab fx:id="game_tab" text="Partie">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
                                                     styleClass="pane_clip">
                                             <children>
-                                                <TableView fx:id="parties_disponibles" layoutX="233.0" layoutY="56.0"
+                                                <TableView fx:id="games" layoutX="233.0" layoutY="56.0"
                                                            prefHeight="475.0" prefWidth="1190.0"
                                                            AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"
                                                            AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="85.0">
@@ -74,15 +74,12 @@
                                                         <TableColumn fx:id="nbMaxPlayersColumn" minWidth="1.0"
                                                                      prefWidth="171.0"
                                                                      text="Nombre de joueurs max"/>
-                                                        <TableColumn fx:id="remainingTimeColumn"
-                                                                     prefWidth="146.66668701171875"
-                                                                     text="Temps restant"/>
                                                         <TableColumn fx:id="stateColumn"
                                                                      prefWidth="146.66668701171875"
-                                                                     text="Etat"/>
+                                                                     text="Etat partie"/>
                                                     </columns>
                                                 </TableView>
-                                                <Button fx:id="creer_partie" alignment="CENTER" layoutX="993.0"
+                                                <Button fx:id="create_game" alignment="CENTER" layoutX="993.0"
                                                         layoutY="31.0" mnemonicParsing="false"
                                                         onMouseClicked="#clickOnCreation" text="créer une partie"
                                                         AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="23.0"/>
@@ -97,7 +94,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="salon_tab" text="Salon">
+                                <Tab fx:id="waiting_tab" text="Salon">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
                                                     styleClass="pane_clip">
@@ -109,7 +106,7 @@
                                                         <AnchorPane prefHeight="473.0" prefWidth="649.0"
                                                                     styleClass="pane_border_right">
                                                             <children>
-                                                                <TableView fx:id="membres_partie" prefHeight="354.0"
+                                                                <TableView fx:id="game_players" prefHeight="354.0"
                                                                            prefWidth="485.0"
                                                                            AnchorPane.bottomAnchor="34.0"
                                                                            AnchorPane.leftAnchor="30.0"
@@ -278,7 +275,7 @@
                                                                                                 <Insets right="20.0"/>
                                                                                             </GridPane.margin>
                                                                                         </Label>
-                                                                                        <Label fx:id="proprietaire"
+                                                                                        <Label fx:id="owner"
                                                                                                text="à remplir"
                                                                                                textFill="WHITE"
                                                                                                GridPane.columnIndex="1"
@@ -289,7 +286,7 @@
                                                                                                       size="12.0"/>
                                                                                             </font>
                                                                                         </Label>
-                                                                                        <Label fx:id="joueurs_max"
+                                                                                        <Label fx:id="max_players"
                                                                                                text="à remplir"
                                                                                                textFill="WHITE"
                                                                                                GridPane.columnIndex="1"
@@ -301,7 +298,7 @@
                                                                                                       size="12.0"/>
                                                                                             </font>
                                                                                         </Label>
-                                                                                        <Label fx:id="joueurs_actuel"
+                                                                                        <Label fx:id="actual_players"
                                                                                                text="à remplir"
                                                                                                textFill="WHITE"
                                                                                                GridPane.columnIndex="1"
@@ -313,7 +310,7 @@
                                                                                                       size="12.0"/>
                                                                                             </font>
                                                                                         </Label>
-                                                                                        <Label fx:id="nombre_cases"
+                                                                                        <Label fx:id="map_size"
                                                                                                text="à remplir"
                                                                                                textFill="WHITE"
                                                                                                GridPane.columnIndex="1"
@@ -337,7 +334,7 @@
                                                                                                       size="12.0"/>
                                                                                             </font>
                                                                                         </Label>
-                                                                                        <Label fx:id="expiration"
+                                                                                        <Label fx:id="expiry"
                                                                                                text="à remplir"
                                                                                                textFill="WHITE"
                                                                                                GridPane.columnIndex="1"
@@ -355,7 +352,7 @@
                                                                         </AnchorPane>
                                                                         <AnchorPane prefHeight="81.0" prefWidth="645.0">
                                                                             <children>
-                                                                                <Button fx:id="quitter"
+                                                                                <Button fx:id="quit"
                                                                                         mnemonicParsing="false"
                                                                                         onMouseClicked="#clickOnQuitterSalon"
                                                                                         prefHeight="37.0"
@@ -364,7 +361,7 @@
                                                                                         text="quitter"
                                                                                         AnchorPane.bottomAnchor="23.0"
                                                                                         AnchorPane.rightAnchor="30.0"/>
-                                                                                <Button fx:id="lancer"
+                                                                                <Button fx:id="launch"
                                                                                         onMouseClicked="#clickOnLaunch"
                                                                                         mnemonicParsing="false"
                                                                                         prefHeight="37.0"
@@ -460,7 +457,7 @@
                                                                                 <Font name="Arial Black" size="11.0"/>
                                                                             </font>
                                                                         </Label>
-                                                                        <Label fx:id="pseudo_actuel" text="à remplir"
+                                                                        <Label fx:id="actual_pseudo" text="à remplir"
                                                                                textFill="WHITE" GridPane.columnIndex="1"
                                                                                GridPane.halignment="CENTER"
                                                                                GridPane.rowIndex="1"
@@ -475,7 +472,7 @@
                                                                                    GridPane.halignment="CENTER"
                                                                                    GridPane.rowIndex="2"
                                                                                    GridPane.valignment="CENTER"/>
-                                                                        <TextField fx:id="confirmation_pseudo"
+                                                                        <TextField fx:id="pseudo_confirming"
                                                                                    maxWidth="-Infinity"
                                                                                    prefHeight="25.0" prefWidth="200.0"
                                                                                    GridPane.columnIndex="1"
@@ -549,7 +546,7 @@
                                                                                 <Font name="Arial Black" size="11.0"/>
                                                                             </font>
                                                                         </Label>
-                                                                        <Label fx:id="password_actuel" text="à remplir"
+                                                                        <Label fx:id="actual_password" text="à remplir"
                                                                                textFill="WHITE" GridPane.columnIndex="1"
                                                                                GridPane.halignment="CENTER"
                                                                                GridPane.rowIndex="1"
@@ -566,7 +563,7 @@
                                                                                        GridPane.halignment="CENTER"
                                                                                        GridPane.rowIndex="3"
                                                                                        GridPane.valignment="CENTER"/>
-                                                                        <PasswordField fx:id="confirmation_password"
+                                                                        <PasswordField fx:id="password_confirming"
                                                                                        maxWidth="-Infinity"
                                                                                        prefHeight="25.0"
                                                                                        prefWidth="200.0"
@@ -729,28 +726,28 @@
                                                                                            GridPane.columnIndex="1"
                                                                                            GridPane.halignment="CENTER"
                                                                                            GridPane.valignment="CENTER"/>
-                                                                                <TextField fx:id="nom"
+                                                                                <TextField fx:id="lastname"
                                                                                            maxWidth="-Infinity"
                                                                                            prefHeight="25.0"
                                                                                            prefWidth="158.0"
                                                                                            GridPane.columnIndex="1"
                                                                                            GridPane.halignment="CENTER"
                                                                                            GridPane.rowIndex="1"/>
-                                                                                <TextField fx:id="prenom"
+                                                                                <TextField fx:id="firstname"
                                                                                            maxWidth="-Infinity"
                                                                                            prefHeight="25.0"
                                                                                            prefWidth="158.0"
                                                                                            GridPane.columnIndex="1"
                                                                                            GridPane.halignment="CENTER"
                                                                                            GridPane.rowIndex="2"/>
-                                                                                <TextField fx:id="telephone"
+                                                                                <TextField fx:id="phone"
                                                                                            maxWidth="-Infinity"
                                                                                            prefHeight="25.0"
                                                                                            prefWidth="158.0"
                                                                                            GridPane.columnIndex="1"
                                                                                            GridPane.halignment="CENTER"
                                                                                            GridPane.rowIndex="3"/>
-                                                                                <Label fx:id="mail_actuel"
+                                                                                <Label fx:id="actual_mail"
                                                                                        text="à remplir" textFill="WHITE"
                                                                                        GridPane.columnIndex="3"
                                                                                        GridPane.halignment="CENTER">
@@ -759,7 +756,7 @@
                                                                                               size="12.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Label fx:id="nom_actuel"
+                                                                                <Label fx:id="actual_lastname"
                                                                                        text="à remplir" textFill="WHITE"
                                                                                        GridPane.columnIndex="3"
                                                                                        GridPane.halignment="CENTER"
@@ -769,7 +766,7 @@
                                                                                               size="12.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Label fx:id="prenom_actuel"
+                                                                                <Label fx:id="actual_firstname"
                                                                                        text="à remplir" textFill="WHITE"
                                                                                        GridPane.columnIndex="3"
                                                                                        GridPane.halignment="CENTER"
@@ -779,7 +776,7 @@
                                                                                               size="12.0"/>
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Label fx:id="telephone_actuel"
+                                                                                <Label fx:id="actual_phone"
                                                                                        text="à remplir" textFill="WHITE"
                                                                                        GridPane.columnIndex="3"
                                                                                        GridPane.halignment="CENTER"

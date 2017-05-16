@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
 public class PopoverWindowController implements Initializable{
 
     @FXML
-    private ComboBox nombre_joueurs;
+    private ComboBox players_number;
     @FXML
-    private ComboBox taille_map;
+    private ComboBox map_size;
     @FXML
-    private Button valider;
+    private Button validate;
 
     public PrincipalWindowController getParentController() {
         return parentController;
@@ -33,16 +33,16 @@ public class PopoverWindowController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         for(int i = 1; i <= 100; i++){
-            nombre_joueurs.getItems().addAll(i);
-            taille_map.getItems().addAll(i + "x" + i);
+            players_number.getItems().addAll(i);
+            map_size.getItems().addAll(i + "x" + i);
         }
     }
 
     @FXML
     public void clickOnValider() {
-        if(nombre_joueurs.getValue() != null && taille_map.getValue() != null) {
-            int joueurs = Integer.parseInt(nombre_joueurs.getValue().toString());
-            int taille = Integer.parseInt("" + taille_map.getValue().toString().toCharArray()[0]);
+        if(players_number.getValue() != null && map_size.getValue() != null) {
+            int joueurs = Integer.parseInt(players_number.getValue().toString());
+            int taille = Integer.parseInt("" + map_size.getValue().toString().toCharArray()[0]);
             // VERIFIER SI LES VALEURS SONT BONNES ICI
             parentController.popoverValidation(joueurs, taille, taille);
         }

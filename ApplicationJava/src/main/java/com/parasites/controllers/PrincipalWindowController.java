@@ -36,11 +36,11 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *                                         *
      *******************************************/
     @FXML
-    private Tab partie_tab;
+    private Tab game_tab;
     @FXML
-    private Button creer_partie;
+    private Button create_game;
     @FXML
-    private TableView<Game> parties_disponibles;
+    private TableView<Game> games;
     @FXML
     private TableColumn<Game, String> gameCreatorNameColumn;
     @FXML
@@ -57,29 +57,27 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *                                         *
      *******************************************/
     @FXML
-    private Tab salon_tab;
+    private Tab waiting_tab;
     @FXML
-    private TableView<User> membres_partie;
+    private TableView<User> game_players;
     @FXML
     private TableColumn<User, String> gameMembersColumn;
     @FXML
-    private Label proprietaire;
+    private Label owner;
     @FXML
-    private Label joueurs_max;
+    private Label max_players;
     @FXML
-    private Label taille_map;
+    private Label map_size;
     @FXML
-    private Label joueurs_actuel;
-    @FXML
-    private Label nombre_cases;
+    private Label actual_players;
     @FXML
     private Label creation;
     @FXML
-    private Label expiration;
+    private Label expiry;
     @FXML
-    private Button lancer;
+    private Button launch;
     @FXML
-    private Button quitter;
+    private Button quit;
 
     /*******************************************
      *                                         *
@@ -87,33 +85,33 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *                                         *
      *******************************************/
     @FXML
-    private Label pseudo_actuel;
+    private Label actual_pseudo;
     @FXML
     private TextField pseudo;
     @FXML
-    private TextField confirmation_pseudo;
+    private TextField pseudo_confirming;
     @FXML
-    private Label password_actuel;
+    private Label actual_password;
     @FXML
     private PasswordField password;
     @FXML
-    private PasswordField confirmation_password;
+    private PasswordField password_confirming;
     @FXML
     private TextField mail;
     @FXML
-    private Label mail_actuel;
+    private Label actual_mail;
     @FXML
-    private TextField nom;
+    private TextField lastname;
     @FXML
-    private Label nom_actuel;
+    private Label actual_lastname;
     @FXML
-    private TextField prenom;
+    private TextField firstname;
     @FXML
-    private Label prenom_actuel;
+    private Label actual_firstname;
     @FXML
-    private TextField telephone;
+    private TextField phone;
     @FXML
-    private Label telephone_actuel;
+    private Label actual_phone;
 
     private Stage stage;
     private PopOver pop;
@@ -128,7 +126,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
         OnlineServerManager.getInstance().addObserver(this);
 
-        salon_tab.setDisable(true);
+        waiting_tab.setDisable(true);
 
         settingColumns();
 
@@ -137,14 +135,14 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
 
         // Setting rows onClickListener
-        parties_disponibles.setRowFactory(tv ->
+        games.setRowFactory(tv ->
         {
             TableRow<Game> row = new TableRow<>();
             row.setOnMouseClicked(event ->
             {
                 if (event.getClickCount() == 2 && (!row.isEmpty()))
                 {
-                    final Game game = parties_disponibles.getItems().get(row.getIndex());
+                    final Game game = games.getItems().get(row.getIndex());
                     if (game.getActualPlayersCount() < game.getNbPlayerMax() && !game.isLaunched())
                     {
                         OnlineServerManager.getInstance().joinGame(game);
@@ -187,9 +185,9 @@ public final class PrincipalWindowController extends ParasitesFXController imple
             e.printStackTrace();
         }
         pop.setArrowLocation(PopOver.ArrowLocation.RIGHT_TOP);
-        pop.show(creer_partie,
-                creer_partie.localToScreen(creer_partie.getBoundsInLocal()).getMinX(),
-                creer_partie.localToScreen(creer_partie.getBoundsInLocal()).getMinY() + 25);
+        pop.show(create_game,
+                create_game.localToScreen(create_game.getBoundsInLocal()).getMinX(),
+                create_game.localToScreen(create_game.getBoundsInLocal()).getMinY() + 25);
 
         pop.setDetachable(false);
     }
@@ -203,9 +201,9 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     public void clickOnQuitterSalon()
     {
-        partie_tab.setDisable(false);
-        partie_tab.getTabPane().getSelectionModel().select(partie_tab);
-        salon_tab.setDisable(true);
+        game_tab.setDisable(false);
+        game_tab.getTabPane().getSelectionModel().select(game_tab);
+        waiting_tab.setDisable(true);
 
         OnlineServerManager.getInstance().leaveGame();
     }
@@ -231,7 +229,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
             stage.setResizable(false);
             stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("game_ico.png")));
             stage.show();
-            ((Stage) lancer.getScene().getWindow()).close();
+            ((Stage) launch.getScene().getWindow()).close();
         });
     }
 
@@ -259,7 +257,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
         actualGamesList.addAll(list);
 
-        refreshTableView(actualGamesList, parties_disponibles);
+        refreshTableView(actualGamesList, games);
 
         for (Game game : list)
         {
@@ -283,26 +281,26 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
     private void showSalon()
     {
-        salon_tab.setDisable(false);
-        salon_tab.getTabPane().getSelectionModel().select(salon_tab);
-        partie_tab.setDisable(true);
+        waiting_tab.setDisable(false);
+        waiting_tab.getTabPane().getSelectionModel().select(waiting_tab);
+        game_tab.setDisable(true);
     }
 
     private void updateSalonList(final List<User> users)
     {
-        refreshTableView(users, membres_partie);
+        refreshTableView(users, game_players);
     }
 
     private void updateSalonInformations(final Game game)
     {
-        setTextInLabel(proprietaire, game.getCreator().getPseudo());
-        setTextInLabel(joueurs_actuel, String.valueOf(game.getActualPlayersCount()));
-        setTextInLabel(joueurs_max, String.valueOf(game.getNbPlayerMax()));
-        setTextInLabel(nombre_cases, String.valueOf(game.getSize()));
+        setTextInLabel(owner, game.getCreator().getPseudo());
+        setTextInLabel(actual_players, String.valueOf(game.getActualPlayersCount()));
+        setTextInLabel(max_players, String.valueOf(game.getNbPlayerMax()));
+        setTextInLabel(map_size, String.valueOf(game.getSize()));
 
         if (!game.getCreator().equals(OnlineServerManager.getInstance().getCurrentUser()))
         {
-            lancer.setDisable(true);
+            launch.setDisable(true);
         }
     }
 

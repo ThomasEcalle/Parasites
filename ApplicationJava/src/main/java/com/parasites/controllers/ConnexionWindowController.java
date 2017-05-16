@@ -29,13 +29,13 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     @FXML
     private PasswordField password_textfield;
     @FXML
-    private Button valider_button;
+    private Button validate_button;
     @FXML
     private Button inscription_button;
     @FXML
     private Hyperlink forgotten_password;
     @FXML
-    private Hyperlink site;
+    private Hyperlink website;
     @FXML
     private Hyperlink contact;
     @FXML
@@ -55,7 +55,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
         if (cac.getCodeResponse() == 200)
         {
             //prevent from double connection id double clicked
-            valider_button.setDisable(true);
+            validate_button.setDisable(true);
 
             final User user = new User(pseudo_textfield.getText());
 
@@ -101,7 +101,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
         stage.setResizable(false);
         stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("game_ico.png")));
         stage.show();
-        ((Stage) valider_button.getScene().getWindow()).close();
+        ((Stage) validate_button.getScene().getWindow()).close();
     }
 
     @Override
@@ -128,7 +128,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
             setTextInLabel(error_label, "Connexion au serveur multijoueur impossible.");
 
 
-            valider_button.setDisable(false);
+            validate_button.setDisable(false);
         }
     }
 
