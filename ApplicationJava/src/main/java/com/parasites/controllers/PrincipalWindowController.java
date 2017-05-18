@@ -1,5 +1,6 @@
 package com.parasites.controllers;
 
+import com.parasites.annotations.ColumnFieldTarget;
 import com.parasites.network.OnlineServerManager;
 import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
@@ -12,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
@@ -42,12 +42,16 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     private TableView<Game> games;
     @FXML
+    @ColumnFieldTarget("creatorPseudo")
     private TableColumn<Game, String> gameCreatorNameColumn;
     @FXML
+    @ColumnFieldTarget("actualPlayersCount")
     private TableColumn<Game, Integer> nbPlayersColumn;
     @FXML
+    @ColumnFieldTarget("nbPlayerMax")
     private TableColumn<Game, Integer> nbMaxPlayersColumn;
     @FXML
+    @ColumnFieldTarget("state")
     private TableColumn<Game, String> stateColumn;
 
 
@@ -61,6 +65,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     private TableView<User> game_players;
     @FXML
+    @ColumnFieldTarget("pseudo")
     private TableColumn<User, String> gameMembersColumn;
     @FXML
     private Label owner;
@@ -113,7 +118,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     private Label actual_phone;
 
-    private Stage stage;
     private PopOver pop;
     private List<Game> actualGamesList;
     private List<User> actualUserList;
@@ -121,6 +125,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        super.parseAnnotations(this);
         actualGamesList = new ArrayList<>();
         actualUserList = new ArrayList<>();
 
@@ -128,11 +133,8 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
         waiting_tab.setDisable(true);
 
-        settingColumns();
-
         updateListOfGames(OnlineServerManager.getInstance().getGameList());
         updateListOfUsers(OnlineServerManager.getInstance().getUserList());
-
 
         // Setting rows onClickListener
         games.setRowFactory(tv ->
@@ -152,19 +154,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
             });
             return row;
         });
-
-    }
-
-    private void settingColumns()
-    {
-        // All Games Columns
-        gameCreatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("creatorPseudo"));
-        nbMaxPlayersColumn.setCellValueFactory(new PropertyValueFactory<>("nbPlayerMax"));
-        nbPlayersColumn.setCellValueFactory(new PropertyValueFactory<>("actualPlayersCount"));
-        stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
-
-        // Salon Column
-        gameMembersColumn.setCellValueFactory(new PropertyValueFactory<>("pseudo"));
 
     }
 
@@ -223,7 +212,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
                 e.printStackTrace();
             }
             final GameWindowController controller = loader.getController();
-
             stage.setTitle("Parasites");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -312,12 +300,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *******************************************/
 
     @Override
-    public void onPersonalGameCreation(final Game createdGame)
-    {
-        updateSalonInformations(createdGame);
-    }
-
-    @Override
     public void onServerConnectionStart()
     {
         // NO utility here.
@@ -355,5 +337,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     {
         // No utility here.
     }
+
 
 }

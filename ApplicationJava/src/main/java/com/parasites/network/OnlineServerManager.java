@@ -21,6 +21,7 @@ import java.util.List;
 public final class OnlineServerManager
 {
     // Calls to server
+    private static final String DISCONNECT = "disconnect";
     private static final String CREATE_GAME = "createGame";
     private static final String LEAVE_GAME = "leaveGame";
     private static final String JOIN_GAME = "joinGame";
@@ -193,6 +194,10 @@ public final class OnlineServerManager
         return currentUser;
     }
 
+    public Game getCurrentGame()
+    {
+        return currentGame;
+    }
 
     /*******************************************
      *                                         *
@@ -215,16 +220,6 @@ public final class OnlineServerManager
             for (OnlineServerObservable observer : observers)
             {
                 observer.onMessageFromServer(String.valueOf(objects[0]));
-            }
-        });
-
-        socket.on(OnlineServerManager.PERSONAL_GAME_CREATION, objects ->
-        {
-            final Game createdGame = gson.fromJson(String.valueOf(objects[0]), Game.class);
-
-            for (OnlineServerObservable observer : observers)
-            {
-                observer.onPersonalGameCreation(createdGame);
             }
         });
 

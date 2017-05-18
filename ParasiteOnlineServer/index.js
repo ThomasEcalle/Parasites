@@ -50,18 +50,11 @@ io.sockets.on('connection', function (socket) {
   		// // echo to room 1 that a person has connected to their room
   		// socket.broadcast.to(game.name).emit('updateServer', 'SERVER', username + ' has connected to this room');
       socket.join(game.id);
-      socket.emit('personalGameCreation', JSON.stringify(game));
 
       cleanLog("\n\ngames : " + JSON.stringify(gamesList) +"\nusers" +JSON.stringify(userList)+"\n\n");
       updateServerState();
     }
 	});
-
-	// // when the client emits 'sendchat', this listens and executes
-	// socket.on('sendchat', function (data) {
-	// 	// we tell the client to execute 'updatechat' with 2 parameters
-	// 	io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	// });
 
   socket.on('joinGame', function(game){
     var game = JSON.parse(game);
@@ -83,8 +76,6 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('leaveGame', function(){
 		socket.emit('updateServer', 'you have left the game '+ socket.gameID);
-
-		// sent message to players in game
 		socket.broadcast.to(socket.gameID).emit('updateServer', socket.userPseudo+' has left this game');
 
     var newGame = gamesList[socket.gameID];
@@ -120,9 +111,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
   socket.on('sendGameChatMessage', function(chatMessage){
-
-    socket.broadcast.to(socket.gameID).emit('receivingGameChatMessage', chatMessage);
-    socket.emit('receivingGameChatMessage', chatMessage);
+    io.in(socket.gameID).emit('receivingGameChatMessage', chatMessage);
   });
 
   socket.on('launchGame', function(){
@@ -133,8 +122,7 @@ io.sockets.on('connection', function (socket) {
 
 
     updateServerState();
-    socket.broadcast.to(socket.gameID).emit('launchingGame');
-    socket.emit('launchingGame');
+    io.in(socket.gameID).emit('launchingGame');
   });
 
 	// when the user disconnects.. perform this
@@ -175,8 +163,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
   function updateServerState(){
-    socket.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
-    socket.broadcast.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
+    io.emit('currentServerState',JSON.stringify(userList), JSON.stringify(gamesList));
   }
 
   function cleanLog(data){

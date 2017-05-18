@@ -1,22 +1,91 @@
 package com.parasites.controllers;
 
+import com.parasites.annotations.ColumnFieldTarget;
+import com.parasites.annotations.PressEnter;
 import com.parasites.network.OnlineServerObservable;
 import com.parasites.utils.Toast;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
  * Created by Thomas Ecalle on 13/05/2017.
  */
-public abstract class ParasitesFXController implements OnlineServerObservable
+public abstract class ParasitesFXController implements OnlineServerObservable, Initializable
 {
     protected Stage stage;
+
+    /**
+     * Needed method in order to parse Controllers annotations
+     *
+     * @param controller
+     */
+    protected void parseAnnotations(final Object controller)
+    {
+        final Class controllerClass = controller.getClass();
+        for (final Field field : controllerClass.getDeclaredFields())
+        {
+            if (field.isAnnotationPresent(PressEnter.class))
+            {
+
+                field.setAccessible(true);
+                try
+                {
+                    final PressEnter pressEnter = field.getAnnotation(PressEnter.class);
+                    final TextField textField = (TextField) field.get(controller);
+
+                    textField.setOnKeyPressed((keyEvent) ->
+                    {
+                        if (keyEvent.getCode() == KeyCode.ENTER)
+                        {
+                            try
+                            {
+                                final Method method = controllerClass.getDeclaredMethod(pressEnter.value());
+                                method.setAccessible(true);
+                                method.invoke(controller);
+
+                            } catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if (field.isAnnotationPresent(ColumnFieldTarget.class))
+            {
+
+                field.setAccessible(true);
+                try
+                {
+                    final ColumnFieldTarget columnFieldTarget = field.getAnnotation(ColumnFieldTarget.class);
+
+                    final TableColumn column = (TableColumn) field.get(controller);
+                    column.setCellValueFactory(new PropertyValueFactory<>(columnFieldTarget.value()));
+
+
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
 
     public void setStage(final Stage stage)
     {
@@ -87,5 +156,6 @@ public abstract class ParasitesFXController implements OnlineServerObservable
             }
         });
     }
+
 
 }
