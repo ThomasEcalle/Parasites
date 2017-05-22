@@ -12,13 +12,6 @@ import java.util.List;
 public interface OnlineServerObservable
 {
     /**
-     * Method called when the current player create a game
-     *
-     * @param createdGame
-     */
-    void onPersonalGameCreation(final Game createdGame);
-
-    /**
      * Callback on connection (display loader)
      */
     void onServerConnectionStart();
@@ -51,9 +44,9 @@ public interface OnlineServerObservable
      */
     void onLaunchingGame();
 
-
     /**
-     *  When someone from the game sent a message
+     * When someone from the game sent a message
+     *
      * @param chatMessage
      */
     void onReceivingGameMessage(final ChatMessage chatMessage);

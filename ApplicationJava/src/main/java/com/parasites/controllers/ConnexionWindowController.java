@@ -1,5 +1,6 @@
 package com.parasites.controllers;
 
+import com.parasites.annotations.PressEnter;
 import com.parasites.models.ConnectionAPICall;
 import com.parasites.network.OnlineServerManager;
 import com.parasites.network.bo.ChatMessage;
@@ -25,8 +26,10 @@ public final class ConnexionWindowController extends ParasitesFXController imple
 {
 
     @FXML
+    @PressEnter("clickOnValider")
     private TextField pseudo_textfield;
     @FXML
+    @PressEnter("clickOnValider")
     private PasswordField password_textfield;
     @FXML
     private Button validate_button;
@@ -47,6 +50,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     {
         OnlineServerManager.getInstance().addObserver(this);
         error_label.setVisible(false);
+        super.parseAnnotations(this);
     }
 
     @FXML
@@ -108,12 +112,6 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     }
 
     @Override
-    public void onPersonalGameCreation(Game createdGame)
-    {
-        // No utility here
-    }
-
-    @Override
     public void onServerConnectionStart()
     {
         ParasitesUtils.logInfos("En attente de connexion, veuillez patienter...");
@@ -158,4 +156,6 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     {
         /// No utility here.
     }
+
+
 }
