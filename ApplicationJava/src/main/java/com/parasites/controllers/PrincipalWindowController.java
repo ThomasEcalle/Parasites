@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,8 +28,7 @@ import java.util.ResourceBundle;
 /**
  * Created by spyro on 11/05/2017.
  */
-public final class PrincipalWindowController extends ParasitesFXController implements Initializable
-{
+public final class PrincipalWindowController extends ParasitesFXController implements Initializable {
 
     /*******************************************
      *                                         *
@@ -90,21 +90,17 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *                                         *
      *******************************************/
     @FXML
-    private Label actual_pseudo;
-    @FXML
-    private TextField pseudo;
-    @FXML
-    private TextField pseudo_confirming;
-    @FXML
     private Label actual_password;
     @FXML
     private PasswordField password;
     @FXML
     private PasswordField password_confirming;
     @FXML
+    private Label actual_mail;
+    @FXML
     private TextField mail;
     @FXML
-    private Label actual_mail;
+    private TextField mail_confirming;
     @FXML
     private TextField lastname;
     @FXML
@@ -117,6 +113,8 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     private TextField phone;
     @FXML
     private Label actual_phone;
+    @FXML
+    private TextArea errors_area;
 
     private Stage stage;
 
@@ -130,8 +128,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     private List<User> actualUserList;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
         super.parseAnnotations(this);
         actualGamesList = new ArrayList<>();
         actualUserList = new ArrayList<>();
@@ -149,11 +146,9 @@ public final class PrincipalWindowController extends ParasitesFXController imple
             TableRow<Game> row = new TableRow<>();
             row.setOnMouseClicked(event ->
             {
-                if (event.getClickCount() == 2 && (!row.isEmpty()))
-                {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     final Game game = games.getItems().get(row.getIndex());
-                    if (game.getActualPlayersCount() < game.getNbPlayerMax() && !game.isLaunched())
-                    {
+                    if (game.getActualPlayersCount() < game.getNbPlayerMax() && !game.isLaunched()) {
                         OnlineServerManager.getInstance().joinGame(game);
                         showSalon();
                     }
@@ -165,19 +160,16 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     }
 
     @FXML
-    public void clickOnCreation()
-    {
+    public void clickOnCreation() {
         pop = new PopOver();
         Parent root;
-        try
-        {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("ecran_popover.fxml"));
             root = fxmlLoader.load();
             PopoverWindowController controller = fxmlLoader.<PopoverWindowController>getController();
             controller.setParentController(this);
             pop.setContentNode(root);
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         pop.setArrowLocation(PopOver.ArrowLocation.RIGHT_TOP);
@@ -189,14 +181,12 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     }
 
     @FXML
-    public void clickOnLaunch()
-    {
+    public void clickOnLaunch() {
         OnlineServerManager.getInstance().launchGame();
     }
 
     @FXML
-    public void clickOnQuitterSalon()
-    {
+    public void clickOnQuitterSalon() {
         game_tab.setDisable(false);
         game_tab.getTabPane().getSelectionModel().select(game_tab);
         waiting_tab.setDisable(true);
@@ -204,18 +194,15 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         OnlineServerManager.getInstance().leaveGame();
     }
 
-    private void showGame()
-    {
+    private void showGame() {
         Platform.runLater(() ->
         {
             final Stage stage = new Stage();
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ecran_game.fxml"));
-            try
-            {
+            try {
                 root = loader.load();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             final GameWindowController controller = loader.getController();
@@ -228,8 +215,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         });
     }
 
-    public void popoverValidation(int numb_players, int width, int height)
-    {
+    public void popoverValidation(int numb_players, int width, int height) {
         pop.hide();
 
         showSalon();
@@ -242,10 +228,8 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         OnlineServerManager.getInstance().createGame(game);
     }
 
-    private void updateListOfGames(final List<Game> list)
-    {
-        if (actualGamesList.isEmpty() == false)
-        {
+    private void updateListOfGames(final List<Game> list) {
+        if (actualGamesList.isEmpty() == false) {
             actualGamesList.clear();
         }
 
@@ -253,47 +237,39 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
         refreshTableView(actualGamesList, games);
 
-        for (Game game : list)
-        {
-            if (game.getPlayersList().contains(OnlineServerManager.getInstance().getCurrentUser()))
-            {
+        for (Game game : list) {
+            if (game.getPlayersList().contains(OnlineServerManager.getInstance().getCurrentUser())) {
                 updateSalonList(game.getPlayersList());
                 updateSalonInformations(game);
             }
         }
     }
 
-    private void updateListOfUsers(List<User> list)
-    {
-        if (actualUserList.isEmpty() == false)
-        {
+    private void updateListOfUsers(List<User> list) {
+        if (actualUserList.isEmpty() == false) {
             actualUserList.clear();
         }
 
         actualUserList.addAll(list);
     }
 
-    private void showSalon()
-    {
+    private void showSalon() {
         waiting_tab.setDisable(false);
         waiting_tab.getTabPane().getSelectionModel().select(waiting_tab);
         game_tab.setDisable(true);
     }
 
-    private void updateSalonList(final List<User> users)
-    {
+    private void updateSalonList(final List<User> users) {
         refreshTableView(users, game_players);
     }
 
-    private void updateSalonInformations(final Game game)
-    {
+    private void updateSalonInformations(final Game game) {
         setTextInLabel(owner, game.getCreator().getPseudo());
         setTextInLabel(actual_players, String.valueOf(game.getActualPlayersCount()));
         setTextInLabel(max_players, String.valueOf(game.getNbPlayerMax()));
         setTextInLabel(map_size, String.valueOf(game.getSize()));
 
-        if (!game.getCreator().equals(OnlineServerManager.getInstance().getCurrentUser()))
-        {
+        if (!game.getCreator().equals(OnlineServerManager.getInstance().getCurrentUser())) {
             launch.setDisable(true);
         }
     }
@@ -306,41 +282,35 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *******************************************/
 
     @Override
-    public void onServerConnectionStart()
-    {
+    public void onServerConnectionStart() {
         // NO utility here.
     }
 
     @Override
-    public void onServerConnectionEnd(boolean success)
-    {
+    public void onServerConnectionEnd(boolean success) {
         // NO utility here.
     }
 
     @Override
-    public void onMessageFromServer(String message)
-    {
+    public void onMessageFromServer(String message) {
 
         showNotification(message);
         ParasitesUtils.logError(message);
     }
 
     @Override
-    public void onServerStateChange(List<User> users, List<Game> games)
-    {
+    public void onServerStateChange(List<User> users, List<Game> games) {
         updateListOfUsers(users);
         updateListOfGames(games);
     }
 
     @Override
-    public void onLaunchingGame()
-    {
+    public void onLaunchingGame() {
         showGame();
     }
 
     @Override
-    public void onReceivingGameMessage(final ChatMessage chatMessage)
-    {
+    public void onReceivingGameMessage(final ChatMessage chatMessage) {
         // No utility here.
     }
 

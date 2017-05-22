@@ -72,7 +72,7 @@ public abstract class RestApiCall {
         return new JSONObject(response);
     }
 
-    public String gotMessage(){
+    public String getMessage(){
         try {
             return json.get("message").toString();
         } catch (JSONException e) {
