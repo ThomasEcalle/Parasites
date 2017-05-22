@@ -118,6 +118,13 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     private Label actual_phone;
 
+    private Stage stage;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
     private PopOver pop;
     private List<Game> actualGamesList;
     private List<User> actualUserList;
@@ -224,7 +231,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     public void popoverValidation(int numb_players, int width, int height)
     {
         pop.hide();
-        // ICI ON VA POUVOIR CREER LA PARTIE AVEC DES VALEURS DONNEES
 
         showSalon();
 

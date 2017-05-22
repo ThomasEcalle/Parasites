@@ -43,6 +43,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     private Hyperlink contact;
     @FXML
     private Label error_label;
+    private String token;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -58,6 +59,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
         ConnectionAPICall cac = new ConnectionAPICall(pseudo_textfield.getText(), password_textfield.getText());
         if (cac.getCodeResponse() == 200)
         {
+            token = cac.getToken();
             //prevent from double connection id double clicked
             validate_button.setDisable(true);
 
@@ -99,6 +101,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
         }
         PrincipalWindowController controller = loader.getController();
         controller.setStage(stage);
+        controller.setToken(token);
 
         stage.setTitle("Parasites");
         stage.setScene(new Scene(root));
