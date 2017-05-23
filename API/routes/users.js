@@ -51,20 +51,26 @@ router.get("/",function(req, res, next){
 *******************************************/
 // correspond to the URL /users/3 for exemple
 router.get("/:user_id", function(req,res,next){
-  User.find({
-    where: {
-      id: req.params.user_id
-    }
-  }).then(function(user){
-    if(user){
-      res.json(user);
-    }
-    res.status(400)
-    return res.json({
-      "result": 0,
-      "message": "No user found"
-    });
-  }).catch(next)
+  if (req.user.id == req.params.user_id){
+    User.find({
+      where: {
+        id: req.params.user_id
+      }
+    }).then(function(user){
+      if(user){
+        res.json(user);
+      }
+      res.status(400)
+      return res.json({
+        "result": 0,
+        "message": "No user found"
+      });
+    }).catch(next)
+  }
+  else {
+    next();
+  }
+
 })
 
 

@@ -5,7 +5,13 @@ package com.parasites.network.bo;
  */
 public final class User
 {
+    private int id;
     private String pseudo;
+    private String firstname;
+    private String lastname;
+    private String password;
+    private String phone_number;
+    private String token;
 
     public User(final String pseudo)
     {
@@ -31,5 +37,60 @@ public final class User
     public String getPseudo()
     {
         return pseudo;
+    }
+
+    public String getToken()
+    {
+        return token;
+    }
+
+    public void setToken(String token)
+    {
+        this.token = token;
+    }
+
+    public String getPhone_number()
+    {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number)
+    {
+        this.phone_number = phone_number;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public String getLastname()
+    {
+        return lastname;
+    }
+
+    public void setLastname(String lastname)
+    {
+        this.lastname = lastname;
+    }
+
+    public String getFirstname()
+    {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname)
+    {
+        this.firstname = firstname;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 }
