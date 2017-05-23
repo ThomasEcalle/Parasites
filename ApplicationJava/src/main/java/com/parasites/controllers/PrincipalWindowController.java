@@ -89,8 +89,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
      *                  Profil                 *
      *                                         *
      *******************************************/
-    @FXML
-    private Label actual_password;
+
     @FXML
     private PasswordField password;
     @FXML
@@ -181,6 +180,25 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     }
 
     @FXML
+    public void clickOnValider(){
+        final ProfileController controller = new ProfileController(token,
+                password.getText(),
+                password_confirming.getText(),
+                mail.getText(),
+                mail_confirming.getText(),
+                firstname.getText(),
+                lastname.getText(),
+                phone.getText());
+        resetTextFields();
+        errors_area.setText(controller.getMessage());
+    }
+
+    @FXML
+    public void clickOnReset(){
+        resetTextFields();
+    }
+
+    @FXML
     public void clickOnLaunch() {
         OnlineServerManager.getInstance().launchGame();
     }
@@ -192,6 +210,16 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         waiting_tab.setDisable(true);
 
         OnlineServerManager.getInstance().leaveGame();
+    }
+
+    private void resetTextFields(){
+        password.setText("");
+        password_confirming.setText("");
+        mail.setText("");
+        mail_confirming.setText("");
+        firstname.setText("");
+        lastname.setText("");
+        phone.setText("");
     }
 
     private void showGame() {

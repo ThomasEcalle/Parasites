@@ -12,7 +12,7 @@ public class ConnectionAPICall extends RestApiCall {
                 "{\"pseudo\":\"" +
                         pseudo +
                         "\",\"password\":\"" +
-                        password + "\"}");
+                        password + "\"}", "POST");
     }
 
     public String getToken(){

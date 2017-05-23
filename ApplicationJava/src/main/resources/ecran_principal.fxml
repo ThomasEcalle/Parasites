@@ -274,8 +274,8 @@
                                                                                 <Font name="Arial Italic" size="12.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <PasswordField fx:id="password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                                                        <PasswordField fx:id="password_confirming" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                                                        <PasswordField fx:id="password_confirming" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                                                        <PasswordField fx:id="password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                                    </children>
                                                                 </GridPane>
                                                                 <GridPane prefHeight="211.0" prefWidth="594.0">
@@ -410,13 +410,13 @@
                                                          <children>
                                                             <AnchorPane prefHeight="136.0" prefWidth="345.0">
                                                                <children>
-                                                                  <TextArea fx:id="errors_area" editable="false" layoutX="28.0" layoutY="10.0" prefHeight="126.0" prefWidth="343.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                                                                  <TextArea fx:id="errors_area" editable="false" layoutX="28.0" layoutY="10.0" prefHeight="126.0" prefWidth="343.0" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
                                                                </children>
                                                             </AnchorPane>
                                                                               <AnchorPane prefHeight="122.0" prefWidth="255.0">
                                                                                   <children>
-                                                                                      <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="75.0" text="valider" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
-                                                                                      <Button mnemonicParsing="false" onMouseClicked="#clickOnQuitterSalon" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="reset" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
+                                                                                      <Button mnemonicParsing="false" onMouseClicked="#clickOnValider" prefHeight="37.0" prefWidth="75.0" text="valider" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="125.0" />
+                                                                                      <Button mnemonicParsing="false" onMouseClicked="#clickOnReset" prefHeight="37.0" prefWidth="75.0" styleClass="button_red" text="reset" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="30.0" />
                                                                                   </children>
                                                                               </AnchorPane>
                                                          </children>
