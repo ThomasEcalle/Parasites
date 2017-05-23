@@ -63,7 +63,8 @@ public final class ConnexionWindowController extends ParasitesFXController imple
             //prevent from double connection id double clicked
             validate_button.setDisable(true);
 
-            final User user = new User(pseudo_textfield.getText());
+
+            final User user = cac.getUser();
 
             //Connecting online
             OnlineServerManager.getInstance().connect(user);
