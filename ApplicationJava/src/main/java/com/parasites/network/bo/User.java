@@ -12,6 +12,7 @@ public final class User
     private String password;
     private String phone_number;
     private String token;
+    private String email;
 
     public User(final String pseudo)
     {
@@ -92,5 +93,15 @@ public final class User
     public int getId()
     {
         return id;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
     }
 }
