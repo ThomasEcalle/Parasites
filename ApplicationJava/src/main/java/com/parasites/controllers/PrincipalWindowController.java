@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
@@ -53,6 +55,8 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     @ColumnFieldTarget("state")
     private TableColumn<Game, String> stateColumn;
+    @FXML
+    private Label connected_as;
 
 
     /*******************************************
@@ -113,7 +117,15 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     @FXML
     private Label actual_phone;
     @FXML
-    private TextArea errors_area;
+    private Label password_error;
+    @FXML
+    private Label mail_error;
+    @FXML
+    private Label firstname_error;
+    @FXML
+    private Label lastname_error;
+    @FXML
+    private Label phone_error;
 
     private Stage stage;
 
@@ -156,6 +168,8 @@ public final class PrincipalWindowController extends ParasitesFXController imple
             return row;
         });
         initTextFields();
+        initErrorLabel(null, null, null, null, null);
+        connected_as.setText(connected_as.getText() + OnlineServerManager.getInstance().getCurrentUser().getPseudo());
     }
 
     @FXML
@@ -190,18 +204,25 @@ public final class PrincipalWindowController extends ParasitesFXController imple
                 lastname.getText(),
                 phone.getText());
         resetTextFields();
+        initErrorLabel(controller.getPassword_message(),
+                controller.getMail_message(),
+                controller.getFirstname_message(),
+                controller.getLastname_message(),
+                controller.getPhone_message());
         initTextFields();
-        errors_area.setText(controller.getMessage());
     }
 
     @FXML
     public void onLeavingProfile(){
         resetTextFields();
+        initErrorLabel(null, null, null, null, null);
+
     }
 
     @FXML
     public void clickOnReset(){
         resetTextFields();
+        initErrorLabel(null, null, null, null, null);
     }
 
     @FXML
@@ -219,7 +240,6 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     }
 
     private void resetTextFields(){
-        errors_area.setText("");
         password.setText("");
         password_confirming.setText("");
         mail.setText("");
@@ -232,10 +252,31 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     private void initTextFields(){
         OnlineServerManager server = OnlineServerManager.getInstance();
         User user = server.getCurrentUser();
-        actual_mail.setText("à remplir");
+        actual_mail.setText(user.getEmail());
         actual_firstname.setText(user.getFirstname());
         actual_lastname.setText(user.getLastname());
         actual_phone.setText(user.getPhone_number());
+    }
+
+    private void initErrorLabel(Object[] password,
+                                Object[] mail,
+                                Object[] firstname,
+                                Object[] lastname,
+                                Object[] phone){
+        displayErrorLabel(password, password_error);
+        displayErrorLabel(mail, mail_error);
+        displayErrorLabel(firstname, firstname_error);
+        displayErrorLabel(lastname, lastname_error);
+        displayErrorLabel(phone, phone_error);
+    }
+
+    private void displayErrorLabel(Object[] arrayMessage, Label label){
+        if(arrayMessage == null) label.setVisible(false);
+        else{
+            label.setVisible(true);
+            label.setTextFill((int) arrayMessage[1] == 0 ? Color.RED : Color.GREEN);
+            label.setText(arrayMessage[0].toString());
+        }
     }
 
     private void showGame() {
