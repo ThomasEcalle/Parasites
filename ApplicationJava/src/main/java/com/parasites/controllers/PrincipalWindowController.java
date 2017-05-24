@@ -5,6 +5,7 @@ import com.parasites.network.OnlineServerManager;
 import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
+import com.parasites.utils.InfoMessage;
 import com.parasites.utils.ParasitesUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
+import javax.sound.midi.MidiDevice;
 import javax.xml.soap.Text;
 import java.io.IOException;
 import java.net.URL;
@@ -258,11 +260,11 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         actual_phone.setText(user.getPhone_number());
     }
 
-    private void initErrorLabel(Object[] password,
-                                Object[] mail,
-                                Object[] firstname,
-                                Object[] lastname,
-                                Object[] phone){
+    private void initErrorLabel(InfoMessage password,
+                                InfoMessage mail,
+                                InfoMessage firstname,
+                                InfoMessage lastname,
+                                InfoMessage phone){
         displayErrorLabel(password, password_error);
         displayErrorLabel(mail, mail_error);
         displayErrorLabel(firstname, firstname_error);
@@ -270,12 +272,12 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         displayErrorLabel(phone, phone_error);
     }
 
-    private void displayErrorLabel(Object[] arrayMessage, Label label){
-        if(arrayMessage == null) label.setVisible(false);
+    private void displayErrorLabel(InfoMessage infoMessage, Label label){
+        if(infoMessage == null) label.setVisible(false);
         else{
             label.setVisible(true);
-            label.setTextFill((int) arrayMessage[1] == 0 ? Color.RED : Color.GREEN);
-            label.setText(arrayMessage[0].toString());
+            label.setTextFill(infoMessage.getColor());
+            label.setText(infoMessage.getMessage());
         }
     }
 
