@@ -155,7 +155,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
             });
             return row;
         });
-
+        initTextFields();
     }
 
     @FXML
@@ -190,7 +190,13 @@ public final class PrincipalWindowController extends ParasitesFXController imple
                 lastname.getText(),
                 phone.getText());
         resetTextFields();
+        initTextFields();
         errors_area.setText(controller.getMessage());
+    }
+
+    @FXML
+    public void onLeavingProfile(){
+        resetTextFields();
     }
 
     @FXML
@@ -213,6 +219,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
     }
 
     private void resetTextFields(){
+        errors_area.setText("");
         password.setText("");
         password_confirming.setText("");
         mail.setText("");
@@ -220,6 +227,15 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         firstname.setText("");
         lastname.setText("");
         phone.setText("");
+    }
+
+    private void initTextFields(){
+        OnlineServerManager server = OnlineServerManager.getInstance();
+        User user = server.getCurrentUser();
+        actual_mail.setText("à remplir");
+        actual_firstname.setText(user.getFirstname());
+        actual_lastname.setText(user.getLastname());
+        actual_phone.setText(user.getPhone_number());
     }
 
     private void showGame() {

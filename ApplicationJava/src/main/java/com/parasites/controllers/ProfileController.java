@@ -1,6 +1,9 @@
 package com.parasites.controllers;
 
+import com.parasites.models.FirstnameAPICall;
+import com.parasites.models.LastnameAPICall;
 import com.parasites.models.PasswordAPICall;
+import com.parasites.network.OnlineServerManager;
 
 /**
  * Created by spyro on 22/05/2017.
@@ -39,6 +42,7 @@ public class ProfileController {
         if(call.getCodeResponse() != 200){
             return call.getMessage() + "\n";
         }
+        OnlineServerManager.getInstance().getCurrentUser().setPassword(password);
         return "Le mot de passe a bien été modifié.\n";
     }
 
@@ -51,12 +55,22 @@ public class ProfileController {
 
     public String changeFirstname(String firstname){
         if(firstname.equals("")) return "";
-        return "";
+        FirstnameAPICall call = new FirstnameAPICall(firstname, token);
+        if(call.getCodeResponse() != 200){
+            return call.getMessage() + "\n";
+        }
+        OnlineServerManager.getInstance().getCurrentUser().setFirstname(firstname);
+        return "Le prénom a bien été modifié.\n";
     }
 
     public String changeLastname(String lastname){
         if(lastname.equals("")) return "";
-        return "";
+        LastnameAPICall call = new LastnameAPICall(lastname, token);
+        if(call.getCodeResponse() != 200){
+            return call.getMessage() + "\n";
+        }
+        OnlineServerManager.getInstance().getCurrentUser().setLastname(lastname);
+        return "Le nom de famille a bien été modifié.\n";
     }
 
     public String changePhone(String phone){
