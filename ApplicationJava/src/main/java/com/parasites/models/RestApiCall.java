@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,11 +21,11 @@ public abstract class RestApiCall {
     protected JSONObject json;
     private int codeResponse;
 
-    public RestApiCall(String APIurl, String input) {
+    public RestApiCall(String APIurl, String input, String method) {
         try {
             this.input = input;
             url = new URL(APIurl);
-            initConnection();
+            initConnection(method);
             initOutput();
             json = getJson(new BufferedReader(new InputStreamReader(getInputStream())));
         } catch (IOException e){
@@ -36,10 +37,10 @@ public abstract class RestApiCall {
         }
     }
 
-    private void initConnection() throws IOException{
+    private void initConnection(String method) throws IOException{
         conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod(method);
         conn.setRequestProperty("Content-Type", "application/json");
     }
 
@@ -76,6 +77,11 @@ public abstract class RestApiCall {
         try {
             return json.get("message").toString();
         } catch (JSONException e) {
+            try {
+                return ((JSONArray) json.get("errors")).getString(0).split(": ")[1];
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         }
         return null;
