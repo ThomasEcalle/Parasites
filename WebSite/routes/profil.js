@@ -9,7 +9,7 @@ router.get("/", function(req, res, next){
     var mod = req.param("mod");
     var sess = req.session;
     var connected = sess.user ? true : false;
-    res.render('template_commun.ejs', { page : "PROFIL", mod : (mod ? mod : "pseudo"), user : sess.user, connected : connected, error : "", info : "" });
+    res.render('template_commun.ejs', { page : "PROFIL", mod : (mod ? mod : "password"), user : sess.user, connected : connected, error : "", info : "" });
 });	
 
 router.post("/", function(req, res, next){

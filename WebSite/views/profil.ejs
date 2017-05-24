@@ -6,43 +6,14 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu menu-profil" aria-labelledby="dropdownMenu1">
-            <li><a href="profil?mod=pseudo">Pseudo</a></li>
             <li><a href="profil?mod=password">Password</a></li>
             <li><a href="profil?mod=lastname">Last name</a></li>
             <li><a href="profil?mod=firstname">First name</a></li>
             <li><a href="profil?mod=email">Email</a></li>
+            <li><a href="profil?mod=phone">Phone</a></li>
         </ul>
     </div>
     <div id="form_profil">
-        <!--- PARTIE SUR USERNAME -->
-
-        <% if(mod == "pseudo"){%>
-        <div id="username-form">
-            <h3>USERNAME</h3>
-            <hr class="hmarg">
-            <form action="#" method="POST" class="form-horizontal marg">
-                <div class="form-group">
-                    <label class="col-md-5 control-label" for="textinput">Nouvel username</label>  
-                    <div class="col-md-4">
-                        <input id="textinput" name="input1" type="text" class="form-control input-md" required="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-5 control-label" for="textinput">Confirmation de l'username</label>  
-                    <div class="col-md-4">
-                        <input id="textinput" name="input2" type="text" class="form-control input-md" required="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-5 control-label" for="valider"></label>
-                    <div class="col-md-4">
-                        <input type="hidden" name="type_form" value="pseudo">
-                        <button class="btn btn-success">valider</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <%}%>
 
         <!--- PARTIE SUR PASSWORD -->
 
@@ -163,6 +134,37 @@
             </form> 
         </div>
         <%}%>
+        
+        <!--- PARTIE SUR LE FIRSTNAME -->
+
+        <% if(mod == "phone"){%>
+        <div id="phone-form">
+            <h3>PHONE</h3>
+            <hr class="hmarg">
+            <form action="#" method="POST" class="form-horizontal marg">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Nouveau numéro de téléphone</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input1" type="text" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Confirmation du numéro de téléphone</label>  
+                    <div class="col-md-4">
+                        <input id="textinput" name="input2" type="text" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="valider"></label>
+                    <div class="col-md-4">
+                        <input type="hidden" name="type_form" value="firstname">
+                        <button class="btn btn-success">valider</button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+        <%}%>
+        
         <% if(error != ""){%>
             <div id="error_box_profil" class="alert alert-danger" role="alert"> <%= error %> </div>
         <%} else if(info != ""){%>
