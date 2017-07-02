@@ -3,6 +3,7 @@ package com.parasites.engine.players;
 import com.parasites.engine.board.*;
 import com.parasites.engine.pieces.Parasite;
 import com.parasites.engine.pieces.Queen;
+import com.parasites.network.bo.User;
 import javafx.scene.paint.Color;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +51,10 @@ public final class Player
     @Override
     public boolean equals(Object obj)
     {
+        if (obj instanceof User)
+        {
+            return ((User) obj).getPseudo().equals(pseudo);
+        }
         if (!(obj instanceof Player)) return false;
         final Player other = (Player) obj;
         return this.pseudo.equals(other.pseudo);

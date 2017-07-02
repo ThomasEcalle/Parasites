@@ -3,15 +3,20 @@ package com.parasites.network;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parasites.Constants;
+import com.parasites.engine.pieces.KindOfParasite;
 import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
+import com.parasites.network.interfaces.GameObserver;
+import com.parasites.network.interfaces.Observer;
+import com.parasites.network.interfaces.OnlineServerObserver;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,17 +32,18 @@ public final class OnlineServerManager
     private static final String JOIN_GAME = "joinGame";
     private static final String LAUNCH_GAME = "launchGame";
     private static final String SEND_GAME_CHAT_MESSAGE = "sendGameChatMessage";
+    private static final String PLAY_MOVE = "playMove";
 
 
     //Events from server
     private static final String UPDATE_SERVER = "updateServer";
-    private static final String PERSONAL_GAME_CREATION = "personalGameCreation";
+    private static final String RECEIVING_GAME_MOVE = "playMove";
     private static final String CURRENT_SERVER_STATE = "currentServerState";
     private static final String LAUNCHING_GAME = "launchingGame";
     private static final String RECEIVING_GAME_CHAT_MESSAGE = "receivingGameChatMessage";
 
 
-    private List<OnlineServerObservable> observers;
+    private List<Observer> observers;
     private User currentUser;
     private Game currentGame;
     private List<Game> gameList;
@@ -77,9 +83,9 @@ public final class OnlineServerManager
         gson = new Gson();
     }
 
-    public void addObserver(OnlineServerObservable onlineServerObservable)
+    public void addObserver(Observer observer)
     {
-        observers.add(onlineServerObservable);
+        observers.add(observer);
     }
 
 
@@ -136,6 +142,7 @@ public final class OnlineServerManager
     public void joinGame(final Game game)
     {
         currentGame = game;
+
         socket.emit(OnlineServerManager.JOIN_GAME, gson.toJson(game));
     }
 
@@ -151,6 +158,13 @@ public final class OnlineServerManager
     }
 
 
+    public void playMove(final int tileCoordonate, final boolean isTileLocked, final KindOfParasite kindOfParasite)
+    {
+        System.out.println("sent move : " + tileCoordonate + ", " + isTileLocked + ", " + kindOfParasite);
+        socket.emit(OnlineServerManager.PLAY_MOVE, tileCoordonate, isTileLocked, kindOfParasite);
+    }
+
+
     /*******************************************
      *                                         *
      *        Observers notifications          *
@@ -159,17 +173,24 @@ public final class OnlineServerManager
 
     private void notifyServerConnectionStarting()
     {
-        for (OnlineServerObservable observer : observers)
+        for (Observer observer : observers)
         {
-            observer.onServerConnectionStart();
+            if (observer instanceof OnlineServerObserver)
+            {
+                ((OnlineServerObserver) observer).onServerConnectionStart();
+            }
         }
     }
 
     private void notifyConnectionEnd(final boolean success)
     {
-        for (OnlineServerObservable observer : observers)
+        for (Observer observer : observers)
         {
-            observer.onServerConnectionEnd(success);
+            if (observer instanceof OnlineServerObserver)
+            {
+
+                ((OnlineServerObserver) observer).onServerConnectionEnd(success);
+            }
         }
     }
 
@@ -217,9 +238,13 @@ public final class OnlineServerManager
 
         socket.on(OnlineServerManager.UPDATE_SERVER, objects ->
         {
-            for (OnlineServerObservable observer : observers)
+            for (Observer observer : observers)
             {
-                observer.onMessageFromServer(String.valueOf(objects[0]));
+                if (observer instanceof OnlineServerObserver)
+                {
+
+                    ((OnlineServerObserver) observer).onMessageFromServer(String.valueOf(objects[0]));
+                }
             }
         });
 
@@ -248,31 +273,74 @@ public final class OnlineServerManager
             for (String s : myList.keySet())
             {
                 tempGame.add(myList.get(s));
+                if (currentGame != null && myList.get(s).getId() == currentGame.getId())
+                {
+                    currentGame = myList.get(s);
+                }
             }
             gameList.addAll(tempGame);
 
-            for (OnlineServerObservable observer : observers)
+            for (Observer observer : observers)
             {
-                observer.onServerStateChange(userList, gameList);
+                if (observer instanceof OnlineServerObserver)
+                {
+
+                    ((OnlineServerObserver) observer).onServerStateChange(userList, gameList);
+                }
             }
 
         });
 
         socket.on(OnlineServerManager.LAUNCHING_GAME, objects ->
         {
-            for (OnlineServerObservable observer : observers)
+            for (Observer observer : observers)
             {
-                observer.onLaunchingGame();
+                if (observer instanceof OnlineServerObserver)
+                {
+
+                    ((OnlineServerObserver) observer).onLaunchingGame();
+                }
             }
         });
 
         socket.on(OnlineServerManager.RECEIVING_GAME_CHAT_MESSAGE, objects ->
         {
             final ChatMessage chatMessage = gson.fromJson(String.valueOf(objects[0]), ChatMessage.class);
-            for (OnlineServerObservable observer : observers)
+
+
+            for (Observer observer : observers)
             {
-                observer.onReceivingGameMessage(chatMessage);
+                if (observer instanceof OnlineServerObserver)
+                {
+
+                    ((OnlineServerObserver) observer).onReceivingGameMessage(chatMessage);
+                }
+            }
+        });
+
+        socket.on(OnlineServerManager.RECEIVING_GAME_MOVE, objects ->
+        {
+            final int origin = (int) objects[0];
+            final boolean isTileLocked = (boolean) objects[1];
+            KindOfParasite kindOfParasite = null;
+            if (objects[2] != null)
+            {
+                kindOfParasite = KindOfParasite.valueOf((String) objects[2]);
+
+            }
+
+            System.out.println("OnlineServerManager callback GAME MOVE : " + origin + ", " + isTileLocked + ", " + kindOfParasite);
+
+            final List<Observer> copiedList = Collections.synchronizedList(observers);
+            for (Observer observer : copiedList)
+            {
+                if (observer instanceof GameObserver)
+                {
+                    ((GameObserver) observer).onMovePlayed(origin, isTileLocked, kindOfParasite);
+                }
             }
         });
     }
+
+
 }

@@ -7,17 +7,19 @@ import com.parasites.Constants;
  */
 public enum KindOfParasite
 {
-    BUILDER(2),
-    COLONY(Constants.INFINITE_VALUE),
-    DEFENDER(2),
-    QUEEN(Constants.INFINITE_VALUE),
-    WARRIOR(3);
+    BUILDER(2, "BUILDER"),
+    COLONY(Constants.INFINITE_VALUE, "COLONY"),
+    DEFENDER(2, "DEFENDER"),
+    QUEEN(Constants.INFINITE_VALUE, "QUEEN"),
+    WARRIOR(3, "WARRIOR");
 
     public int cost;
+    public String name;
 
-    KindOfParasite(int cost)
+    KindOfParasite(int cost, String name)
     {
         this.cost = cost;
+        this.name = name;
     }
 
 }

@@ -97,9 +97,16 @@ public final class Colony extends Parasite
     }
 
     @Override
+    public KindOfParasite getType()
+    {
+        return KindOfParasite.COLONY;
+    }
+
+    @Override
     public String toString()
     {
         return "C";
+
     }
 
     @Override

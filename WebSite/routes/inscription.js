@@ -8,7 +8,7 @@ let router = express.Router();
 router.post("/", function(req, res, next){
     if(req.body.password != req.body.verif_password){
         var data_res = {
-          "statusCode": 400, 
+          "statusCode": 400,
           "result": 0,
           "body": {
               "errors": [
@@ -29,11 +29,12 @@ router.post("/", function(req, res, next){
                     email: req.body.email,
                     phone: req.body.phone
                 }
-            }, function(error, response, body){ 
+            }, function(error, response, body){
                 getRes(res, response);
+                console.log("okokokokok");
             });
     }
-});	
+});
 
 function getRes(res, data){
     res.setHeader('Content-Type', 'application/json');

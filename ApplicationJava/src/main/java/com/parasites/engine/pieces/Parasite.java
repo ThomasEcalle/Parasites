@@ -69,6 +69,8 @@ public abstract class Parasite
 
     public abstract List<Integer> getArea();
 
+    public abstract KindOfParasite getType();
+
     protected Parasite getParasiteObject(final KindOfParasite existingParasite, final int candidateDestination, final Player player)
     {
         switch (existingParasite)

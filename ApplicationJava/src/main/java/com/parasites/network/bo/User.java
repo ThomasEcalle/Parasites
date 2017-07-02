@@ -1,5 +1,7 @@
 package com.parasites.network.bo;
 
+import com.parasites.engine.players.Player;
+
 /**
  * Created by Thomas Ecalle on 13/05/2017.
  */
@@ -28,6 +30,12 @@ public final class User
     @Override
     public boolean equals(Object obj)
     {
+        if (obj instanceof Player)
+        {
+            final Player player = (Player) obj;
+            return player.getPseudo().equals(pseudo);
+        }
+
         if (!(obj instanceof User)) return false;
         final User other = (User) obj;
 

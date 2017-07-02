@@ -1,12 +1,11 @@
 package com.parasites.engine.pieces;
 
-import com.parasites.annotations.SoundEffect;
-import com.parasites.engine.board.Board;
-import com.parasites.engine.board.Tile;
-import com.parasites.engine.players.Player;
 import com.parasites.annotations.Characteristics;
 import com.parasites.annotations.Representation;
+import com.parasites.engine.board.Board;
 import com.parasites.engine.board.CreationMove;
+import com.parasites.engine.board.Tile;
+import com.parasites.engine.players.Player;
 import com.parasites.utils.ParasitesUtils;
 
 import java.util.ArrayList;
@@ -139,9 +138,16 @@ public final class Queen extends Parasite
     }
 
     @Override
+    public KindOfParasite getType()
+    {
+        return KindOfParasite.QUEEN;
+    }
+
+    @Override
     public String toString()
     {
         return "Q";
+
     }
 
     @Override
@@ -179,7 +185,6 @@ public final class Queen extends Parasite
             {
                 if (board.getTile(destination).isOccupied() && board.getTile(destination).getParasite() instanceof Queen)
                 {
-                    ParasitesUtils.logError("yoooooooooooooooooooooooooooooo");
                     return true;
                 }
             }

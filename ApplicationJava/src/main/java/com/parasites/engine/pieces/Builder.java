@@ -114,9 +114,16 @@ public final class Builder extends Parasite
     }
 
     @Override
+    public KindOfParasite getType()
+    {
+        return KindOfParasite.BUILDER;
+    }
+
+    @Override
     public String toString()
     {
         return "B";
+
     }
 
     @Override

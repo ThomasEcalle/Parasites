@@ -2,7 +2,7 @@ package com.parasites.controllers;
 
 import com.parasites.annotations.ColumnFieldTarget;
 import com.parasites.annotations.PressEnter;
-import com.parasites.network.OnlineServerObservable;
+import com.parasites.network.interfaces.OnlineServerObserver;
 import com.parasites.utils.Toast;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Thomas Ecalle on 13/05/2017.
  */
-public abstract class ParasitesFXController implements OnlineServerObservable, Initializable
+public abstract class ParasitesFXController implements OnlineServerObserver, Initializable
 {
     protected Stage stage;
 

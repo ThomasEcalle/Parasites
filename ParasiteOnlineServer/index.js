@@ -123,6 +123,17 @@ io.sockets.on('connection', function (socket) {
 
     updateServerState();
     io.in(socket.gameID).emit('launchingGame');
+	
+  });
+  
+  
+  socket.on('playMove', function(origin, isTileLocked, chosenParasiteName){
+
+	cleanLog("\n" +  "voici le mouvement envoyé ! : "+ origin+ ", " + isTileLocked+ ", "  + chosenParasiteName +  "\n");
+	
+	
+	io.in(socket.gameID).emit('playMove', origin, isTileLocked, chosenParasiteName);
+
   });
 
 	// when the user disconnects.. perform this

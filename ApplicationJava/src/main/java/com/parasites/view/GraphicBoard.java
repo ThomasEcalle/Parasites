@@ -1,15 +1,15 @@
 package com.parasites.view;
 
-import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import com.parasites.Constants;
 import com.parasites.engine.board.Board;
 import com.parasites.engine.board.PassTurnMove;
 import com.parasites.engine.board.Tile;
-import com.parasites.engine.players.Player;
 import com.parasites.engine.players.MoveTransition;
+import com.parasites.engine.players.Player;
 import com.parasites.utils.ParasitesUtils;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public final class GraphicBoard extends GridPane
 
                     color = Color.WHITE;
                 }
-                final GraphicTile tile = new GraphicTile(32, 32, color, counter, null, this, isTileLocked);
+                final GraphicTile tile = new GraphicTile(32, 32, color, counter, null, isTileLocked);
                 tile.setIcon(board);
                 counter++;
                 tile.setStroke(Color.BLACK);
@@ -155,7 +155,7 @@ public final class GraphicBoard extends GridPane
                     }
                     color = Color.WHITE;
                 }
-                final GraphicTile tile = new GraphicTile(32, 32, color, counter, board.getTile(counter).getParasite(), this, isTileLocked);
+                final GraphicTile tile = new GraphicTile(32, 32, color, counter, board.getTile(counter).getParasite(), isTileLocked);
 
                 tile.setIcon(board);
 

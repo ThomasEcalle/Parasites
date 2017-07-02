@@ -1,18 +1,17 @@
 package com.parasites.controllers;
 
 import com.parasites.annotations.PressEnter;
+import com.parasites.engine.GameManager;
 import com.parasites.engine.board.Board;
-import com.parasites.engine.pieces.Builder;
-import com.parasites.engine.pieces.Defender;
-import com.parasites.engine.pieces.Warrior;
+import com.parasites.engine.pieces.KindOfParasite;
 import com.parasites.engine.players.Player;
 import com.parasites.network.OnlineServerManager;
 import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
+import com.parasites.network.interfaces.GameObserver;
 import com.parasites.utils.AnimatedZoomOperator;
 import com.parasites.view.GraphicBoard;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public final class GameWindowController extends ParasitesFXController implements Initializable
+public final class GameWindowController extends ParasitesFXController implements Initializable, GameObserver
 {
 
 
@@ -61,7 +60,7 @@ public final class GameWindowController extends ParasitesFXController implements
     private ImageView attackerImage;
 
     private GraphicBoard graphicBoard;
-    private Board board;
+
 
     private List<ChatMessage> gameMessages;
     private List<User> userList;
@@ -148,7 +147,6 @@ public final class GameWindowController extends ParasitesFXController implements
     private void showGame()
     {
         final List<Player> playerList = new ArrayList<>();
-        final Player currentPlayer = new Player(OnlineServerManager.getInstance().getCurrentUser().getPseudo(), Color.BROWN);
 
         final Game currentGame = OnlineServerManager.getInstance().getCurrentGame();
         final List<User> list = currentGame.getPlayersList();
@@ -159,23 +157,14 @@ public final class GameWindowController extends ParasitesFXController implements
             playerList.add(new Player(user.getPseudo(), Color.BROWN));
         }
 
+        final Board board = Board.createInitialBoard(playerList.get(0), dimension, playerList);
 
-        this.board = Board.createInitialBoard(currentPlayer, dimension, playerList);
+        graphicBoard = new GraphicBoard(board);
 
-//        graphicBoard = new GraphicBoard(board);
-//
-//        graphicBoard.setAlignment(Pos.CENTER);
-//
-//        borderPane.setCenter(graphicBoard);
 
-        borderPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                System.out.println("okkokok sanchy  ");
-            }
-        });
+        graphicBoard.setAlignment(Pos.CENTER);
+
+        borderPane.setCenter(graphicBoard);
 
         final AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();
 
@@ -191,6 +180,10 @@ public final class GameWindowController extends ParasitesFXController implements
             zoomOperator.zoom(borderPane, zoomFactor, event.getSceneX(), event.getSceneY());
 
         });
+
+
+        // Start the game
+        GameManager.getInstance().startGame(graphicBoard);
     }
 
     private void setImagesClickListeners()
@@ -199,14 +192,14 @@ public final class GameWindowController extends ParasitesFXController implements
         {
             if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED))
             {
-                board.chosenParasite = new Warrior(-1, board.getCurrentPlayer());
+                GameManager.getInstance().chooseWarrior();
             }
         });
         defenderImage.setOnMouseClicked((event) ->
         {
             if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED))
             {
-                board.chosenParasite = new Defender(-1, board.getCurrentPlayer());
+                GameManager.getInstance().chooseDefender();
             }
         });
 
@@ -214,9 +207,15 @@ public final class GameWindowController extends ParasitesFXController implements
         {
             if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED))
             {
-                board.chosenParasite = new Builder(-1, board.getCurrentPlayer());
+                GameManager.getInstance().chooseBuilder();
             }
         });
     }
 
+
+    @Override
+    public void onMovePlayed(int destination, boolean isTileLocked, KindOfParasite kindOfParasite)
+    {
+        GameManager.getInstance().playTurn(destination, isTileLocked, kindOfParasite);
+    }
 }
