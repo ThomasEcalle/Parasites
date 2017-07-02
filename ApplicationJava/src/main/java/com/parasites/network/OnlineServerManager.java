@@ -33,6 +33,7 @@ public final class OnlineServerManager
     private static final String LAUNCH_GAME = "launchGame";
     private static final String SEND_GAME_CHAT_MESSAGE = "sendGameChatMessage";
     private static final String PLAY_MOVE = "playMove";
+    private static final String PASS_TURN = "passTurn";
 
 
     //Events from server
@@ -41,6 +42,7 @@ public final class OnlineServerManager
     private static final String CURRENT_SERVER_STATE = "currentServerState";
     private static final String LAUNCHING_GAME = "launchingGame";
     private static final String RECEIVING_GAME_CHAT_MESSAGE = "receivingGameChatMessage";
+    private static final String RECEIVING_PASS_TURN = "passTurn";
 
 
     private List<Observer> observers;
@@ -162,6 +164,11 @@ public final class OnlineServerManager
     {
         System.out.println("sent move : " + tileCoordonate + ", " + isTileLocked + ", " + kindOfParasite);
         socket.emit(OnlineServerManager.PLAY_MOVE, tileCoordonate, isTileLocked, kindOfParasite);
+    }
+
+    public void passTurn()
+    {
+        socket.emit(OnlineServerManager.PASS_TURN);
     }
 
 
@@ -340,6 +347,21 @@ public final class OnlineServerManager
                 }
             }
         });
+        socket.on(OnlineServerManager.RECEIVING_PASS_TURN, objects ->
+        {
+
+            System.out.println("OnlineServerManager callback PASS TURN");
+
+            final List<Observer> copiedList = Collections.synchronizedList(observers);
+            for (Observer observer : copiedList)
+            {
+                if (observer instanceof GameObserver)
+                {
+                    ((GameObserver) observer).onTurnPassed();
+                }
+            }
+        });
+
     }
 
 

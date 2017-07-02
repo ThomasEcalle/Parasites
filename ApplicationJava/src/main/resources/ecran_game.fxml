@@ -67,17 +67,17 @@
                         <RowConstraints maxHeight="293.0" minHeight="10.0" prefHeight="232.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="forward_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="avance" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="forward_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="avance" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets left="360.0" />
                             </GridPane.margin>
                         </Button>
-                        <Button fx:id="validate_button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="valider" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="pass_button" alignment="CENTER" mnemonicParsing="false" onAction="#passTurn" prefHeight="40.0" prefWidth="120.0" text="Passer" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button fx:id="back_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="retour" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="back_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="retour" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets right="360.0" />
                             </GridPane.margin>

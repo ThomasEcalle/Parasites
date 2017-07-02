@@ -135,6 +135,15 @@ io.sockets.on('connection', function (socket) {
 	io.in(socket.gameID).emit('playMove', origin, isTileLocked, chosenParasiteName);
 
   });
+  
+  socket.on('passTurn', function(){
+
+	cleanLog("pass turn");
+	
+	
+	io.in(socket.gameID).emit('passTurn');
+
+  });
 
 	// when the user disconnects.. perform this
 	socket.on('disconnect', function(){

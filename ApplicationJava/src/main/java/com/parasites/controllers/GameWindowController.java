@@ -36,7 +36,7 @@ public final class GameWindowController extends ParasitesFXController implements
     @FXML
     private Button back_button;
     @FXML
-    private Button validate_button;
+    private Button pass_button;
     @FXML
     private Button forward_button;
     @FXML
@@ -86,6 +86,11 @@ public final class GameWindowController extends ParasitesFXController implements
         final String message = chat_textfield.getText();
         chat_textfield.clear();
         OnlineServerManager.getInstance().sendGameChatMessage(message);
+    }
+
+    public void passTurn()
+    {
+        OnlineServerManager.getInstance().passTurn();
     }
 
 
@@ -217,5 +222,11 @@ public final class GameWindowController extends ParasitesFXController implements
     public void onMovePlayed(int destination, boolean isTileLocked, KindOfParasite kindOfParasite)
     {
         GameManager.getInstance().playTurn(destination, isTileLocked, kindOfParasite);
+    }
+
+    @Override
+    public void onTurnPassed()
+    {
+        GameManager.getInstance().passTurn();
     }
 }
