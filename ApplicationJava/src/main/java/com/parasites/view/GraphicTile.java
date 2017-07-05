@@ -34,6 +34,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
     {
         if (MouseEvent.MOUSE_CLICKED == event.getEventType())
         {
+
             if (OnlineServerManager.getInstance().getCurrentUser().equals(GameManager.getInstance().getCurrentPlayer()))
             {
                 final KindOfParasite kindOfParasite = Board.chosenParasite == null ? null : Board.chosenParasite.getType();

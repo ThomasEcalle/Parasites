@@ -9,8 +9,9 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 /**
- * Thios Annotation is use in order to automatically set the FX columns properties
+ * This Annotation is use in order to automatically set the FX columns properties
  */
+
 public @interface ColumnFieldTarget
 {
     String value();
