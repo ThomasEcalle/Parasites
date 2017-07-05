@@ -42,7 +42,7 @@ public class PopoverWindowController implements Initializable{
     public void clickOnValider() {
         if(players_number.getValue() != null && map_size.getValue() != null) {
             int joueurs = Integer.parseInt(players_number.getValue().toString());
-            int taille = Integer.parseInt("" + map_size.getValue().toString().toCharArray()[0]);
+            int taille = Integer.parseInt("" + map_size.getValue().toString().split("x")[0]);
             // VERIFIER SI LES VALEURS SONT BONNES ICI
             parentController.popoverValidation(joueurs, taille, taille);
         }
