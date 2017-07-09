@@ -43,7 +43,7 @@
                         <Insets bottom="30.0" left="30.0" right="30.0" />
                     </padding>
                     <children>
-                        <TabPane layoutX="129.0" layoutY="124.0" prefHeight="573.0" prefWidth="1250.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TabPane fx:id="tabPane" layoutX="129.0" layoutY="124.0" prefHeight="573.0" prefWidth="1250.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <tabs>
                                 <Tab text="Accueil">
                                     <content>
@@ -351,6 +351,8 @@
                                                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="211.0" />
                                                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="77.0" />
                                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="153.0" />
+                                                            <ColumnConstraints />
+                                                            <ColumnConstraints />
                                                                             </columnConstraints>
                                                                             <rowConstraints>
                                                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

@@ -66,6 +66,8 @@ public final class ConnexionWindowController extends ParasitesFXController imple
 
             final User user = cac.getUser();
 
+            user.setToken(token);
+
             //Connecting online
             OnlineServerManager.getInstance().connect(user);
 

@@ -1,13 +1,16 @@
 package com.parasites.controllers;
 
+import com.parasites.ParasitesPlugin;
 import com.parasites.annotations.ColumnFieldTarget;
 import com.parasites.network.OnlineServerManager;
 import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
+import com.parasites.plugins_parsing.PluginFinder;
 import com.parasites.utils.InfoMessage;
 import com.parasites.utils.ParasitesUtils;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +33,8 @@ import java.util.ResourceBundle;
  */
 public final class PrincipalWindowController extends ParasitesFXController implements Initializable
 {
+    @FXML
+    private TabPane tabPane;
 
     /*******************************************
      *                                         *
@@ -175,6 +180,42 @@ public final class PrincipalWindowController extends ParasitesFXController imple
         initTextFields();
         initErrorLabel(null, null, null, null, null);
         connected_as.setText(connected_as.getText() + OnlineServerManager.getInstance().getCurrentUser().getPseudo());
+
+        pluginHandling();
+    }
+
+    private void pluginHandling()
+    {
+        final ObservableList<Tab> tabs = tabPane.getTabs();
+        final PluginFinder pluginFinder = new PluginFinder();
+        try
+        {
+            pluginFinder.searchForPlugins();
+        } catch (Exception e)
+        {
+            System.out.println("No plugins found");
+        }
+
+        final List<ParasitesPlugin> pluginCollection = pluginFinder.getPluginCollection();
+
+        if (pluginCollection != null && pluginCollection.size() > 0)
+        {
+
+            for (ParasitesPlugin parasitesPlugin : pluginCollection)
+            {
+                parasitesPlugin.setUserToken(
+                        OnlineServerManager.getInstance().getCurrentUser().getId(),
+                        OnlineServerManager.getInstance().getCurrentUser().getToken());
+
+
+                final Tab tab = new Tab(parasitesPlugin.getName());
+
+                tab.setContent(parasitesPlugin.getContent());
+                tabs.add(tab);
+
+            }
+        }
+
     }
 
     @FXML
