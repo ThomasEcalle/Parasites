@@ -1,11 +1,13 @@
 package com.parasites.view;
 
 import com.parasites.Constants;
+import com.parasites.engine.GameManager;
 import com.parasites.engine.board.Board;
 import com.parasites.engine.board.PassTurnMove;
 import com.parasites.engine.board.Tile;
 import com.parasites.engine.players.MoveTransition;
 import com.parasites.engine.players.Player;
+import com.parasites.network.OnlineServerManager;
 import com.parasites.utils.ParasitesUtils;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -70,6 +72,11 @@ public final class GraphicBoard extends GridPane
     public void setBoard(Board board)
     {
         this.board = board;
+        if (OnlineServerManager.getInstance().getCurrentUser().equals(GameManager.getInstance().getCurrentPlayer()))
+        {
+            String savedBoard = board.savedFormat();
+            OnlineServerManager.getInstance().saveTurn(savedBoard);
+        }
     }
 
     public void showPossibilities(final List<Integer> positions)
@@ -193,6 +200,8 @@ public final class GraphicBoard extends GridPane
             {
                 setBoard(moveTransition.getTransitionBoard());
                 drawBoard();
+
+
                 if (getBoard().isGameEnded())
                 {
                     ParasitesUtils.logWarnings("The players all passed, game is over");

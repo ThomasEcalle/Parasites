@@ -36,9 +36,10 @@ public final class Player
     private JSONObject jsonObject;
 
 
-    public Player(final String pseudo, final Color color)
+    public Player(final int id, final String pseudo, final Color color)
 
     {
+        this.id = id;
         this.pseudo = pseudo;
         this.color = color;
         this.playingParasites = new ArrayList<>();
@@ -207,5 +208,10 @@ public final class Player
         }
 
         return jsonObject;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 }

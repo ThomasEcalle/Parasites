@@ -23,10 +23,10 @@ public class BoardTest
     {
         dimension = 15;
         players = new ArrayList<>();
-        sanchyu = new Player("Sanchyu", Color.YELLOW);
+        sanchyu = new Player(42,"Sanchyu", Color.YELLOW);
         players.add(sanchyu);
-        players.add(new Player("Drakorn", Color.BROWN));
-        players.add(new Player("Leekwars", Color.RED));
+        players.add(new Player(43,"Drakorn", Color.BROWN));
+        players.add(new Player(44,"Leekwars", Color.RED));
     }
 
 

@@ -159,7 +159,7 @@ public final class GameWindowController extends ParasitesFXController implements
 
         for (final User user : list)
         {
-            playerList.add(new Player(user.getPseudo(), Color.BROWN));
+            playerList.add(new Player(user.getId(), user.getPseudo(), Color.BROWN));
         }
 
         final Board board = Board.createInitialBoard(playerList.get(0), dimension, playerList);

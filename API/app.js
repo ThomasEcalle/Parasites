@@ -15,6 +15,8 @@ var jwt = require('jwt-simple');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var games = require('./routes/games');
+var turns = require('./routes/turns');
 
 var models = require("./models");
 models.sequelize.sync();
@@ -173,6 +175,8 @@ app.use(function(req,res,next){
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/games', games);
+app.use('/turns', turns);
 
 
 // catch 404 and forward to error handler

@@ -236,4 +236,8 @@ public final class GameManager
         this.currentPlayer = board.getCurrentPlayer();
     }
 
+    public Board getBoard()
+    {
+        return board;
+    }
 }

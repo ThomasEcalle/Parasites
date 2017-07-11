@@ -39,6 +39,7 @@ public final class GraphicTile extends Tile implements EventHandler<Event>
             {
                 final KindOfParasite kindOfParasite = Board.chosenParasite == null ? null : Board.chosenParasite.getType();
                 OnlineServerManager.getInstance().playMove(getTileCoordonate(), isTileLocked, kindOfParasite);
+
             }
         }
     }

@@ -65,6 +65,9 @@ public final class Board
         calculateLegalMoves(players);
         initExceptionArrays();
 
+        System.out.println("banane :\n " + savedFormat());
+
+
     }
 
     @Override
@@ -76,6 +79,28 @@ public final class Board
             for (int j = 0; j < DIMENSION; j++)
             {
                 builder.append(String.format("%3s", gameBoard.get(i + j * DIMENSION).toString()));
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
+    public String savedFormat()
+    {
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < DIMENSION; i++)
+        {
+            for (int j = 0; j < DIMENSION; j++)
+            {
+                final Tile tile = gameBoard.get(i + j * DIMENSION);
+                if (tile.isOccupied())
+                {
+                    builder.append(tile.toString() + "," + tile.getParasite().getPlayer().getId());
+                } else
+                {
+                    builder.append("*");
+                }
+                builder.append("|");
             }
             builder.append("\n");
         }

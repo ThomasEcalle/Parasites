@@ -14,12 +14,18 @@ var userList = {};
 var gamesList = {};
 
 
+
+
+var request = require('request');
+
+
 io.sockets.on('connection', function (socket) {
 
     var user = JSON.parse(socket.handshake.query.register);
     if (user){
       userList[user.pseudo] = user;
       socket.userPseudo = user.pseudo;
+	  socket.actualToken = user.token;
 
       socket.broadcast.emit('updateServer', user.pseudo + ' has connected');
 
@@ -29,7 +35,7 @@ io.sockets.on('connection', function (socket) {
       cleanLog("\nconnected players are : " + JSON.stringify(userList)+"\n");
     }
 
-
+	
   	// when the client emits 'createGame', this listens and executes
   	socket.on('createGame', function(gameInJson){
 
@@ -53,6 +59,23 @@ io.sockets.on('connection', function (socket) {
 
       cleanLog("\n\ngames : " + JSON.stringify(gamesList) +"\nusers" +JSON.stringify(userList)+"\n\n");
       updateServerState();
+	  
+	  request({
+		url: "http://localhost:3000/games/create?token=" + game.creator.token,
+		method: "POST",
+		headers: {
+			"content-type": "application/json",
+			},
+		json: {
+					"id": game.id,
+				  "user_id": game.creator.id,
+				  "nb_player": game.playersList.length,
+				  "size": game.size
+			}
+		}, function (error, resp, body) { 
+			//console.log(resp)
+		})
+	  
     }
 	});
 
@@ -71,6 +94,20 @@ io.sockets.on('connection', function (socket) {
 
     socket.broadcast.to(socket.gameID).emit('updateServer', socket.userPseudo+' has join the game');
     updateServerState();
+	
+	
+	request({
+		url: "http://localhost:3000/games/join/?token=" + socket.actualToken,
+		method: "POST",
+		headers: {
+			"content-type": "application/json",
+			},
+		json: {
+				"id": game.id,
+			}
+		}, function (error, resp, body) { 
+			//console.log(resp)
+		})
 
   });
 
@@ -127,13 +164,33 @@ io.sockets.on('connection', function (socket) {
   });
   
   
-  socket.on('playMove', function(origin, isTileLocked, chosenParasiteName){
+  socket.on('playMove', function(origin, isTileLocked, chosenParasiteName, savedBoard){
 
 	cleanLog("\n" +  "voici le mouvement envoyé ! : "+ origin+ ", " + isTileLocked+ ", "  + chosenParasiteName +  "\n");
 	
 	
+	
 	io.in(socket.gameID).emit('playMove', origin, isTileLocked, chosenParasiteName);
 
+  });
+  
+  socket.on('saveTurn', function(turn){
+	if (typeof turn != 'undefined')
+	{
+		request({
+		url: "http://localhost:3000/turns/create/?token=" + socket.actualToken,
+		method: "POST",
+		headers: {
+			"content-type": "application/json",
+			},
+		json: {
+				"game_id": socket.gameID,
+				"board": turn
+			}
+		}, function (error, resp, body) { 
+			//console.log(resp)
+		})
+	} 
   });
   
   socket.on('passTurn', function(){

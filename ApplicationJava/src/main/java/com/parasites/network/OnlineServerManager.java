@@ -26,7 +26,7 @@ import java.util.List;
 public final class OnlineServerManager
 {
     // Calls to server
-    private static final String DISCONNECT = "disconnect";
+    private static final String SAVE_TURN = "saveTurn";
     private static final String CREATE_GAME = "createGame";
     private static final String LEAVE_GAME = "leaveGame";
     private static final String JOIN_GAME = "joinGame";
@@ -163,7 +163,16 @@ public final class OnlineServerManager
     public void playMove(final int tileCoordonate, final boolean isTileLocked, final KindOfParasite kindOfParasite)
     {
         System.out.println("sent move : " + tileCoordonate + ", " + isTileLocked + ", " + kindOfParasite);
+
+
         socket.emit(OnlineServerManager.PLAY_MOVE, tileCoordonate, isTileLocked, kindOfParasite);
+    }
+
+    public void saveTurn(final String turn)
+    {
+        System.out.println("saving turn : " +turn);
+
+        socket.emit(OnlineServerManager.SAVE_TURN, turn);
     }
 
     public void passTurn()
@@ -333,10 +342,10 @@ public final class OnlineServerManager
             if (objects[2] != null)
             {
                 kindOfParasite = KindOfParasite.valueOf((String) objects[2]);
-
             }
 
             System.out.println("OnlineServerManager callback GAME MOVE : " + origin + ", " + isTileLocked + ", " + kindOfParasite);
+
 
             final List<Observer> copiedList = Collections.synchronizedList(observers);
             for (Observer observer : copiedList)
