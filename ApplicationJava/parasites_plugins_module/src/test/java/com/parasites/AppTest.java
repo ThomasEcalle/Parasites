@@ -1,4 +1,4 @@
-package com.parasites;
+package test.java.com.parasites;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

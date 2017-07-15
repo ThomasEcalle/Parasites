@@ -65,4 +65,76 @@ router.post("/join/", function(req,res,next){
 
 });
 
+/********************************
+* 		 Get played games		*
+*********************************/
+
+router.get("/", function(req,res,next){
+	if (req.user){
+		
+		var id_user = req.user.id;
+		
+		User_play_game.findAll({
+		where:
+		  {
+			user_id: id_user
+		  }
+		}).then(function(user_in_game){
+		  let ids = [];
+		  for (let i of user_in_game){
+			  console.log("banane : " + i.game_id);
+			  ids.push(i.game_id);
+		  }
+		 
+		 Game.findAll({
+			 where: {
+				id: ids
+			}
+		 }).then(function(games){
+			 res.status(200).send(games);
+		 }).catch(next);
+		 
+		
+		  
+		}).catch(next);
+	}
+
+});
+
+/********************************
+* 	 Get all players of a Game  *
+*********************************/
+
+router.get("/getPlayers/:id_game", function(req,res,next){
+	if (req.user){
+		
+		var idGame = req.params.id_game;
+		
+		
+		User_play_game.findAll({
+		  where: {
+			game_id: idGame
+		  }
+		}).then(function(user_game){
+			
+		let ids = [];
+		for (let i of user_game)
+		{
+			ids.push(i.user_id);
+		}
+		
+			User.findAll({
+			  where: {
+				id: {$in: ids}
+			  }
+			}).then(function(users){
+				
+				res.json(users);
+			}).catch(next);
+		  
+		}).catch(next);
+	}
+
+});
+
 module.exports = router;
