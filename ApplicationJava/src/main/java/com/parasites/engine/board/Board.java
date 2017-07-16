@@ -52,7 +52,60 @@ public final class Board
     private Parasite selectedParasite;
     public static Parasite chosenParasite;
 
+    public Player getWinner()
+    {
+//        System.out.println("tata");
+        int mapSize = gameBoard.size();
+        int PlayerListSize = players.size();
+        int max = 0;
+        Player winner = null;
+        HashMap<Player,Integer> playerPointMap = new HashMap<Player,Integer>();
+        for (Player player : players) {
+            playerPointMap.put(player,0);
+        }
+//        System.out.println("titi");
+        for (Tile tile : gameBoard) {
+            Player tmpPlayer = null;
+            if (tile.isOccupied())
+            {
+                tmpPlayer =  tile.getParasite().getPlayer();
+                playerPointMap.put(tmpPlayer,playerPointMap.get(tmpPlayer) + 1);
 
+            }
+            else
+            {
+                Double dist = 0.0;
+                for (Player player : players)
+                {
+                    for (Parasite parasite : player.getParasites())
+                    {
+                        int tilePlayerX = (int)(parasite.getPosition() / Math.sqrt(mapSize));
+                        int tileX = (int)(tile.getTileCoordonate() / Math.sqrt(mapSize));
+                        int tilePlayerY = (int)(parasite.getPosition() % Math.sqrt(mapSize));
+                        int tileY = (int)(tile.getTileCoordonate() % Math.sqrt(mapSize));
+                        double tmpdist = Math.abs(tilePlayerX-tileX) + Math.abs(tilePlayerY-tileY);
+                        if (tmpdist < dist || dist == 0.0)
+                        {
+                            dist = tmpdist;
+                            tmpPlayer = player;
+                            playerPointMap.put(tmpPlayer,playerPointMap.get(tmpPlayer) + 1);
+                        }
+
+                    }
+                }
+
+            }
+            if (tmpPlayer == null)
+                continue;
+            if ( playerPointMap.get(tmpPlayer) > max)
+            {
+                max = playerPointMap.get(tmpPlayer);
+                winner = tmpPlayer;
+            }
+
+        }
+        return winner;
+    }
     private Board(Builder builder)
     {
         this.currentPlayer = builder.nextMoveMaker;

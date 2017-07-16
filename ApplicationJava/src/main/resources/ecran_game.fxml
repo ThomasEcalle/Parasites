@@ -75,6 +75,13 @@
                                 <Insets/>
                             </GridPane.margin>
                         </Button>
+                        <Button fx:id="winner_button" alignment="CENTER" mnemonicParsing="false" onAction="#getWinner"
+                                prefHeight="40.0" prefWidth="80.0" text="vainqueur" GridPane.halignment="CENTER"
+                                GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </Button>
                         <Button fx:id="back_button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
                                 text="retour" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>

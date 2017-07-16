@@ -12,6 +12,7 @@ import com.parasites.network.bo.User;
 import com.parasites.network.interfaces.GameObserver;
 import com.parasites.utils.AnimatedZoomOperator;
 import com.parasites.view.GraphicBoard;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -35,6 +36,8 @@ public final class GameWindowController extends ParasitesFXController implements
 
     @FXML
     private Button back_button;
+    @FXML
+    private Button winner_button;
     @FXML
     private Button pass_button;
     @FXML
@@ -228,5 +231,18 @@ public final class GameWindowController extends ParasitesFXController implements
     public void onTurnPassed()
     {
         GameManager.getInstance().passTurn();
+    }
+
+    public void getWinner()
+    {
+        Player winner = GameManager.getInstance().getBoard().getWinner();
+        if (winner != null)
+        {
+            System.out.println("WINNER : " + winner.getPseudo());
+        }
+        else
+        {
+            System.out.println("EGALITE");
+        }
     }
 }
