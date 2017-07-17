@@ -9,6 +9,7 @@ import com.parasites.network.OnlineServerManager;
 import com.parasites.utils.ParasitesUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -20,11 +21,19 @@ import javafx.scene.paint.Paint;
 public final class GraphicTile extends Tile implements EventHandler<Event>
 {
     private boolean isTileLocked;
+    private Tooltip tooltip;
 
 
     public GraphicTile(final double w, final double h, final Paint paint, final int tileCoordonate, final Parasite parasite, final boolean isTileLocked)
     {
         super(w, h, paint, tileCoordonate, parasite);
+
+        tooltip = new Tooltip();
+        if (parasite != null)
+        {
+            tooltip.setText(parasite.getPlayer().getPseudo()+ "\n" + "Points : " + parasite.getCreationPoints() + "/" + parasite.getInitialCreationPoints());
+            Tooltip.install(this, tooltip);
+        }
         this.isTileLocked = isTileLocked;
         setOnMouseClicked(this);
     }

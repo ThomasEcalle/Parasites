@@ -24,6 +24,7 @@ public final class PassTurnMove extends Move
         {
             for (final Parasite parasiteOfPlayer : player.getParasites())
             {
+                parasiteOfPlayer.setCreationPoints(parasiteOfPlayer.getInitialCreationPoints());
                 builder.setParasite(parasiteOfPlayer);
             }
         }

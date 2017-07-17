@@ -125,6 +125,7 @@ public final class CreationMove extends Move
             builder.setMoveMaker(currentPlayer);
         } else
         {
+            originalParasite.setCreationPoints(originalParasite.getInitialCreationPoints());
             builder.setMoveMaker(board.getNextPlayer());
         }
 
