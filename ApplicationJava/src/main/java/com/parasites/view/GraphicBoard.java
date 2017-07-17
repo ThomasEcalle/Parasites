@@ -94,6 +94,8 @@ public final class GraphicBoard extends GridPane
     public void showQueensWalls()
     {
         int counter = 0;
+        System.out.println("showQueensWall");
+
         for (final Player player : board.getPlayers())
         {
             if (player.isFirstMove())
@@ -105,6 +107,7 @@ public final class GraphicBoard extends GridPane
                 for (final int position : player.getQueen().getQueensWall())
                 {
                     ((Tile) getChildren().get(position)).setFill(Color.YELLOW);
+                    ((Tile) getChildren().get(position)).setStroke(Color.YELLOW);
                 }
             }
         }
@@ -190,23 +193,4 @@ public final class GraphicBoard extends GridPane
                 && j >= board.DIMENSION / 3 && j < ((board.DIMENSION / 3) * 2) + oddDimensionCase);
     }
 
-    public void passTurn()
-    {
-        if (!getBoard().getCurrentPlayer().isFirstMove())
-        {
-            final PassTurnMove passTurnMove = new PassTurnMove(getBoard());
-            final MoveTransition moveTransition = getBoard().getCurrentPlayer().makeMove(passTurnMove);
-            if (moveTransition.getMoveStatus().isDone())
-            {
-                setBoard(moveTransition.getTransitionBoard());
-                drawBoard();
-
-
-                if (getBoard().isGameEnded())
-                {
-                    ParasitesUtils.logWarnings("The players all passed, game is over");
-                }
-            }
-        }
-    }
 }

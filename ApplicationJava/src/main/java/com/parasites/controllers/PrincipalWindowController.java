@@ -353,6 +353,7 @@ public final class PrincipalWindowController extends ParasitesFXController imple
                 e.printStackTrace();
             }
             final GameWindowController controller = loader.getController();
+            controller.setStage(stage);
             stage.setTitle("Parasites");
             stage.setScene(new Scene(root));
             stage.setResizable(false);

@@ -158,4 +158,8 @@ public abstract class ParasitesFXController implements OnlineServerObserver, Ini
     }
 
 
+    public Stage getStage()
+    {
+        return stage;
+    }
 }

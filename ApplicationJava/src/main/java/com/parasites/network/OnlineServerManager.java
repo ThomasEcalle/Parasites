@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parasites.Constants;
 import com.parasites.engine.pieces.KindOfParasite;
+import com.parasites.engine.players.Player;
 import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
@@ -34,6 +35,7 @@ public final class OnlineServerManager
     private static final String SEND_GAME_CHAT_MESSAGE = "sendGameChatMessage";
     private static final String PLAY_MOVE = "playMove";
     private static final String PASS_TURN = "passTurn";
+    private static final String WINNER = "winner";
 
 
     //Events from server
@@ -43,6 +45,7 @@ public final class OnlineServerManager
     private static final String LAUNCHING_GAME = "launchingGame";
     private static final String RECEIVING_GAME_CHAT_MESSAGE = "receivingGameChatMessage";
     private static final String RECEIVING_PASS_TURN = "passTurn";
+    private static final String RECEIVING_WINNER = "winner";
 
 
     private List<Observer> observers;
@@ -170,7 +173,7 @@ public final class OnlineServerManager
 
     public void saveTurn(final String turn)
     {
-        System.out.println("saving turn : " +turn);
+        System.out.println("saving turn : " + turn);
 
         socket.emit(OnlineServerManager.SAVE_TURN, turn);
     }
@@ -178,6 +181,11 @@ public final class OnlineServerManager
     public void passTurn()
     {
         socket.emit(OnlineServerManager.PASS_TURN);
+    }
+
+    public void setWinner(final Player winner)
+    {
+        socket.emit(OnlineServerManager.WINNER, winner.getId());
     }
 
 
@@ -367,6 +375,19 @@ public final class OnlineServerManager
                 if (observer instanceof GameObserver)
                 {
                     ((GameObserver) observer).onTurnPassed();
+                }
+            }
+        });
+
+        socket.on(OnlineServerManager.RECEIVING_WINNER, objects ->
+        {
+            final String winnerPseudo = (String) objects[0];
+            for (Observer observer : observers)
+            {
+                if (observer instanceof GameObserver)
+                {
+
+                    ((GameObserver) observer).onEndGame(winnerPseudo);
                 }
             }
         });

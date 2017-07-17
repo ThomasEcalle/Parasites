@@ -4,16 +4,14 @@ package com.parasites.engine.board;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parasites.Constants;
+import com.parasites.engine.GameManager;
 import com.parasites.engine.pieces.KindOfParasite;
 import com.parasites.engine.pieces.Parasite;
 import com.parasites.engine.players.Player;
 import com.parasites.utils.ParasitesUtils;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Thomas Ecalle on 24/02/2017.
@@ -54,41 +52,42 @@ public final class Board
 
     public Player getWinner()
     {
-//        System.out.println("tata");
+        //        System.out.println("tata");
         int mapSize = gameBoard.size();
         int PlayerListSize = players.size();
         int max = 0;
         Player winner = null;
-        HashMap<Player,Integer> playerPointMap = new HashMap<Player,Integer>();
-        for (Player player : players) {
-            playerPointMap.put(player,0);
+        HashMap<Player, Integer> playerPointMap = new HashMap<Player, Integer>();
+        for (Player player : players)
+        {
+            playerPointMap.put(player, 0);
         }
-//        System.out.println("titi");
-        for (Tile tile : gameBoard) {
+        //        System.out.println("titi");
+        for (Tile tile : gameBoard)
+        {
             Player tmpPlayer = null;
             if (tile.isOccupied())
             {
-                tmpPlayer =  tile.getParasite().getPlayer();
-                playerPointMap.put(tmpPlayer,playerPointMap.get(tmpPlayer) + 1);
+                tmpPlayer = tile.getParasite().getPlayer();
+                playerPointMap.put(tmpPlayer, playerPointMap.get(tmpPlayer) + 1);
 
-            }
-            else
+            } else
             {
                 Double dist = 0.0;
                 for (Player player : players)
                 {
                     for (Parasite parasite : player.getParasites())
                     {
-                        int tilePlayerX = (int)(parasite.getPosition() / Math.sqrt(mapSize));
-                        int tileX = (int)(tile.getTileCoordonate() / Math.sqrt(mapSize));
-                        int tilePlayerY = (int)(parasite.getPosition() % Math.sqrt(mapSize));
-                        int tileY = (int)(tile.getTileCoordonate() % Math.sqrt(mapSize));
-                        double tmpdist = Math.abs(tilePlayerX-tileX) + Math.abs(tilePlayerY-tileY);
+                        int tilePlayerX = (int) (parasite.getPosition() / Math.sqrt(mapSize));
+                        int tileX = (int) (tile.getTileCoordonate() / Math.sqrt(mapSize));
+                        int tilePlayerY = (int) (parasite.getPosition() % Math.sqrt(mapSize));
+                        int tileY = (int) (tile.getTileCoordonate() % Math.sqrt(mapSize));
+                        double tmpdist = Math.abs(tilePlayerX - tileX) + Math.abs(tilePlayerY - tileY);
                         if (tmpdist < dist || dist == 0.0)
                         {
                             dist = tmpdist;
                             tmpPlayer = player;
-                            playerPointMap.put(tmpPlayer,playerPointMap.get(tmpPlayer) + 1);
+                            playerPointMap.put(tmpPlayer, playerPointMap.get(tmpPlayer) + 1);
                         }
 
                     }
@@ -97,7 +96,7 @@ public final class Board
             }
             if (tmpPlayer == null)
                 continue;
-            if ( playerPointMap.get(tmpPlayer) > max)
+            if (playerPointMap.get(tmpPlayer) > max)
             {
                 max = playerPointMap.get(tmpPlayer);
                 winner = tmpPlayer;
@@ -106,6 +105,7 @@ public final class Board
         }
         return winner;
     }
+
     private Board(Builder builder)
     {
         this.currentPlayer = builder.nextMoveMaker;
@@ -118,9 +118,23 @@ public final class Board
         calculateLegalMoves(players);
         initExceptionArrays();
 
-        System.out.println("banane :\n " + savedFormat());
+        Player potentialWinner = null;
+        int count = 0;
+        for (Player player : players)
+        {
+            if (player.isStillPlaying())
+            {
+                count++;
+                potentialWinner = player;
+            }
+        }
 
+        if (count == 1)
+        {
+            GameManager.getInstance().end(potentialWinner);
+        }
 
+        System.out.println("mega banane : " + Arrays.toString(players.toArray()));
     }
 
     @Override

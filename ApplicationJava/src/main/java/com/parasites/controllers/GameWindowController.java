@@ -12,19 +12,25 @@ import com.parasites.network.bo.User;
 import com.parasites.network.interfaces.GameObserver;
 import com.parasites.utils.AnimatedZoomOperator;
 import com.parasites.view.GraphicBoard;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -233,16 +239,48 @@ public final class GameWindowController extends ParasitesFXController implements
         GameManager.getInstance().passTurn();
     }
 
-    public void getWinner()
+    @Override
+    public void onEndGame(final String winnerPseudo)
     {
-        Player winner = GameManager.getInstance().getBoard().getWinner();
-        if (winner != null)
+        if (OnlineServerManager.getInstance().getCurrentUser().getPseudo().equals(winnerPseudo))
         {
-            System.out.println("WINNER : " + winner.getPseudo());
-        }
-        else
+            showNotification("Vous avez gagné la partie, félicitation !");
+        } else
         {
-            System.out.println("EGALITE");
+            showNotification("Le joueur " + winnerPseudo + " a gagné !");
         }
+
+        returnToPrincipalWindow();
+
+    }
+
+    private void returnToPrincipalWindow()
+    {
+        Platform.runLater(() ->
+        {
+            Stage stage = new Stage();
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ecran_principal.fxml"));
+            try
+            {
+                root = loader.load();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            PrincipalWindowController controller = loader.getController();
+            controller.setStage(stage);
+            controller.setToken(OnlineServerManager.getInstance().getCurrentUser().getToken());
+
+            stage.setTitle("Parasites");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("game_ico.png")));
+            stage.show();
+
+            getStage().close();
+
+        });
+
     }
 }

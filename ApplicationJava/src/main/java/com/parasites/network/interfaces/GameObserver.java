@@ -20,4 +20,11 @@ public interface GameObserver extends Observer
      * When a player pass his turn
      */
     void onTurnPassed();
+
+    /**
+     * set the winner of the game
+     *
+     * @param winnerPseudo
+     */
+    void onEndGame(final String winnerPseudo);
 }

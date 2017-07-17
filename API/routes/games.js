@@ -137,4 +137,30 @@ router.get("/getPlayers/:id_game", function(req,res,next){
 
 });
 
+/********************************
+* 	 		set a winner		*
+*********************************/
+
+router.put("/winner/", function(req,res,next){
+	if (req.user){
+		
+		var idGame = req.body.id;
+		
+		Game.findById(idGame).then(game => {
+		  		  game.update({
+				winner_id: req.user.id
+				}).then(function() {
+				  return res.status(200).send({
+					result: 1,
+					message: "Winner correctly set"
+				  })
+				}).catch(next);
+		})
+
+		
+		
+	}
+
+});
+
 module.exports = router;

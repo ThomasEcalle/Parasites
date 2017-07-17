@@ -78,6 +78,7 @@ public final class GameManager
                     final MoveTransition moveTransition = currentPlayer.makeMove(firstMove);
                     if (moveTransition.getMoveStatus().isDone())
                     {
+
                         currentPlayer.setFirstMove(false);
 
 
@@ -88,7 +89,9 @@ public final class GameManager
                         clearSelectedElements();
 
                     }
-                    graphicBoard.showQueensWalls();
+                    //                    graphicBoard.showQueensWalls();
+
+                    //                    graphicBoard.showPossibilities(queen.getQueensWall());
 
                 }
             } else
@@ -162,11 +165,15 @@ public final class GameManager
             if (moveTransition.getMoveStatus().isDone())
             {
                 graphicBoard.setBoard(moveTransition.getTransitionBoard());
-                Platform.runLater(()->graphicBoard.drawBoard());
+                Platform.runLater(() -> graphicBoard.drawBoard());
                 updateInformations(moveTransition.getTransitionBoard());
-                if (board.isGameEnded())
+                if (getBoard().isGameEnded())
                 {
-                    ParasitesUtils.logWarnings("The players all passed, game is over");
+                    final Player winner = getBoard().getWinner();
+                    ParasitesUtils.logWarnings("The players all passed, game is over, winner is : " + winner.getPseudo());
+
+                    GameManager.getInstance().end(winner);
+
                 }
 
             }
@@ -239,5 +246,13 @@ public final class GameManager
     public Board getBoard()
     {
         return board;
+    }
+
+    public void end(final Player winner)
+    {
+        if (OnlineServerManager.getInstance().getCurrentUser().equals(winner))
+        {
+            OnlineServerManager.getInstance().setWinner(winner);
+        }
     }
 }

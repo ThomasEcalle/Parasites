@@ -110,6 +110,30 @@ io.sockets.on('connection', function (socket) {
 		})
 
   });
+  
+  socket.on('winner', function(){
+	  
+	  
+	  request({
+		url: "http://localhost:3000/games/winner/?token=" + socket.actualToken,
+		method: "PUT",
+		headers: {
+			"content-type": "application/json",
+			},
+		json: {
+				"id": socket.gameID,
+			}
+		}, function (error, resp, body) { 
+			//console.log(resp)
+		})
+		
+		delete gamesList[socket.gameID];
+		updateServerState();
+		
+		io.in(socket.gameID).emit('winner', socket.userPseudo);
+		
+		
+  });
 
 	socket.on('leaveGame', function(){
 		socket.emit('updateServer', 'you have left the game '+ socket.gameID);
@@ -211,21 +235,24 @@ io.sockets.on('connection', function (socket) {
     if (socket.gameID){
       var newGame = gamesList[socket.gameID];
 
-      var indexOfUser;
-      for(var i = 0; i < newGame.playersList.length; i++) {
-        if (newGame.playersList[i].pseudo == socket.userPseudo){
-          indexOfUser = i;
-        }
-      }
+	  if (typeof newGame != 'undefined'){
+		   var indexOfUser;
+		  for(var i = 0; i < newGame.playersList.length; i++) {
+			if (newGame.playersList[i].pseudo == socket.userPseudo){
+			  indexOfUser = i;
+			}
+		  }
 
-      newGame.playersList.splice(indexOfUser, 1);
+		  newGame.playersList.splice(indexOfUser, 1);
 
-      //Adding the new game configuration
-      gamesList[socket.gameID] = newGame;
+		  //Adding the new game configuration
+		  gamesList[socket.gameID] = newGame;
 
-      if (gamesList[socket.gameID].playersList.length <= 0){
-        delete gamesList[socket.gameID];
-      }
+		  if (gamesList[socket.gameID].playersList.length <= 0){
+			delete gamesList[socket.gameID];
+		  }
+	  }
+   
     }
 
 

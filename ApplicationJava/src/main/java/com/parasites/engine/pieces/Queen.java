@@ -9,6 +9,7 @@ import com.parasites.engine.players.Player;
 import com.parasites.utils.ParasitesUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -228,6 +229,7 @@ public final class Queen extends Parasite
 
             }
         }
+        System.out.println("banane framboise : " + Arrays.toString(array.toArray()));
         return array;
     }
 
