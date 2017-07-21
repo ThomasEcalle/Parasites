@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -21,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parasites.controllers.ConnexionWindowController">
+<AnchorPane styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parasites.controllers.ConnexionWindowController">
    <children>
       <GridPane prefHeight="588.0" prefWidth="375.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -48,12 +42,12 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="lumin" stylesheets="@style.css" GridPane.rowIndex="3" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="header" stylesheets="@style.css" GridPane.rowIndex="4">
                <children>
-                  <Hyperlink fx:id="website" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="270.0" layoutY="-1.0" prefHeight="28.0" prefWidth="105.0" styleClass="link" text="parasites.com" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Hyperlink fx:id="website" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="270.0" layoutY="-1.0" onMouseClicked="#clickOnWebSite" prefHeight="28.0" prefWidth="105.0" styleClass="link" text="parasites.com" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Lucida Sans Regular" size="12.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="contact" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="14.0" layoutY="3.0" prefHeight="28.0" prefWidth="110.0" styleClass="link" text="Nous contacter" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="0.0">
+                  <Hyperlink fx:id="contact" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="14.0" layoutY="3.0" onMouseClicked="#clickOnContact" prefHeight="28.0" prefWidth="110.0" styleClass="link" text="Nous contacter" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Lucida Sans Regular" size="12.0" />
                      </font>
@@ -127,7 +121,7 @@
                         </Button>
                      </children>
                   </StackPane>
-                  <Hyperlink fx:id="forgotten_password" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" prefHeight="29.0" prefWidth="154.0" styleClass="link" text="Mot de passe oublié ?" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                  <Hyperlink fx:id="forgotten_password" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" onMouseClicked="#clickOnReset" prefHeight="29.0" prefWidth="154.0" styleClass="link" text="Mot de passe oublié ?" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
                      <font>
                         <Font name="Lucida Sans Regular" size="13.0" />
                      </font>

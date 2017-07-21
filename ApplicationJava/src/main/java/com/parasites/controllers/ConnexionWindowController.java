@@ -14,10 +14,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -44,6 +50,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     @FXML
     private Label error_label;
     private String token;
+    private final String siteRoot = "http://127.0.0.1:3080/";
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -79,11 +86,36 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     }
 
     @FXML
-    public void clickOnInscription()
+    public void clickOnWebSite()
     {
-
+        openWebpage(siteRoot + "accueil");
     }
 
+    @FXML
+    public void clickOnInscription()
+    {
+        openWebpage(siteRoot + "inscription");
+    }
+
+    @FXML
+    public void clickOnContact()
+    {
+        openWebpage(siteRoot + "contact");
+    }
+
+    @FXML
+    public void clickOnReset()
+    {
+        openWebpage(siteRoot + "reset");
+    }
+
+    public void openWebpage(String urlString) {
+        try {
+            Desktop.getDesktop().browse(new URL(urlString).toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void onTextFieldSelected()
     {
