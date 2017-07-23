@@ -31,6 +31,7 @@ public class Main extends Application
     @Override
     public void stop() throws Exception
     {
+
         OnlineServerManager.getInstance().disconnect();
         super.stop();
     }

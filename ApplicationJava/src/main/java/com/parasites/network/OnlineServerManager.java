@@ -190,7 +190,8 @@ public final class OnlineServerManager
 
     public void disconnect()
     {
-        socket.disconnect();
+        if (socket !=  null && socket.connected())
+            socket.disconnect();
     }
 
     /*******************************************
