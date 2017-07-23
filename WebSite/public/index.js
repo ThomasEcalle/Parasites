@@ -15,12 +15,12 @@ var reineY;
 function distanceFromCell(x,y,x1,y1)
 {
 	var dist = Math.abs(x-x1 + y-y1);
-	console.log("dist="+dist);
+	// console.log("dist="+dist);
 	return dist;
 }
 function tutorialIA()
 {
-	console.log("toto");
+	// console.log("toto");
 	var randX = Math.floor((Math.random() * 14));
 	var randY = Math.floor((Math.random() * 14));
 	while (distanceFromCell(randX,randY,reineX,reineY) < 5)
@@ -38,7 +38,7 @@ function showCases(cord)
 
     var x1 =  Math.floor(cord.x / 32);
     var y1 =  Math.floor(cord.y / 32);
-    console.log("x: "+ x1+" ,y: "+ y1)
+    // console.log("x: "+ x1+" ,y: "+ y1)
     // console.log(pawn.val)
     var tmpPawn;
     if (pawn.val == 7)
@@ -109,10 +109,10 @@ window.onload = function() {
            // console.log("je MET un " + type + "en " + Math.floor(coords.x / 32) + "|" + Math.floor(coords.y / 32))
             //if (type == "attaquant")
             //{
-            console.log("pawn: ");
-            console.log(pawn);
+            // console.log("pawn: ");
+            // console.log(pawn);
             var tmp = showCases(coords);
-            console.log(tmp);
+            // console.log(tmp);
             for (var i = 0; i < tmp.length; ++i)
             {
                 if (tmp[i].x >= 0 && tmp[i].x <= 14 && tmp[i].y >= 0 && tmp[i].y <= 14)
@@ -140,7 +140,7 @@ window.onload = function() {
             pawn = new Fighter(0,0);
 
         }
-        else{console.log(board.getFloor(Math.floor(coords.x / 32),Math.floor(coords.y / 32)))}
+        // else{console.log(board.getFloor(Math.floor(coords.x / 32),Math.floor(coords.y / 32)))}
 
 
     })
@@ -168,7 +168,7 @@ window.onload = function() {
 }
 function settype(str)
 {
-    console.log(str);
+    // console.log(str);
     type = str;
 
 }
