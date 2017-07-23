@@ -21,6 +21,6 @@
     <orderEntry type="library" name="Maven: org.json:json:20090211" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.40.12" level="project" />
     <orderEntry type="library" name="Maven: com.parasites:parasites_plugins_module:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="module" module-name="parasites_plugins_module" />
+    <orderEntry type="module" module-name="main" />
   </component>
 </module>

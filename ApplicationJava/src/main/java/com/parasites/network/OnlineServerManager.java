@@ -188,6 +188,10 @@ public final class OnlineServerManager
         socket.emit(OnlineServerManager.WINNER, winner.getId());
     }
 
+    public void disconnect()
+    {
+        socket.disconnect();
+    }
 
     /*******************************************
      *                                         *
