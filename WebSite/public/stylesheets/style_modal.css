@@ -40,13 +40,7 @@ label
     color: white !important;
 }
 
-.modal-inscription
-{
-    background-image: url('../images/space2.jpg');
-    background-size: auto 100%;
-    border: 1px solid black !important;
-}
-.modal-connexion
+.modal-perso
 {
     background-image: url('../images/space2.jpg');
     background-size: 100% auto;
@@ -76,12 +70,23 @@ label
     margin-bottom: -4%;
 }
 
+#rein
+{
+    margin-top: 7%;
+    margin-bottom: -4%;
+}
+
 #error_box_connexion
 {
     visibility: hidden;
 }
 
 #error_box_inscription
+{
+    visibility: hidden;
+}
+
+#error_box_reinit
 {
     visibility: hidden;
 }

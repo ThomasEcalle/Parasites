@@ -94,7 +94,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     @FXML
     public void clickOnInscription()
     {
-        openWebpage(siteRoot + "inscription");
+        openWebpage(siteRoot + "accueil/inscription");
     }
 
     @FXML
@@ -106,7 +106,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     @FXML
     public void clickOnReset()
     {
-        openWebpage(siteRoot + "reset");
+        openWebpage(siteRoot + "accueil/reinit");
     }
 
     public void openWebpage(String urlString) {

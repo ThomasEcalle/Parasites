@@ -1,25 +1,32 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="stylesheets/style_in_website.css" type="text/css" />
-    <link rel="stylesheet" href="stylesheets/style_modal.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/style_in_website.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/style_modal.css" type="text/css" />
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="javascripts/modal_init.js"></script>
-    <script src="javascripts/modal_inscription.js"></script>
-    <script src="javascripts/modal_connexion.js"></script>
-    <script type="text/javascript" src="classes/Board.js"></script>
-    <script type="text/javascript" src="classes/Tileset.js"></script>
-    <script type="text/javascript" src="classes/Pawn.js"></script>
-    <script type="text/javascript" src="classes/Queen.js"></script>
-    <script type="text/javascript" src="classes/Worker.js"></script>
-    <script type="text/javascript" src="classes/Fighter.js"></script>
-    <script type="text/javascript" src="classes/Colony.js"></script>
-    <script type="text/javascript" src="classes/Defenser.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <script src="/javascripts/modal_init.js"></script>
+    <script src="/javascripts/modal_inscription.js"></script>
+    <script src="/javascripts/modal_connexion.js"></script>
+    <script src="/javascripts/modal_reinit.js"></script>
+    <%if(typeof(param) !== "undefined" && param == "inscription"){%> <script src="/javascripts/activate_inscription.js"></script> <%} 
+    else if(typeof(param) !== "undefined" && param == "reinit") {%> <script src="/javascripts/activate_reinit.js"></script> <%}%>
+    <script type="text/javascript" src="/classes/Board.js"></script>
+    <script type="text/javascript" src="/classes/Tileset.js"></script>
+    <script type="text/javascript" src="/classes/Pawn.js"></script>
+    <script type="text/javascript" src="/classes/Queen.js"></script>
+    <script type="text/javascript" src="/classes/Worker.js"></script>
+    <script type="text/javascript" src="/classes/Fighter.js"></script>
+    <script type="text/javascript" src="/classes/Colony.js"></script>
+    <script type="text/javascript" src="/classes/Defenser.js"></script>
+    <script type="text/javascript" src="/index.js"></script>
 </head>
 <body>
+    <% include inscription %> <!-- Fenêtre modale inscription -->
+    <% include connexion %> <!-- Fenêtre modale connexion -->
+    <% include reinit %> <!-- Fenêtre modale mot de passe oublié -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -27,21 +34,24 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="<%if(page == "ACCUEIL"){%>active<%}%>"><a href="accueil">Accueil</a></li>
-                    <li class="<%if(page == "REGLES"){%>active<%}%>"><a href="regles">Règles</a></li>
-                    <li class="<%if(page == "CLASSEMENT"){%>active<%}%>"><a href="classement">Classement</a></li>
-                    <li class="<%if(page == "TUTORIAL"){%>active<%}%>"><a href="tutorial">Tutorial</a></li>
-                    <li class="<%if(page == "TELECHARGEMENT"){%>active<%}%>"><a href="telechargement">Telechargement</a></li>
-                    <% if(connected){ %><li class="<%if(page == "PROFIL"){%>active<%}%>"><a href="profil">Profil</a></li><%}%>
+                    <li class="<%if(page == "ACCUEIL"){%>active<%}%>"><a href="/accueil">Accueil</a></li>
+                    <li class="<%if(page == "REGLES"){%>active<%}%>"><a href="/regles">Règles</a></li>
+                    <li class="<%if(page == "CLASSEMENT"){%>active<%}%>"><a href="/classement">Classement</a></li>
+                    <li class="<%if(page == "TUTORIAL"){%>active<%}%>"><a href="/tutorial">Tutorial</a></li>
+                    <li class="<%if(page == "TELECHARGEMENT"){%>active<%}%>"><a href="/telechargement">Telechargement</a></li>
+                    <li class="<%if(page == "CONTACT"){%>active<%}%>"><a href="/contact">Contact</a></li>
+                    <% if(connected){ %><li class="<%if(page == "PROFIL"){%>active<%}%>"><a href="/profil">Profil</a></li><%}%>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <p class="navbar-text"><b><% if(connected){ %> Compte : <%= user %> <%}%></b></p>
                     <% if(connected){ %>
                         <button type="button" class="btn btn-danger navbar-btn" onclick="location.href = '/deconnexion'">Déconnexion</button>
+                        <button type="button" id="button_inscription" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#inscription">Inscription</button>
                     <%} else{ %>
                         <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#connexion">Connexion</button>
+                        <button type="button" id="button_inscription" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#inscription">Inscription</button>
+                        <button type="button" id="button_reinit" class="btn btn-info navbar-btn" data-toggle="modal" data-target="#reinit">Mot de passe oublié ?</button>
                     <%}%>
-                    <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#inscription">Inscription</button>
                 </ul>
             </div>
         </div>
@@ -64,6 +74,12 @@
                 case "TELECHARGEMENT" : %>
                     <% include telechargement %>
                     <% break;
+                case "CONTACT" : %>
+                    <% include contact %>
+                    <% break;
+                case "ERROR" : %>
+                    <% include error %>
+                    <% break;
                 case "TUTORIAL" : %>
                     <% include tutorial %>
                     <% break;
@@ -73,9 +89,5 @@
     <nav class="navbar navbar-inverse navbar-fixed-bottom">
         <p id="titre"><%= page %></p>
     </nav>
-
-    <% include inscription %> <!-- Fenêtre modale inscription -->
-    <% include connexion %> <!-- Fenêtre modale connexion -->
-    
 </body>
 </html>

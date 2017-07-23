@@ -95,6 +95,21 @@ body
     margin: 0 auto;
 }
 
+#error
+{
+    padding-top: 20%;
+    text-align: center;
+    width: 65%;
+    margin: 0 auto;
+}
+
+#contact
+{
+    padding-top: 14%;
+    width: 65%;
+    margin: 0 auto;
+}
+
 /* * * * * * * * * * *
     WINDOWS CONTENT
 * * * * * * * * * * */
