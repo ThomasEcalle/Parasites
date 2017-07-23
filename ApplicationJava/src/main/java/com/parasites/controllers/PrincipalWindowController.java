@@ -14,10 +14,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
@@ -210,12 +212,19 @@ public final class PrincipalWindowController extends ParasitesFXController imple
 
                 final Tab tab = new Tab(parasitesPlugin.getName());
 
-                tab.setContent(parasitesPlugin.getContent());
+                Node content = parasitesPlugin.getContent();
+                content.getStyleClass().add("pane_clip");
+                tab.setContent(content);
                 tabs.add(tab);
 
             }
         }
 
+    }
+
+    @FXML
+    public void clickOnQuitterGeneral(){
+        System.exit(0);
     }
 
     @FXML

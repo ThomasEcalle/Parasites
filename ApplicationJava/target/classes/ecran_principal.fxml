@@ -33,6 +33,7 @@
                         <Font name="Arial Bold Italic" size="15.0" />
                      </font>
                   </Label>
+                  <Button alignment="CENTER" layoutX="170.0" layoutY="68.0" mnemonicParsing="false" onMouseClicked="#clickOnQuitterGeneral" prefHeight="37.0" prefWidth="101.0" styleClass="button_red" text="quitter" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="622.0" prefWidth="1250.0">
