@@ -13,8 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -22,8 +22,6 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -49,6 +47,9 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     private Hyperlink contact;
     @FXML
     private Label error_label;
+    @FXML
+    private Label infosLabel;
+
     private String token;
     private final String siteRoot = "http://127.0.0.1:3080/";
 
@@ -57,6 +58,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     {
         OnlineServerManager.getInstance().addObserver(this);
         error_label.setVisible(false);
+        infosLabel.setVisible(false);
         super.parseAnnotations(this);
     }
 
@@ -109,13 +111,17 @@ public final class ConnexionWindowController extends ParasitesFXController imple
         openWebpage(siteRoot + "accueil/reinit");
     }
 
-    public void openWebpage(String urlString) {
-        try {
+    public void openWebpage(String urlString)
+    {
+        try
+        {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void onTextFieldSelected()
     {
@@ -149,6 +155,10 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     @Override
     public void onServerConnectionStart()
     {
+        error_label.setVisible(false);
+        infosLabel.setText("Connexion en cours, veuillez patienter...");
+
+        infosLabel.setVisible(true);
         ParasitesUtils.logInfos("En attente de connexion, veuillez patienter...");
     }
 
