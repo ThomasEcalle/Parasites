@@ -5,7 +5,7 @@ package com.parasites.models;
  */
 public class MailAPICall extends RestApiCall{
     public MailAPICall(String mail, String token){
-        super("http://localhost:3000/users/update/email/"
+        super("/users/update/email/"
                 + mail + "?token=" + token, "", "PUT");
     }
 }

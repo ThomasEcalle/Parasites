@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.parasites.Constants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +25,7 @@ public abstract class RestApiCall {
     public RestApiCall(String APIurl, String input, String method) {
         try {
             this.input = input;
-            url = new URL(APIurl);
+            url = new URL(Constants.ONLINE_API_URL + APIurl);
             initConnection(method);
             initOutput();
             json = getJson(new BufferedReader(new InputStreamReader(getInputStream())));

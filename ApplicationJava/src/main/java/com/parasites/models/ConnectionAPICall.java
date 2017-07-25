@@ -12,7 +12,7 @@ public class ConnectionAPICall extends RestApiCall
 
     public ConnectionAPICall(String pseudo, String password)
     {
-        super("http://localhost:3000/users/connect",
+        super("/users/connect",
                 "{\"pseudo\":\"" +
                         pseudo +
                         "\",\"password\":\"" +

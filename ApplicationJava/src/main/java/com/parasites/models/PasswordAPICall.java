@@ -8,7 +8,7 @@ import javafx.scene.control.PasswordField;
 public class PasswordAPICall extends RestApiCall {
 
     public PasswordAPICall(String password, String token){
-        super("http://localhost:3000/users/update/password/"
+        super("/users/update/password/"
                 + password + "?token=" + token, "", "PUT");
 
     }

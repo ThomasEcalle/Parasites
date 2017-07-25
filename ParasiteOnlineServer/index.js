@@ -4,7 +4,7 @@ var express = require('express')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server);
 var port = 3080;
-server.listen(port);
+server.listen(port, "0.0.0.0");
 console.log("listening on port " + port);
 
 // players which are currently connected to the server

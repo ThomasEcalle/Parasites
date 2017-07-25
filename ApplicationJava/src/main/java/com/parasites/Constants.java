@@ -34,6 +34,7 @@ public final class Constants
     public final static boolean LOGGING_ENABLE = false;
 
     //Online Gaming
-    public final static String ONLINE_SERVER_URL = "http://localhost:3080";
+    public final static String ONLINE_SERVER_URL = "http://192.168.1.54:3080";
+    public final static String ONLINE_API_URL = "http://192.168.1.54:3000";
 
 }

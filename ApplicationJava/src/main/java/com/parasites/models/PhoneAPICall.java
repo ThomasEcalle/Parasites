@@ -5,7 +5,7 @@ package com.parasites.models;
  */
 public class PhoneAPICall extends RestApiCall{
     public PhoneAPICall(String phone, String token){
-        super("http://localhost:3000/users/update/phone/"
+        super("/users/update/phone/"
                 + phone + "?token=" + token, "", "PUT");
     }
 }
