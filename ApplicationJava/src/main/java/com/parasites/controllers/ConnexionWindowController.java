@@ -51,7 +51,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     private Label infosLabel;
 
     private String token;
-    private final String siteRoot = "http://127.0.0.1:3080/";
+    private final String siteRoot = "http://192.168.1.54:8124/";
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
