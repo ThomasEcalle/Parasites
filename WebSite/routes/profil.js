@@ -3,6 +3,7 @@
 const express = require("express");
 const session = require("express-session");
 const request = require("request");
+var constants = require('./../constants');
 let router = express.Router();
 
 router.get("/", function(req, res, next){
@@ -22,7 +23,7 @@ router.post("/", function(req, res, next){
         options.error = "The new value does not matches its confirmation."
         res.render('template_commun.ejs', options);
     }
-    var dirPath = "http://localhost:3000/users/update/" + req.body.type_form + "/" + req.body.input1 + "/?token=" + sess.token;
+    var dirPath = constants.URL_API + "/users/update/" + req.body.type_form + "/" + req.body.input1 + "/?token=" + sess.token;
     request.put(dirPath, function(error,response,body){
         if(response.statusCode != 200){
             options.error = response.body.errors[0];

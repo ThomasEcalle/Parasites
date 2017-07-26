@@ -3,6 +3,7 @@
 const express = require("express");
 const session = require("express-session");
 const request = require("request");
+var constants = require('./../constants');
 let router = express.Router();
 
 router.post("/", function(req, res, next){
@@ -20,7 +21,7 @@ router.post("/", function(req, res, next){
     }
     else{
         request.post(
-           'http://localhost:3000/users/create',
+           constants.URL_API + "/users/create",
             { json : {
                     lastname: req.body.lastname,
                     firstname: req.body.firstname,
@@ -31,7 +32,6 @@ router.post("/", function(req, res, next){
                 }
             }, function(error, response, body){
                 getRes(res, response);
-                console.log("okokokokok");
             });
     }
 });
