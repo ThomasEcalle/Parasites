@@ -16,7 +16,9 @@ $(document).ready(function() {
                 $("#error_box_connexion").attr('class', 'alert alert-success');
                 $("#error_box_connexion").css('visibility', 'visible');
                 $("#error_box_connexion").text("Success, wait for the redirect !");
-                setTimeout(location.reload.bind(location), 2000);                              
+                setTimeout(function() {
+                  window.location.replace("/accueil");   
+                }, 3000);
             }
         });
     });
