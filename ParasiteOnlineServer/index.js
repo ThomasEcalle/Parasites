@@ -3,7 +3,7 @@ var express = require('express')
   , http = require('http')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server);
-var port = 3080;
+var port = 5680;
 server.listen(port, "0.0.0.0");
 console.log("listening on port " + port);
 
