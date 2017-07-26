@@ -61,7 +61,7 @@ io.sockets.on('connection', function (socket) {
       updateServerState();
 	  
 	  request({
-		url: "http://localhost:3000/games/create?token=" + game.creator.token,
+		url: "http://10.33.1.74:5678/games/create?token=" + game.creator.token,
 		method: "POST",
 		headers: {
 			"content-type": "application/json",
@@ -97,7 +97,7 @@ io.sockets.on('connection', function (socket) {
 	
 	
 	request({
-		url: "http://localhost:3000/games/join/?token=" + socket.actualToken,
+		url: "http://10.33.1.74:5678/games/join/?token=" + socket.actualToken,
 		method: "POST",
 		headers: {
 			"content-type": "application/json",
@@ -115,7 +115,7 @@ io.sockets.on('connection', function (socket) {
 	  
 	  
 	  request({
-		url: "http://localhost:3000/games/winner/?token=" + socket.actualToken,
+		url: "http://10.33.1.74:5678/games/winner/?token=" + socket.actualToken,
 		method: "PUT",
 		headers: {
 			"content-type": "application/json",
@@ -202,7 +202,7 @@ io.sockets.on('connection', function (socket) {
 	if (typeof turn != 'undefined')
 	{
 		request({
-		url: "http://localhost:3000/turns/create/?token=" + socket.actualToken,
+		url: "http://10.33.1.74:5678/turns/create/?token=" + socket.actualToken,
 		method: "POST",
 		headers: {
 			"content-type": "application/json",
