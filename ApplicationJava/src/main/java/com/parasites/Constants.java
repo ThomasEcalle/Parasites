@@ -36,5 +36,6 @@ public final class Constants
     //Online Gaming
     public final static String ONLINE_SERVER_URL = "http://10.33.1.74:3080";
     public final static String ONLINE_API_URL = "http://10.33.1.74:3000";
+    public final static String ONLINE_WEBSITE = "http://10.33.1.74:80/";
 
 }

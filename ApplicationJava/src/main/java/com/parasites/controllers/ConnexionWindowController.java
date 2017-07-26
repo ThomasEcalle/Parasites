@@ -1,5 +1,6 @@
 package com.parasites.controllers;
 
+import com.parasites.Constants;
 import com.parasites.annotations.PressEnter;
 import com.parasites.models.ConnectionAPICall;
 import com.parasites.network.OnlineServerManager;
@@ -7,6 +8,7 @@ import com.parasites.network.bo.ChatMessage;
 import com.parasites.network.bo.Game;
 import com.parasites.network.bo.User;
 import com.parasites.utils.ParasitesUtils;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +53,6 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     private Label infosLabel;
 
     private String token;
-    private final String siteRoot = "http://192.168.1.54:8124/";
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -59,6 +60,7 @@ public final class ConnexionWindowController extends ParasitesFXController imple
         OnlineServerManager.getInstance().addObserver(this);
         error_label.setVisible(false);
         infosLabel.setVisible(false);
+        forgotten_password.setVisible(false);
         super.parseAnnotations(this);
     }
 
@@ -90,25 +92,25 @@ public final class ConnexionWindowController extends ParasitesFXController imple
     @FXML
     public void clickOnWebSite()
     {
-        openWebpage(siteRoot + "accueil");
+        openWebpage(Constants.ONLINE_WEBSITE + "accueil");
     }
 
     @FXML
     public void clickOnInscription()
     {
-        openWebpage(siteRoot + "accueil/inscription");
+        openWebpage(Constants.ONLINE_WEBSITE  + "accueil/inscription");
     }
 
     @FXML
     public void clickOnContact()
     {
-        openWebpage(siteRoot + "contact");
+        openWebpage(Constants.ONLINE_WEBSITE  + "contact");
     }
 
     @FXML
     public void clickOnReset()
     {
-        openWebpage(siteRoot + "accueil/reinit");
+        openWebpage(Constants.ONLINE_WEBSITE  + "accueil/reinit");
     }
 
     public void openWebpage(String urlString)
