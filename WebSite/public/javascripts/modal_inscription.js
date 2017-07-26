@@ -22,7 +22,9 @@ $(document).ready(function() {
                 $("#error_box_inscription").attr('class', 'alert alert-success');
                 $("#error_box_inscription").css('visibility', 'visible');
                 $("#error_box_inscription").text("The user had been succefully added to the database. Wait for the redirect.");
-                setTimeout(location.reload.bind(location), 3000);  
+                setTimeout(function() {
+                  window.location.replace("/accueil");   
+                }, 3000);
             }
         });
     });
